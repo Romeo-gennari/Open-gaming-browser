@@ -1,4 +1,4 @@
-import Header from "./header";
+import Header2 from "./header";
 
 import logo from './logo.svg';
 import './App.css';
@@ -20,7 +20,7 @@ function Home(){
 function App() {
   return (
     <div className="App">
-        <Header />
+        <Header2 />
       <header className="App-header">
         <Home />
       </header>
