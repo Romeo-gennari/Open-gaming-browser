@@ -1,9 +1,11 @@
 //import './App.css';
-import {Link as routerLink} from "react-router-dom";
+//import {Link} from "react-router-dom";
 
-import { Box, HStack, Button, Input, Text, Center, Link } from '@chakra-ui/react'
+import { HStack, Button, Input, Text, Center, Link } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
+import { useState } from 'react'
 
+/*
 function Header() {
   return (
     <div>
@@ -14,29 +16,49 @@ function Header() {
     
   );
 }
-
+*/
+ 
 function Header2() {
+
+  function handleSubmit(e){
+    e.preventDefault();
+    console.log(content);
+  }
+
+  const [content, setContent] = useState('');
+
   return (
     <div className="App">
-        <Box bg='black' w='100%' p={5}>
-          <HStack spacing='400'>
-            <Text color='orange'>
-              OPEN GAMING LOGO
-            </Text>
+        <HStack bg='black' w='100%' p='5' spacing='300'>
+          <Text color='orange'>
+            OPEN GAMING LOGO
+          </Text>
+          <form onSubmit={handleSubmit}>
             <Center>
-              <Input borderRadius='m' placeholder='Search' bg='white' htmlSize={40}></Input>
-              <Link href="/">
-                <Button borderRadius='m' children={<SearchIcon color='gray' />}>
-                </Button>
-              </Link>
-            </Center>
+              <Input type='text' borderRadius='m' placeholder='Search' bg='white' htmlSize={40} width='auto' 
+              value={content } onChange={(e) => setContent(e.target.value)}>
+              </Input>
+              <Button borderRadius='m' children={<SearchIcon color='gray' />} type='submit' ></Button>
+            </Center> 
+          </form>        
+          <Center gap='3'>
+            <Link href="/">
+              <Button borderRadius='m' colorScheme='orange' color='white'>
+                Home
+              </Button>
+            </Link>
+            <Link href="/About">
+              <Button borderRadius='m' colorScheme='orange' color='white'>
+                About us
+              </Button>
+            </Link>
             <Link href="/Profile">
-              <Button borderRadius='m' colorScheme='orange'>
+              <Button borderRadius='m' colorScheme='orange' color='white'>
                 Account
               </Button>
             </Link>
-          </HStack>
-        </Box>
+          </Center>
+        </HStack>
     </div>
   );
 }
