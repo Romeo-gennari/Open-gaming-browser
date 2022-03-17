@@ -5,11 +5,11 @@ import Header2 from './header';
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000/',
+  baseURL: 'http://localhost:5050/',
 })
 
 function getProfile(id=1) {
-  api.get('test.json').then(res => {console.log(res.data)})
+  api.get('games').then(res => {console.log(res.data)})
 }
 
 function postProfile() {
