@@ -1,9 +1,9 @@
 //import './App.css';
 //import {Link} from "react-router-dom";
 
-import { HStack, Button, Input, Text, Center, Link } from '@chakra-ui/react'
-import { SearchIcon } from '@chakra-ui/icons'
-import { useState } from 'react'
+import { VStack, HStack, Button, Heading, Link, Image, Box } from '@chakra-ui/react'
+import OpenGaming from './images/open_gaming_logo.png'
+
 
 /*
 function Header() {
@@ -20,45 +20,44 @@ function Header() {
  
 function Header2() {
 
-  function handleSubmit(e){
-    e.preventDefault();
-    console.log(content);
-  }
-
-  const [content, setContent] = useState('');
-
   return (
     <div className="App">
-        <HStack bg='black' w='100%' p='5' spacing='300'>
-          <Text color='orange'>
-            OPEN GAMING LOGO
-          </Text>
-          <form onSubmit={handleSubmit}>
-            <Center>
-              <Input type='text' borderRadius='m' placeholder='Search' bg='white' htmlSize={40} width='auto' 
-              value={content } onChange={(e) => setContent(e.target.value)}>
-              </Input>
-              <Button borderRadius='m' children={<SearchIcon color='gray' />} type='submit' ></Button>
-            </Center> 
-          </form>        
-          <Center gap='3'>
+      <VStack bg='#DD6B20'>
+        <HStack bg='#1A202C' w='100%' p='1' spacing='800px'>
+          <Link href="/">
+            <HStack>
+              <Box>
+                <Image bg='#1A202C' boxSize='50px' src={OpenGaming} alt='logo' />
+              </Box>
+              <Heading color='white' fontSize='20'>
+                OPEN GAMING 
+              </Heading>
+            </HStack>
+          </Link>
+          <HStack gap='3'>
             <Link href="/">
-              <Button borderRadius='m' colorScheme='orange' color='white'>
+              <Button borderRadius='m' bg='#1A202C' color='white'>
                 Home
               </Button>
             </Link>
-            <Link href="/About">
-              <Button borderRadius='m' colorScheme='orange' color='white'>
-                About us
+            <Link href="/Features">
+              <Button borderRadius='m' bg='#1A202C' color='white'>
+                Features
+              </Button>
+            </Link>
+            <Link href="/Contact">
+              <Button borderRadius='m' bg='#1A202C' color='white'>
+                Contact
               </Button>
             </Link>
             <Link href="/Profile">
-              <Button borderRadius='m' colorScheme='orange' color='white'>
+              <Button borderRadius='m' bg='#1A202C' color='white'>
                 Account
               </Button>
             </Link>
-          </Center>
-        </HStack>
+          </HStack>
+        </HStack> 
+      </VStack>
     </div>
   );
 }

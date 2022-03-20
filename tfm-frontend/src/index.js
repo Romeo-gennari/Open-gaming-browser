@@ -5,6 +5,8 @@ import './index.css';
 import App from './App';
 import About from './About';
 import Profile from './Profile';
+import Contact from './Contact';
+import Features from './Features';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -20,6 +22,8 @@ ReactDOM.render(
           <Route path="/" element={<App />} />
           <Route path="About" element={<About />} />
           <Route path="Profile" element={<Profile />} />
+          <Route path="Contact" element={<Contact />} />
+          <Route path="Features" element={<Features />} />
         </Routes>
       </BrowserRouter>,
     </ChakraProvider>
