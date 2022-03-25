@@ -11,13 +11,19 @@ router.get('/', (_req, res) => {
   res.send("Welcome to OpenGaming! There's nothing here...", 200);
 });
 
+// Authentication
+router.post('/auth/login', auth.login, (req, res) => res.status(200).json(safeUser(req.user)));
+router.post('/auth/register', auth.register)
+router.get('/auth/me', ensureAuthenticated, (req, res) => res.status(200).json(safeUser(req.user)));
+router.post('/auth/logout', ensureAuthenticated, auth.logout);
+
 // Game CRUD
 router.route('/games')
   .get(game.findAll)
-  .post(game.create);
+  .post(ensureAuthenticated, game.create);
 router.route('/games/:id')
   .get(game.findOne)
-  .patch(game.update)
-  .delete(game.remove);
+  .patch(ensureAuthenticated, game.update)
+  .delete(ensureAuthenticated, game.remove);
 
 export default router;

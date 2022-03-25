@@ -1,19 +1,39 @@
 import 'dotenv/config';
+import './passport.js';
 
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
+import knexSession from 'connect-session-knex';
+import session from 'express-session';
+import passport from 'passport';
 import knex from './database.js';
 import index from './routes.js';
+import { ZodError } from 'zod';
 
 const app = express();
+
+const KnexSessionStore = knexSession(session);
 
 // Configure some middlewares
 app.use(cors());   // Allow all origins
 app.use(helmet()); // Secure the app against common web vulnerabilities
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    path: '/',
+    httpOnly: true,
+    maxAge: 15 * 24 * 3600 * 1000, // 15 days
+  },
+  store: new KnexSessionStore({ knex, tableName: 'sessions' }),
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Logger
 app.use((req, _res, next) => {
