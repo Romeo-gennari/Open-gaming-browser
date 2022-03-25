@@ -1,12 +1,12 @@
-import db from '../database';
-import { createGame, updateGame } from '../validators/game';
-import assertBody from '../utils/assertBody';
-import duplicateHandler from '../utils/duplicateHandler';
+import db from '../database.js';
+import { createGame, updateGame } from '../validators/game.js';
+import assertBody from '../utils/assertBody.js';
+import duplicateHandler from '../utils/duplicateHandler.js';
 
 /**
  * Find a specific game, with the ID given in the request's parameters
- * @param {*} req
- * @param {*} res
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
  */
 export async function findOne(req, res) {
   const id = req.params.id;
@@ -18,8 +18,8 @@ export async function findOne(req, res) {
 
 /**
  * Find all games
- * @param {*} req
- * @param {*} res
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
  */
 export async function findAll(_req, res) {
   const games = await db('games').select();
@@ -28,8 +28,8 @@ export async function findAll(_req, res) {
 
 /**
  * Create a new game
- * @param {*} req
- * @param {*} res
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
  */
 export async function create(req, res) {
   const game = req.body;
@@ -49,8 +49,8 @@ export async function create(req, res) {
 
 /**
  * Update a game, with the ID given in the request's parameters
- * @param {*} req
- * @param {*} res
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
  */
 export async function update(req, res) {
   const id = req.params.id;
@@ -68,8 +68,8 @@ export async function update(req, res) {
 
 /**
  * Delete a game, with the ID given in the request's parameters
- * @param {*} req
- * @param {*} res
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
  */
 export async function remove(req, res) {
   const id = req.params.id;

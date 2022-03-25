@@ -1,10 +1,11 @@
 import 'dotenv/config';
 
-import express from 'express';
 import bodyParser from 'body-parser';
-import helmet from 'helmet';
 import cors from 'cors';
-import index from './routes';
+import express from 'express';
+import helmet from 'helmet';
+import knex from './database.js';
+import index from './routes.js';
 
 const app = express();
 

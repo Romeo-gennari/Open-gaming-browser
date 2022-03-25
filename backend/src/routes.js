@@ -1,5 +1,8 @@
 import { Router } from 'express';
-import game from '../controllers/game';
+import game from './controllers/game.js';
+import * as auth from './controllers/auth.js';
+import ensureAuthenticated from './middlewares/ensureAuthenticated.js';
+import safeUser from './utils/safeUser.js';
 
 const router = Router();
 
