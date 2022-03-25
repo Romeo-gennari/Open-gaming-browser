@@ -30,6 +30,16 @@ app.use((_req, res) => {
   res.send('Not Found', 404);
 });
 
+// Error handler
+app.use((err, _req, res, _next) => {
+  if (err instanceof ZodError) {
+    res.status(400).json({ message: 'Invalid body', errors: err.errors });
+  } else {
+    console.error(err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 // Application listener
 const port = process.env.PORT ?? 5050;
 app.listen(port, () => {

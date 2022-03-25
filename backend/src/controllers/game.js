@@ -1,6 +1,5 @@
 import db from '../database.js';
 import { createGame, updateGame } from '../validators/game.js';
-import assertBody from '../utils/assertBody.js';
 import duplicateHandler from '../utils/duplicateHandler.js';
 
 /**
@@ -30,16 +29,18 @@ export async function findAll(_req, res) {
  * Create a new game
  * @param {import('express').Request} req
  * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next
  */
-export async function create(req, res) {
-  const game = req.body;
-  assertBody(game, createGame, res);
+export async function create(req, res, next) {
+  const { success, data, error } = createGame.safeParse(req.body);
+  if (!success) {
+    next(error);
+    return;
+  }
 
-  // TODO: Check that the body is valid, that means that it contains all the required fields, no unknown field, and
-  // that the values are valid (e.g. name is a string, etc.)).
   const result = await db('games')
     .returning(['game_id', 'name', 'description', 'editor', 'release_year'])
-    .insert(game)
+    .insert(data)
     .catch(duplicateHandler('Name is already in use', res));
   if (!result)
     return;
@@ -51,18 +52,20 @@ export async function create(req, res) {
  * Update a game, with the ID given in the request's parameters
  * @param {import('express').Request} req
  * @param {import('express').Response} res
+ * @param {import('express').NextFunction} next
  */
-export async function update(req, res) {
+export async function update(req, res, next) {
   const id = req.params.id;
-  const game = req.body;
-  assertBody(game, updateGame, res);
+  const { success, data, error } = updateGame.safeParse(req.body);
+  if (!success) {
+    next(error);
+    return;
+  }
 
-  // TODO: Check that the body is valid, that means that it contains some fields, no unknown fields and that the
-  // values are valid (e.g. name is a string, etc.)).
   const result = await db('games')
     .where('game_id', id)
     .returning(['game_id', 'name', 'description', 'editor', 'release_year'])
-    .update(game);
+    .update(data);
   res.status(200).json(result[0]);
 }
 
