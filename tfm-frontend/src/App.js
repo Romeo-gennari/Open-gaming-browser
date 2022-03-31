@@ -1,10 +1,14 @@
 import Header2 from "./header";
+import Features from "./Features";
+import Benefits from "./Benefits";
 import Contact from "./Contact";
+import Community from "./Community";
 import About from "./About";
-import { VStack, HStack, Button, Input, Center, Box } from '@chakra-ui/react'
-import { SearchIcon } from '@chakra-ui/icons'
-import { useState } from 'react'
-import JSONDATA from "./MOCK_DATA.json"
+import Login from "./Login";
+import { VStack, HStack, Button, Input, Center, Box } from '@chakra-ui/react';
+import { SearchIcon } from '@chakra-ui/icons';
+import { useState } from 'react';
+import JSONDATA from "./MOCK_DATA.json";
 import './App.css';
 
 function Home(){
@@ -59,7 +63,10 @@ function App() {
       <header className="App-header">
         <Home />
       </header>
+        <Features/>
+        <Benefits/>
         <Contact />
+        <Community />
         <About />
     </div>
   );

@@ -7,6 +7,8 @@ import About from './About';
 import Profile from './Profile';
 import Contact from './Contact';
 import Features from './Features';
+import Login from './Login';
+import Download from './Download';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -24,6 +26,8 @@ ReactDOM.render(
           <Route path="Profile" element={<Profile />} />
           <Route path="Contact" element={<Contact />} />
           <Route path="Features" element={<Features />} />
+          <Route path="Login" element={<Login />} />
+          <Route path="Download" element={<Download />} />
         </Routes>
       </BrowserRouter>,
     </ChakraProvider>

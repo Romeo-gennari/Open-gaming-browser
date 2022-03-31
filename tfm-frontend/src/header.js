@@ -23,18 +23,16 @@ function Header2() {
   return (
     <div className="App">
       <VStack bg='#DD6B20'>
-        <HStack bg='#1A202C' w='100%' p='1' spacing='800px'>
-          <Link href="/">
+        <HStack bg='#1A202C' p='1' spacing='790px'>
+          <Link href="/" marginLeft='2' marginRight='2'>
             <HStack>
-              <Box>
-                <Image bg='#1A202C' boxSize='50px' src={OpenGaming} alt='logo' />
-              </Box>
-              <Heading color='white' fontSize='20'>
+              <Image bg='#1A202C' boxSize='50px' src={OpenGaming} alt='logo'/>
+              <Heading color='white' fontSize='20' width='190px'>
                 OPEN GAMING 
               </Heading>
             </HStack>
           </Link>
-          <HStack gap='3'>
+          <HStack gap='1'>
             <Link href="/">
               <Button borderRadius='m' bg='#1A202C' color='white'>
                 Home
@@ -52,9 +50,15 @@ function Header2() {
             </Link>
             <Link href="/Profile">
               <Button borderRadius='m' bg='#1A202C' color='white'>
-                Account
+                Profile
               </Button>
             </Link>
+            <Link href="/Login">
+              <Button borderRadius='m' bg='#1A202C' color='white'>
+                Log In
+              </Button>
+            </Link>
+
           </HStack>
         </HStack> 
       </VStack>
