@@ -1,29 +1,29 @@
 import './App.css';
 
 import { useState } from 'react';
-import { Stack, Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, Box, Center, Image, Heading, HStack, Link} from '@chakra-ui/react';
+import { Stack, Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, Box, Center, Image, Heading, HStack, Link } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 import OpenGaming from './images/open_gaming_logo.png'
 
 import axios from "axios";
 
-function Login() {
+function Register() {
 
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleLogIn = (event) => {
+    const handleRegister = (event) => {
         event.preventDefault();
         console.log('EmailAddress', emailAddress);
         console.log('Password', password);
-        axios.post("http://localhost:5050/auth/login").then(res=>{console.log(res)});
+        axios.post("http://localhost:5050/auth/register").then(res=>{console.log(res)});
     }
 
     return (
         <div className="login">
-            <form method='POST' onSubmit={handleLogIn}>
+            <form method='POST' onSubmit={handleRegister}>
                 <Center height='100vh'>
                     <Box bg='black' borderRadius='5px' borderColor='black' borderWidth='2px' width='500px' height='347px'>
                         <HStack marginBottom='8px' marginTop='5px'>
@@ -47,24 +47,22 @@ function Login() {
                                         </InputRightElement>
                                     </InputGroup>
                                 </FormControl>
-                                <Button type='submit' bg='black' color='white'>Log In</Button>
+                                <Button type='submit' bg='black' color='white'>Register</Button>
                             </Stack>
                             <div>
-                            <Link href="/Register">
+                            <Link href="/Login">
                                 <Button borderRadius='m' bg='#1A202C' color='white'>
-                                    Nouveau sur OpenGaming ?
+                                    Déjà membre ?
                                 </Button>
-                            </Link>  
+                            </Link>    
                             </div>
                         </Box>
                     </Box>
                 </Center>
             </form>
-            
-            
         </div>
     
   );
 }
 
-export default Login;
+export default Register;
