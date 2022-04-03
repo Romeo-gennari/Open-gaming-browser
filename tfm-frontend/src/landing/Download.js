@@ -1,8 +1,8 @@
 import './../App.css';
 
-import Windows_Logo from './images/windows_logo.png';
-import Mac_Logo from './images/mac_logo.png';
-import Linux_Logo from './images/linux_logo.png';
+import Windows_Logo from '../images/windows_logo.png';
+import Mac_Logo from '../images/mac_logo.png';
+import Linux_Logo from '../images/linux_logo.png';
 import { HStack, VStack, Box, Heading, Button, Image } from '@chakra-ui/react';
 
 function Download() {

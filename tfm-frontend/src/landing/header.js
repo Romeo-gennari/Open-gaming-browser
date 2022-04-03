@@ -2,7 +2,7 @@
 //import {Link} from "react-router-dom";
 
 import { VStack, HStack, Button, Heading, Link, Image, Box, Flex, Spacer } from '@chakra-ui/react'
-import OpenGaming from './images/open_gaming_logo.png'
+import OpenGaming from '../images/open_gaming_logo.png'
 
 
 /*

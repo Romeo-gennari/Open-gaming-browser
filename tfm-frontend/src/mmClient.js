@@ -17,15 +17,11 @@ const NoBox = styled.div`
 const savedgames = ['Portal','Portal2','Fallout4'];
 const allgames = ['Fallout:NewVegas','Fallout3','PortalRE'];
 
-var results;
-
 function tester(){
     return(
         <p>Waiting for a game</p>
     )
 }
-
-
 
 function ResearchMatches(gameid){
     //axios.post("http://localhost:5050/user/Leowenex/request/"+gameid).then(res=>{console.log(res)});

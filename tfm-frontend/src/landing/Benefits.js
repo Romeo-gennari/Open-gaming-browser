@@ -1,5 +1,5 @@
 import './../App.css';
-import Benefits_image from './images/benefits.png'
+import Benefits_image from '../images/benefits.png'
 
 import { Heading, Box, Image, Center } from '@chakra-ui/react'
 
