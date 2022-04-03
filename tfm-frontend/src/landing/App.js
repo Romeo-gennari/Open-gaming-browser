@@ -4,12 +4,11 @@ import Benefits from "./Benefits";
 import Contact from "./Contact";
 import Community from "./Community";
 import About from "./About";
-import Login from "./Login";
 import { VStack, HStack, Button, Input, Center, Box } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
-import JSONDATA from "./MOCK_DATA.json";
-import './App.css';
+import JSONDATA from "../MOCK_DATA.json";
+import './../App.css';
 
 function Home(){
 

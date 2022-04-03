@@ -1,7 +1,6 @@
 import './App.css';
 import gamedata from './dummyData/games.json';
 
-import Header2 from './header';
 import styled from 'styled-components';
 
 import {React, useState} from "react";

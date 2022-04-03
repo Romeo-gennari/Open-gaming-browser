@@ -1,4 +1,4 @@
-import './App.css';
+import './../App.css';
 
 import { Box, Image, Center, HStack, VStack, Heading, Text } from '@chakra-ui/react'
 import OpenGaming from './images/open_gaming_logo.png'

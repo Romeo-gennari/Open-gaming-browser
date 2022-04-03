@@ -1,6 +1,6 @@
 import './App.css';
 
-import Header2 from './header';
+import Header2 from './landing/header';
 import Games from './Games';
 import {Get, GetFriendList, GetGameList, GetUserHeader, ProfilePage} from './queries/getters';
 

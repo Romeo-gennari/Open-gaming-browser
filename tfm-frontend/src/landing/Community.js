@@ -1,4 +1,4 @@
-import './App.css';
+import './../App.css';
 
 import { Center, Box, VStack, Heading, Button, Text, Link } from '@chakra-ui/react'
 

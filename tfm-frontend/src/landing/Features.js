@@ -1,4 +1,4 @@
-import './App.css';
+import './../App.css';
 import features_image from './images/features_image.webp'
 
 import { Center, HStack, Heading, Image, Box } from '@chakra-ui/react'

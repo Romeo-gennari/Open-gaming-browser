@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import App from './App';
-import About from './About';
+import App from './landing/App';
+import About from './landing/About';
 import Profile from './Profile';
-import Contact from './Contact';
-import Features from './Features';
+import Contact from './landing/Contact';
+import Features from './landing/Features';
 import Login from './Login';
 import Register from './Register';
-import Download from './Download';
+import Download from './landing/Download';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -30,6 +30,8 @@ ReactDOM.render(
           <Route path="Login" element={<Login />} />
           <Route path="Register" element={<Register />} />
           <Route path="Download" element={<Download />} />
+
+          
         </Routes>
       </BrowserRouter>,
     </ChakraProvider>

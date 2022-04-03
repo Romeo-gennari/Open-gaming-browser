@@ -1,4 +1,4 @@
-import './App.css';
+import './../App.css';
 
 import Windows_Logo from './images/windows_logo.png';
 import Mac_Logo from './images/mac_logo.png';
