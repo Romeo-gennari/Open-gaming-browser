@@ -24,10 +24,10 @@ function Home(){
       <Center>
         <form onSubmit={handleSubmit}>  
           <HStack spacing='0'>
-            <Input type='text' borderRadius='m' placeholder='Search' color='black' bg='white' htmlSize={40} width='auto' 
-              value={content } onChange={(e) => setContent(e.target.value)}>
+            <Input position='back' type='text' borderRadius='m' placeholder='Search' color='black' bg='white' htmlSize={40} width='auto' 
+              value={content} onChange={(e) => setContent(e.target.value)}>
             </Input>
-            <Button borderRadius='m' children={<SearchIcon color='gray' />} type='submit' ></Button>
+            <Button position='background' borderRadius='m' children={<SearchIcon color='gray' />} type='submit' ></Button>
           </HStack>
         </form>
       </Center>
@@ -59,10 +59,11 @@ function Home(){
 function App() {
   return (
     <div className="App">
-        <Header2 />
+        
       <header className="App-header">
-        <Home />
+        <Header2 />
       </header>
+        <Home />
         <Features/>
         <Benefits/>
         <Contact />

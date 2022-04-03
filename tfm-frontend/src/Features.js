@@ -7,14 +7,12 @@ function Features() {
   return (
     
     <div className="Features">
-        <Box height='82px'/>
         <Center>
-          <HStack>
-            <Box p={5} width='8000' >
+          <HStack spacing='200px' marginTop='70'>
+            <Box>
               <Heading>Features</Heading>
               <Heading mt='8' size='l' width='60' color='gray.700'>The convenient platform that lets you save up time. Your planning activity companion.</Heading>
             </Box>
-            <Box px='20'/>
             <Image bg='#ffffff' height='250' src={features_image} alt='features_image' />
           </HStack>
         </Center>

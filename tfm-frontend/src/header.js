@@ -1,7 +1,7 @@
 //import './App.css';
 //import {Link} from "react-router-dom";
 
-import { VStack, HStack, Button, Heading, Link, Image, Box } from '@chakra-ui/react'
+import { VStack, HStack, Button, Heading, Link, Image, Box, Flex, Spacer } from '@chakra-ui/react'
 import OpenGaming from './images/open_gaming_logo.png'
 
 
@@ -20,47 +20,48 @@ function Header() {
  
 function Header2() {
 
+  const scrollTop = () => window.scrollTo({top:0, behavior:"smooth"});
+  const scrollFeatures = () => window.scrollTo({top:720, behavior:"smooth"});
+  const scrollContact = () => window.scrollTo({top:1540, behavior:"smooth"});
+
   return (
-    <div className="App">
+    
+    <div className="App-header"> 
       <VStack bg='#DD6B20'>
-        <HStack bg='#1A202C' p='1' spacing='790px'>
-          <Link href="/" marginLeft='2' marginRight='2'>
-            <HStack>
-              <Image bg='#1A202C' boxSize='50px' src={OpenGaming} alt='logo'/>
-              <Heading color='white' fontSize='20' width='190px'>
-                OPEN GAMING 
-              </Heading>
-            </HStack>
-          </Link>
-          <HStack gap='1'>
-            <Link href="/">
-              <Button borderRadius='m' bg='#1A202C' color='white'>
+        <Box bg='#1A202C' p='1' width='100%'>
+          <Flex>
+            <Link href="/" marginLeft='2' marginRight='2'>
+              <HStack>
+                <Image bg='#1A202C' boxSize='50px' src={OpenGaming} alt='logo'/>
+                <Heading color='white' fontSize='20'>
+                  OPEN GAMING 
+                </Heading>
+              </HStack>
+            </Link>
+            <Spacer/>
+            <HStack gap='1'>
+              <Button borderRadius='m' bg='#1A202C' color='white' onClick={scrollTop}>
                 Home
               </Button>
-            </Link>
-            <Link href="/Features">
-              <Button borderRadius='m' bg='#1A202C' color='white'>
+              <Button borderRadius='m' bg='#1A202C' color='white' onClick={scrollFeatures}>
                 Features
               </Button>
-            </Link>
-            <Link href="/Contact">
-              <Button borderRadius='m' bg='#1A202C' color='white'>
+              <Button borderRadius='m' bg='#1A202C' color='white' onClick={scrollContact}>
                 Contact
               </Button>
-            </Link>
-            <Link href="/Profile">
-              <Button borderRadius='m' bg='#1A202C' color='white'>
-                Profile
-              </Button>
-            </Link>
-            <Link href="/Login">
-              <Button borderRadius='m' bg='#1A202C' color='white'>
-                Log In
-              </Button>
-            </Link>
-
-          </HStack>
-        </HStack> 
+              <Link href="/Profile">
+                <Button borderRadius='m' bg='#1A202C' color='white'>
+                  Profile
+                </Button>
+              </Link>
+              <Link href="/Login">
+                <Button borderRadius='m' bg='#1A202C' color='white'>
+                  Log In
+                </Button>
+              </Link>
+            </HStack>
+          </Flex>
+        </Box> 
       </VStack>
     </div>
   );
