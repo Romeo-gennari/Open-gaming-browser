@@ -1,24 +1,26 @@
 import './App.css';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Stack, Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, Box, Center, Image, Heading, HStack, Link} from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 import OpenGaming from './images/open_gaming_logo.png'
 
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
 
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-
+    
     const handleLogIn = (event) => {
         event.preventDefault();
         console.log('EmailAddress', emailAddress);
         console.log('Password', password);
         axios.post("http://localhost:5050/auth/login").then(res=>{console.log(res)});
+        console.log("PostPost");
     }
 
     return (
@@ -55,8 +57,7 @@ function Login() {
                         </Box>
                     </Box>
                 </Center>
-            </form>
-            
+            </form>        
             
         </div>
     
