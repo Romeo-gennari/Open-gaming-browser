@@ -8,6 +8,7 @@ import Profile from './Profile';
 import Contact from './Contact';
 import Features from './Features';
 import Login from './Login';
+import Register from './Register';
 import Download from './Download';
 
 import reportWebVitals from './reportWebVitals';
@@ -27,6 +28,7 @@ ReactDOM.render(
           <Route path="Contact" element={<Contact />} />
           <Route path="Features" element={<Features />} />
           <Route path="Login" element={<Login />} />
+          <Route path="Register" element={<Register />} />
           <Route path="Download" element={<Download />} />
         </Routes>
       </BrowserRouter>,

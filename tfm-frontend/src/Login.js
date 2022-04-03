@@ -1,11 +1,12 @@
 import './App.css';
 
 import { useState } from 'react';
-import { Stack, Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, Box, Center, Image, Heading, HStack } from '@chakra-ui/react';
+import { Stack, Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, Box, Center, Image, Heading, HStack, Link} from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 import OpenGaming from './images/open_gaming_logo.png'
 
+import axios from "axios";
 
 function Login() {
 
@@ -17,6 +18,7 @@ function Login() {
         event.preventDefault();
         console.log('EmailAddress', emailAddress);
         console.log('Password', password);
+        axios.post("http://localhost:5050/auth/login").then(res=>{console.log(res)});
     }
 
     return (
@@ -26,7 +28,7 @@ function Login() {
                     <Box bg='black' borderRadius='5px' borderColor='black' borderWidth='2px' width='500px' height='347px'>
                         <HStack marginBottom='8px' marginTop='5px'>
                             <Image bg='black' boxSize='50px' src={OpenGaming} alt='logo' marginLeft='80px'/>
-                            <Heading color='white'>OPEN GAMING</Heading>
+                            <Link href="/"><Heading color='white'>OPEN GAMING</Heading></Link>
                         </HStack>
                         <Box bg='#DD6B20' maxWidth='500px' height='280px' >
                             <Stack bg='#DD6B20' maxWidth='400px' margin='auto' spacing='5'>
@@ -47,10 +49,15 @@ function Login() {
                                 </FormControl>
                                 <Button type='submit' bg='black' color='white'>Log In</Button>
                             </Stack>
+                            <div>
+                                <Link href="/Register">Nouveau sur OpenGaming ?</Link>  
+                            </div>
                         </Box>
                     </Box>
                 </Center>
             </form>
+            
+            
         </div>
     
   );
