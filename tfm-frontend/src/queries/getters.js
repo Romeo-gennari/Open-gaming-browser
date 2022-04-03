@@ -5,9 +5,7 @@ import axios from "axios";
 
 
 import styled from "styled-components";
-import createPalette from "@mui/material/styles/createPalette";
 import { extendTheme } from "@chakra-ui/react";
-import { integerPropType } from "@mui/utils";
 import { render } from "react-dom";
 
 const FriendList = styled.div`
