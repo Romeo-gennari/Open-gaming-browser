@@ -41,6 +41,7 @@ function Contact() {
                             </form>
                             <Box className="Efrei Paris Map">
                                 <iframe
+                                    title='title'
                                     width="550" 
                                     height="300" 
                                     src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=efrei%20paris%20Cr%C3%A9teil+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"

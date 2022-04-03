@@ -1,11 +1,10 @@
 import './App.css';
 
 import Header2 from './landing/header';
-import Games from './Games';
 import {Get, GetFriendList, GetGameList, GetUserHeader, ProfilePage} from './queries/getters';
 
 import React from 'react';
-import { useState, useEffect} from 'react';
+import { useState} from 'react';
 import styled from 'styled-components';
 
 

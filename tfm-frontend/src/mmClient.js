@@ -17,16 +17,6 @@ const NoBox = styled.div`
 const savedgames = ['Portal','Portal2','Fallout4'];
 const allgames = ['Fallout:NewVegas','Fallout3','PortalRE'];
 
-
-var selectedGame = (0,"");
-var i = 0;
-var test = "";
-
-function setter(a,b){
-    selectedGame = (a,b)
-    test = b;
-}
-
 var results;
 
 function tester(){

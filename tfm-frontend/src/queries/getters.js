@@ -1,12 +1,10 @@
 import React from "react";
-import { useState, useEffect, getAllData} from "react";
+import { useState, useEffect} from "react";
 
 import axios from "axios";
 
 
 import styled from "styled-components";
-import { extendTheme } from "@chakra-ui/react";
-import { render } from "react-dom";
 
 const FriendList = styled.div`
 display:flex;
@@ -28,15 +26,6 @@ text-align:left;
 `
 const ProfileTitle = styled.h1`
 font-size: 60px
-`
-const avatar_cont = styled.div`
-width: 128px;
-heigth: 128px;
-border: solid black;
-`
-const profileavatar = styled.img`
-width: 128px;
-heigth: 128px;
 `
 
 

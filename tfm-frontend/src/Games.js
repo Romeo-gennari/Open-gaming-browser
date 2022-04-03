@@ -4,23 +4,7 @@ import gamedata from './dummyData/games.json';
 import styled from 'styled-components';
 
 import {React, useState} from "react";
-import { createPortal } from 'react-dom';
 
-const GameCluster = styled.div`
-display: flex;
-flex-wrap: wrap;
-align-content: center;
-justify-content: center;
-`
-const Game = styled.button`
-  background-color: blue;
-  font-size: 20px;
-  width: 200px;
-  heigth: 70px;
-  padding: 60px 10px;
-  cursor: pointer;
-  flex-grow: 0;
-  `
 
 const ResearchBar = styled.input`
 color: black;
