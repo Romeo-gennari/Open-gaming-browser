@@ -1,6 +1,6 @@
 import './App.css';
 
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { Stack, Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, Box, Center, Image, Heading, HStack, Link} from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
@@ -14,6 +14,8 @@ function Login() {
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+
+    let navigate = useNavigate();
     
     const handleLogIn = (event) => {
         event.preventDefault();
@@ -25,6 +27,7 @@ function Login() {
           }).then(res=>{console.log(res)}).catch(error=>{console.log(error)});
           
         console.log("PostPost");
+        navigate('/Home');
     }
 
     return (

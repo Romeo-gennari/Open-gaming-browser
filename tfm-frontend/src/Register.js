@@ -7,6 +7,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import OpenGaming from './images/open_gaming_logo.png'
 
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
 
@@ -15,6 +16,8 @@ function Register() {
     const [password, setPassword] = useState('');
     const [vpassword, setVPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+
+    let navigate = useNavigate();
 
     const handleRegister = (event) => {
         if(password==vpassword){
@@ -26,6 +29,7 @@ function Register() {
                 email: emailAddress,
                 password:password
               }).then(res=>{console.log(res)}).catch(error=>{console.log(error)});
+            navigate('/Login')
         }
         else
         {

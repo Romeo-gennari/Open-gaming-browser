@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Link } from "@chakra-ui/react";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 const Navigation = styled.div`
     height: 100%;
@@ -19,8 +21,28 @@ const Aslink = styled.button`
     color: #818181;
     display: block;
 `;
+const Disco = styled.button`
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #FF1111;
+    display: block;
+`;
+
+
 
 function Sidebar(){
+
+    let navigate = useNavigate();
+    
+    const handleDisco = (event) => {
+        event.preventDefault();
+        axios.post("http://localhost:5050/auth/login").then(res=>{console.log(res)}).catch(error=>{console.log(error)});
+        console.log("PostDisco");
+        navigate('/');
+    }
+
+
     return(
         <Navigation>
             <Link href="/Home"><Aslink>Home</Aslink></Link>
@@ -30,6 +52,7 @@ function Sidebar(){
             <Link href="/Stats"><Aslink>Stats</Aslink></Link>
             <Link href="/Calendar"><Aslink>Calendar</Aslink></Link>
             <Link href="/Settings"><Aslink>Settings</Aslink></Link>
+            <a onClick={handleDisco}><Disco>Disconnect</Disco></a>
         </Navigation>
     );
 }
