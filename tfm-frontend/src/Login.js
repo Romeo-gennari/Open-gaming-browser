@@ -19,7 +19,11 @@ function Login() {
         event.preventDefault();
         console.log('EmailAddress', emailAddress);
         console.log('Password', password);
-        axios.post("http://localhost:5050/auth/login").then(res=>{console.log(res)});
+        axios.post("http://localhost:5050/auth/login",{
+            email: emailAddress,
+            password:password
+          }).then(res=>{console.log(res)}).catch(error=>{console.log(error)});
+          
         console.log("PostPost");
     }
 
