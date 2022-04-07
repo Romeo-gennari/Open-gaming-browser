@@ -4,7 +4,7 @@ import gamedata from '../dummyData/games.json';
 import styled from 'styled-components';
 import {React, useState} from "react";
 
-import Sidebar from './Sidebar';
+import Sidebar from './sidebar';
 import Headband from "./Header";
 
 const ResearchBar = styled.input`

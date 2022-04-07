@@ -1,4 +1,4 @@
-import Sidebar from "./Sidebar";
+import Sidebar from "./sidebar";
 import Headband from "./Header";
 import frienddata from '../dummyData/friends.json';
 
