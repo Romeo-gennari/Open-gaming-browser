@@ -20,7 +20,7 @@ function Register() {
     let navigate = useNavigate();
 
     const handleRegister = (event) => {
-        if(password==vpassword){
+        if(password===vpassword){
             event.preventDefault();
             console.log('EmailAddress', emailAddress);
             console.log('Password', password);

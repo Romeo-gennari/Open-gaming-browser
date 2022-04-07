@@ -4,7 +4,8 @@ import gamedata from '../dummyData/games.json';
 import styled from 'styled-components';
 import {React, useState} from "react";
 
-import Sidebar from './sidebar';
+import Sidebar from './Sidebar';
+import Headband from "./Header";
 
 const ResearchBar = styled.input`
 color: black;
@@ -62,6 +63,7 @@ function Games(){
         <div className="pApp">
             <div>
                 <Sidebar />
+                <Headband />
                 <h1>Games</h1>
                 <div className='search'>
                     <ResearchBar id="outlined-basic" label="Search" onChange={inputHandler}/>
