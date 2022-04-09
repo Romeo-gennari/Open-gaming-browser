@@ -60,9 +60,9 @@ function DisplayDateButtons(){
 function Calendar(){
     return(
         <div className="pApp">
-            <div>
-                <Sidebar />
-                <Headband />
+          <Sidebar />
+          <Headband />
+            <div className="paBody">
                 <h1>Calendar</h1>
                 <DisplayDateButtons />
             </div>

@@ -61,9 +61,9 @@ function Games(){
 
     return(
         <div className="pApp">
-            <div>
-                <Sidebar />
-                <Headband />
+            <Sidebar />
+            <Headband />
+            <div className='paBody'>
                 <h1>Games</h1>
                 <div className='search'>
                     <ResearchBar id="outlined-basic" label="Search" onChange={inputHandler}/>

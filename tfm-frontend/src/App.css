@@ -13,6 +13,12 @@
   text-align: left;
 }
 
+.paBody {
+  margin-left: 70px;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
 /*
 .App-header {
   background-color: #DD6B20;

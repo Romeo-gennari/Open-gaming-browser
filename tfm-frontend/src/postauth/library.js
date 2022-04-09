@@ -4,9 +4,9 @@ import Headband from "./Header";
 function Library(){
     return(
         <div className="pApp">
-            <div>
-                <Sidebar />
-                <Headband />
+            <Sidebar />
+            <Headband />
+            <div className="paBody">
                 <h1>Library</h1>
             </div>
         </div>

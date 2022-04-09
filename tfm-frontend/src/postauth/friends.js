@@ -70,9 +70,9 @@ function Friends(){
 
     return(
         <div className="pApp">
-            <div>
             <Sidebar />
-                <Headband />
+            <Headband />
+            <div className="paBody">
                 <MasterFriendList>
                 <div className='search'>
                     <ResearchBar id="outlined-basic" label="Search"  placeholder='Search' onChange={inputHandler}/>

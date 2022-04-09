@@ -4,6 +4,7 @@ import { Link } from "@chakra-ui/react";
 const Head = styled.div`
 height:5vh;
 background-color: #FFFFFF;
+padding-left: 80px;
 `
 
 function Headband(){

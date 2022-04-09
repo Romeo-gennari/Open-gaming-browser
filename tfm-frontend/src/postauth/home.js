@@ -63,9 +63,9 @@ function Home(){
 
     return(
         <div className="pApp">
-            <div>
-                <Sidebar />
-                <Headband />
+            <Sidebar />
+            <Headband />
+            <div className="paBody">
                 <div className='search'>
                     <ResearchBar id="outlined-basic" label="Search"  placeholder='Search' onChange={inputHandler}/>
                 </div>
