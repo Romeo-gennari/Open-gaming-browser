@@ -8,13 +8,13 @@ import Login from './Login';
 import Register from './Register';
 import Download from './landing/Download';
 
-import Home from './postauth/Home';
-import Friends from './postauth/Friends';
-import Library from './postauth/Library';
-import Games from './postauth/Games';
-import Stats from './postauth/Stats';
-import Calendar from './postauth/Calendar';
-import Settings from './postauth/Settings';
+import Home from './postauth/home';
+import Friends from './postauth/friends';
+import Library from './postauth/library';
+import Games from './postauth/games';
+import Stats from './postauth/stats';
+import Calendar from './postauth/calendar';
+import Settings from './postauth/settings';
 
 import reportWebVitals from './reportWebVitals';
 

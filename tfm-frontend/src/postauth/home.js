@@ -71,6 +71,8 @@ function Home(){
                 </div>
                 <CoFi>Online Friends</CoFi>
                 <FriendsLister input={inputText}/>
+                <CoFi>Research match</CoFi>
+                <p>TBA</p>
 
             </div>
         </div>
