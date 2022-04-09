@@ -82,7 +82,7 @@ function Register() {
                                 <Button type='submit' bg='black' color='white'>Register</Button>
                             </Stack>
                             <div>
-                                <Link href="/Login">Déjà membre ?</Link>    
+                                <Link ml='50px' href="/Login">Déjà membre ?</Link>    
                             </div>
                         </Box>
                     </Box>
