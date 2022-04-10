@@ -4,6 +4,7 @@ import {React, useState} from "react";
 import styled from 'styled-components';
 import gamedata from './../dummyData/games.json';
 
+import refinedData from './../dummyData/games.json'
 
 const ResearchBar = styled.input`
 color: black;
@@ -41,7 +42,7 @@ function MmGamesList(research) {
     const [active, setActive] = useState(subpages[0]);
     var results = ResearchMatches(game.id)
 
-    //const refinedData = gamedata.filter((el) => { return el.text.toLowerCase().includes(research.input) })
+    const refinedData = gamedata.filter((el) => { return el.text.toLowerCase().includes(research.input) })
     var results = tester();
 
     if (research.input === ''){
