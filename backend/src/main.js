@@ -8,9 +8,9 @@ import helmet from 'helmet';
 import knexSession from 'connect-session-knex';
 import session from 'express-session';
 import passport from 'passport';
+import { ZodError } from 'zod';
 import knex from './database.js';
 import index from './routes.js';
-import { ZodError } from 'zod';
 
 const app = express();
 

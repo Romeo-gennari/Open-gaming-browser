@@ -16,7 +16,7 @@ passport.use('local', new LocalStrategy(
 
         // If the password is the same, then go forward
         if (await bcrypt.compare(password, user.password))
-          return done(null, user)
+          return done(null, user);
         return done(null, null, { message: 'Incorrect password' });
       });
   }));
