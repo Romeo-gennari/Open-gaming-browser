@@ -4,8 +4,8 @@ import './index.css';
 
 import App from './landing/App';
 import Profile from './Profile';
-import Login from './Login';
-import Register from './Register';
+import Login from './oauth/Login';
+import Register from './oauth/Register';
 import Download from './landing/Download';
 
 import Home from './postauth/home';

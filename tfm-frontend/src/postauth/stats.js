@@ -4,9 +4,9 @@ import Headband from "./Header";
 function Stats(){
     return(
         <div className="pApp">
-            <div>
-                <Sidebar />
-                <Headband />
+            <Sidebar />
+            <Headband />
+            <div className="pABody">
                 <h1>Stats</h1>
             </div>
         </div>

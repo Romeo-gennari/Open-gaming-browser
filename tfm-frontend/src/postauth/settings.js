@@ -4,9 +4,9 @@ import Headband from "./Header";
 function Settings(){
     return(
         <div className="pApp">
-            <div>
-                <Sidebar />
-                <Headband />
+            <Sidebar />
+            <Headband />
+            <div className="paBody">
                 <h1>Settings</h1>
             </div>
         </div>

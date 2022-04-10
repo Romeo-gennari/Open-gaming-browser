@@ -63,14 +63,16 @@ function Home(){
 
     return(
         <div className="pApp">
-            <div>
-                <Sidebar />
-                <Headband />
+            <Sidebar />
+            <Headband />
+            <div className="paBody">
                 <div className='search'>
                     <ResearchBar id="outlined-basic" label="Search"  placeholder='Search' onChange={inputHandler}/>
                 </div>
                 <CoFi>Online Friends</CoFi>
                 <FriendsLister input={inputText}/>
+                <CoFi>Research match</CoFi>
+                <p>TBA</p>
 
             </div>
         </div>

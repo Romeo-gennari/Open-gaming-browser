@@ -8,24 +8,6 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { FiSettings, FiCalendar, FiUsers, FiHome, FiBookOpen } from 'react-icons/fi'
 import { IoGameControllerOutline, IoBarChartOutline } from 'react-icons/io5'
 
-const Navigation = styled.div`
-    height: 100%;
-    width: 160px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    padding-top: 20px;
-`;
-const Aslink = styled.button`
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-`;
 const Disco = styled.button`
     padding: 6px 8px 6px 16px;
     text-decoration: none;
@@ -33,8 +15,6 @@ const Disco = styled.button`
     color: #FF1111;
     display: block;
 `;
-
-
 
 function Sidebar(){
 

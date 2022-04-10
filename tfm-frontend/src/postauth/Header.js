@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { Link } from "@chakra-ui/react";
 
 const Head = styled.div`
-height:50px;
+height:5vh;
 background-color: #FFFFFF;
-margin-bottom: 35px;
+padding-left: 80px;
 `
 
 function Headband(){

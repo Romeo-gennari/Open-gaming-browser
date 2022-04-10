@@ -10,8 +10,13 @@
   background-color: #e4e1de;
   min-height: 100vh;
   font-size: calc(5px + 2vmin);
-  margin-left: 160px;
   text-align: left;
+}
+
+.paBody {
+  margin-left: 70px;
+  padding-left: 20px;
+  padding-top: 20px;
 }
 
 /*

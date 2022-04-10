@@ -2,7 +2,7 @@ import axios from "axios";
 import { Link } from "@chakra-ui/react";
 import {React, useState} from "react";
 import styled from 'styled-components';
-import gamedata from './dummyData/games.json';
+import gamedata from './../dummyData/games.json';
 
 
 const ResearchBar = styled.input`
