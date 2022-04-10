@@ -1,10 +1,10 @@
-import './App.css';
+import '../App.css';
 
 import { useState} from 'react';
 import { Stack, Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, Box, Center, Image, Heading, HStack, Link} from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
-import OpenGaming from './images/open_gaming_logo.png'
+import OpenGaming from './../images/open_gaming_logo.png'
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

@@ -11,8 +11,8 @@ width: 13vw;
 `
 
 const MasterFriendList = styled.div`
-padding: 10px 3px 3px 3px;
-width 15vw;
+padding: 10px 3px 3px 5vw;
+width 20vw;
 background-color:grey;
 height:95vh;
 `
@@ -72,8 +72,7 @@ function Friends(){
         <div className="pApp">
             <Sidebar />
             <Headband />
-            <div className="paBody">
-                <MasterFriendList>
+            <MasterFriendList>
                 <div className='search'>
                     <ResearchBar id="outlined-basic" label="Search"  placeholder='Search' onChange={inputHandler}/>
                 </div>
@@ -81,7 +80,9 @@ function Friends(){
                 <NarrowFriendsLister input={inputText}/>
                 <DeFi>Offline Friends</DeFi>
                 <NarrowFriendsLister input={inputText}/>
-                </MasterFriendList>
+            </MasterFriendList>
+            <div className="paBody">
+                <p>Now I gotta do the f'ing chat. Thx Kevin :unamused: :angry: :flamethrower: </p>
             </div>
         </div>
     );
