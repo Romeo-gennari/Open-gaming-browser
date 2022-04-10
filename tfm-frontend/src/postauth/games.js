@@ -67,6 +67,7 @@ function Games(){
                 <h1>Games</h1>
                 <div className='search'>
                     <ResearchBar id="outlined-basic" label="Search" onChange={inputHandler}/>
+                    <GamesLister input={inputText} />
                 </div>
             </div>
         </div>
