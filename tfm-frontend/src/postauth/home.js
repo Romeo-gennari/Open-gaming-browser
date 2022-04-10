@@ -1,9 +1,11 @@
+import './../App.css';
 import Sidebar from "./sidebar";
 import Headband from "./Header";
 import frienddata from '../dummyData/friends.json';
 
 import styled from 'styled-components';
 import {React, useState} from "react";
+import {Box} from "@chakra-ui/react"
 
 const ResearchBar = styled.input`
 color: black;
