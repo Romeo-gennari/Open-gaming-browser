@@ -39,8 +39,8 @@ function ResearchMatches(gameid){
 }
 
 function MmGamesList(research) {
-    const [active, setActive] = useState(subpages[0]);
-    var results = ResearchMatches(game.id)
+    //const [active, setActive] = useState(subpages[0]);
+    //var results = ResearchMatches(game.id)
 
     const refinedData = gamedata.filter((el) => { return el.text.toLowerCase().includes(research.input) })
     var results = tester();
@@ -54,7 +54,7 @@ function MmGamesList(research) {
         return(
             <div>
                 <ul>
-                    {refinedData.map((game)=>(<li key={game.id} ><button onClick={() => {setter(game.id,game.text);results=ResearchMatches(game.id);}}>{game.text}</button></li>))}
+                    {refinedData.map((game)=>(<li key={game.id} ><button onClick={() => {/*setter(game.id,game.text);*/results=ResearchMatches(game.id);}}>{game.text}</button></li>))}
                 </ul>
                 <div>
                     {results}

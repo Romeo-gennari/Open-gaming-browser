@@ -6,7 +6,7 @@ function Stats(){
         <div className="pApp">
             <Sidebar />
             <Headband />
-            <div className="pABody">
+            <div className="paBody">
                 <h1>Stats</h1>
             </div>
         </div>

@@ -5,11 +5,11 @@ import pp from '../images/open_gaming_logo.png'
 
 function Settings(){
     return(
-        <div className='Sidebar'>
+        <div className='pApp'>
             <Sidebar />
-            <div className="pApp">
+            <Headband />
+            <div className="paBody">
                 <Flex flexDir='column'>
-                    <Headband />
                     <Flex flexDir='row' mt='3%'>
                         <Flex flexDir='column' ml='3%'>
                             <Heading>User Details</Heading>
