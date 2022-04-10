@@ -9,7 +9,7 @@ const ButtonCluster = styled.div`
 display:flex
 aligne: center`
 const Button = styled.button`
-  background-color: blue;
+  background-color: grey;
   font-size: 20px;
   margin: 2px 1px;
   padding: 10px 10px;
@@ -65,6 +65,7 @@ function Calendar(){
             <div className="paBody">
                 <div>
                     <h1>Calendar</h1>
+                    <DisplayDateButtons />
                 </div>
             </div>
         </div>
