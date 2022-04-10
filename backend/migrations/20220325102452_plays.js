@@ -1,19 +1,21 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.up = function(knex) {
+export default {
+  /**
+   * @param { import("knex").Knex } knex
+   * @returns { Promise<void> }
+   */
+  up: (knex) => {
     return knex.schema.createTable('plays', t => {
-        t.integer('id_game').primary().unsigned().references('game.id');
-        t.integer('id_player').primary().unsigned().references('player.id');
-        t.integer('level_of_player');
-      })
-};
+      t.integer('game_id').primary().unsigned().references('game.id');
+      t.integer('player_id').primary().unsigned().references('player.id');
+      t.integer('player_level');
+    });
+  },
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.down = function(knex) {
+  /**
+   * @param { import("knex").Knex } knex
+   * @returns { Promise<void> }
+   */
+  down: (knex) => {
     return knex.schema.dropTable('game_of_genre');
+  },
 };

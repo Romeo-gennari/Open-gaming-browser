@@ -1,21 +1,23 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.up = function(knex) {
+export default {
+  /**
+   * @param { import("knex").Knex } knex
+   * @returns { Promise<void> }
+   */
+  up: (knex) => {
     return knex.schema.createTable('game_mode', t => {
-        t.increments('id').primary().unsigned();
-        t.string('name').unique().index()
-        t.integer('minimum_nb_of_players');
-        t.integer('maximum_nb_of_players');
-        t.integer('id_game').references('game.id');
-      })
-};
+      t.increments('id').primary().unsigned();
+      t.string('name').unique().index()
+      t.integer('minimum_players');
+      t.integer('maximum_players');
+      t.integer('game_id').references('game.id');
+    });
+  },
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.down = function(knex) {
+  /**
+   * @param { import("knex").Knex } knex
+   * @returns { Promise<void> }
+   */
+  down: (knex) => {
     return knex.schema.dropTable('game_mode');
+  },
 };
