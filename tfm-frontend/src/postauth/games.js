@@ -13,14 +13,15 @@ color: black;
 
 const GameList = styled.div`
 display:flex;
+flex-wrap: wrap;
 align:left;
 `
 const GameListed = styled.a`
 margin: 5px 5px;
 border: solid black;
 padding: 2px 2px 2px 2px;
-width: 400px;
-height: 200px;
+width: 300px;
+height: 400px;
 `
 
 let gameArray = []
