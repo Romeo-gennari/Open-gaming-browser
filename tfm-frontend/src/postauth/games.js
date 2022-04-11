@@ -18,16 +18,23 @@ flex-wrap: wrap;
 align:left;
 `
 const GameListed = styled.a`
+
+text-align: center;
 margin: 5px 5px;
 border: solid black;
 padding: 2px 2px 2px 2px;
 width: 300px;
 height: 400px;
+background-color: black;
+color: white;
 `
 
 const GameImg = styled.img`
 width: 280px;
 height: 350px;
+display: block;
+margin-left: auto;
+margin-right: auto;
 `
 
 //let gameArray = await axios.get('localhost:5050/user/games')
@@ -49,7 +56,7 @@ function GamesLister(research) {
     if (research.input === ''){
         return(
             <GameList>
-               {gamedata.map((game)=>(<GameListed key={game.id} onClick={() => {addGame(game.id);AddGame(game.id);}} >{game.text}<GameImg src={game.poster} alt="img ?"></GameImg></GameListed>))} 
+               {gamedata.map((game)=>(<GameListed key={game.id} onClick={() => {addGame(game.id);AddGame(game.id);}} ><GameImg src={game.poster} alt="img ?"></GameImg>{game.text}</GameListed>))} 
             </GameList>
         );
     }
