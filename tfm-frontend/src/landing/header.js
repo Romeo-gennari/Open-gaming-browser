@@ -49,11 +49,6 @@ function Header2() {
               <Button borderRadius='m' bg='#1A202C' color='white' onClick={scrollContact}>
                 Contact
               </Button>
-              <Link href="/Profile">
-                <Button borderRadius='m' bg='#1A202C' color='white'>
-                  Profile
-                </Button>
-              </Link>
               <Link href="/Login">
                 <Button borderRadius='m' bg='#1A202C' color='white'>
                   Log In
