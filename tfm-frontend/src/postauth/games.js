@@ -13,6 +13,7 @@ color: black;
 `
 
 const GameList = styled.div`
+margin-top: 3vh;
 display:flex;
 flex-wrap: wrap;
 align:left;
