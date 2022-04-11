@@ -1,0 +1,63 @@
+[
+	{
+	   "id":1,
+	   "username":"Leowenex",
+	   "email":"antoinecraipeau@outlook.fr",
+	   "icon":"https://icon-library.com/images/2018/8025238_gaben-gabe-newell-png-download.png",
+	   "friends":
+	   [
+	   	{
+	   		"id":2,
+	   		"username":"Mephiles45",
+	   		"avatar":"https://icon-library.com/images/doge-icon/doge-icon-0.jpg"
+	   	},
+	   	{
+	   		"id":3,
+	   		"username":"Gahama",
+	   		"avatar":"https://icon-library.com/images/doge-icon/doge-icon-0.jpg"
+	   	}
+	   ],
+	   "games":
+	   [
+	   	{
+	   		"id":1,
+	   		"title":"Zelda: Breath of the Wild",
+	   		"avatar":"https://game-icons.net/icons/ffffff/000000/1x1/skoll/console-controller.svg"
+	   	},
+	   	{
+	   		"id":2,
+	   		"title":"Zelda: Twilight Princess",
+	   		"avatar":"https://game-icons.net/icons/ffffff/000000/1x1/skoll/console-controller.svg"
+	   	},
+	   	{
+	   		"id":3,
+	   		"title":"The Elder Scrolls: Skyrim",
+	   		"avatar":"https://game-icons.net/icons/ffffff/000000/1x1/skoll/console-controller.svg"
+	   	},
+	   	{
+	   		"id":9,
+	   		"title":"Fallout 4",
+	   		"avatar":"https://game-icons.net/icons/ffffff/000000/1x1/skoll/console-controller.svg"
+	   	}
+	   ],
+	   "age":19
+	},
+	{
+		"id":2,
+		"username":"Mephiles45",
+		"email":"kevin.op@gmail.com",
+		"icon":"https://icon-library.com/images/doge-icon/doge-icon-0.jpg",
+		"friends":[1],
+		"games":[4,6],
+		"age":18
+	},
+	{
+		"id":3,
+		"username":"Gahama",
+		"email":"jaques.zhang@wanadoo.fr",
+		"icon":"https://icon-library.com/images/doge-icon/doge-icon-0.jpg",
+		"friends":[1,2],
+		"games":[2,6,8],
+		"age":19
+	}
+]
