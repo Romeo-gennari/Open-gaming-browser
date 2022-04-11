@@ -1,6 +1,6 @@
 import Sidebar from "./sidebar";
 import Headband from "./Header";
-import frienddata from '../dummyData/friends.json';
+import userdata from '../dummyData/test.json';
 
 import styled from 'styled-components';
 import {React, useState} from "react";
@@ -43,12 +43,12 @@ color: red;
 
 function NarrowFriendsLister(research) {
 
-    const refinedData = frienddata.filter((el) => { return el.username.toLowerCase().includes(research.input) })
+    const refinedData = userdata[0].friends.filter((el) => { return el.username.toLowerCase().includes(research.input) })
         
     if (research.input === ''){
         return(
             <NarrowFriendList>
-               {frienddata.map((game)=>(<NarrowFriendListed key={game.id} onClick={() => {}} >{game.username}</NarrowFriendListed>))} 
+               {userdata[0].friends.map((game)=>(<NarrowFriendListed key={game.id} onClick={() => {}} >{game.username}</NarrowFriendListed>))} 
             </NarrowFriendList>
         );
     }

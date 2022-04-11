@@ -30,6 +30,7 @@ height: 75px;
 color: grey;
 font-size: 30px;
 text-align: left;
+background-color: white;
 `
 const CoFi = styled.h1`
 font-size: 30px;
