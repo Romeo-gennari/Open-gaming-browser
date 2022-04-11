@@ -1,31 +1,37 @@
 [{
     "id": 1,
-    "text": "Zelda: Breath of the Wild"
+    "text": "Satisfactory"
 }, {
     "id": 2,
-    "text": "Zelda: Twilight Princess"
+    "text": "Minecraft"
 }, {
     "id": 3,
-    "text": "The Elder Scrolls: Skyrim"
+    "text": "The Elder Scrolls: Online"
 }, {
     "id": 4,
-    "text": "The Witcher 3"
+    "text": "SpeedRunners"
 }, {
     "id": 5,
-    "text": "Assasins'Creed: Odyssey"
+    "text": "Genshin Impact"
 }, {
     "id": 6,
-    "text": "Portal"
+    "text": "Portal 2"
 }, {
     "id": 7,
-    "text": "Portal 2"
+    "text": "StickFight"
 }, {
     "id": 8,
     "text": "Sniper Elite 4"
 }, {
     "id": 9,
-    "text": "Fallout 4"
+    "text": "Fallout 76"
 }, {
     "id": 10,
-    "text": "Fallout: New Vegas"
+    "text": "Sniper Elite 5"
+},{
+    "id": 11,
+    "text": "Battlefield 2042"
+},{
+    "id": 12,
+    "text": "Battlefield 1"
 }] 
