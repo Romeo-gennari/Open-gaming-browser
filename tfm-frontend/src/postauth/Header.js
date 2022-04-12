@@ -1,6 +1,27 @@
 import styled from "styled-components";
 import { Link, Heading, Flex, Box, Image, Spacer } from "@chakra-ui/react";
-import OpenGaming from '../images/open_gaming_logo.png'
+import OpenGaming from '../images/open_gaming_logo.png';
+
+import { WarningIcon, CheckCircleIcon } from "@chakra-ui/icons";
+
+import userdata from '.././dummyData/test.json';
+import axios from 'axios';
+
+function DisplayConnexionIcon(status){
+    if (status == 1) return(<CheckCircleIcon w={8} h={8} color="green" />);
+    else return(<WarningIcon w={8} h={8} color="red.500" />);
+}
+
+function GetHeaderProfile(){
+
+    let nuserdata = axios.get("localhost:5050/user/data");
+    let ruserdata = userdata[0];
+
+    return(
+        <div><DisplayConnexionIcon input={ruserdata.status} />{ruserdata.username}</div>
+    );
+
+}
 
 function Headband(){
     return(
@@ -10,7 +31,7 @@ function Headband(){
                 <Heading fontSize={30}>OpenGaming</Heading>
             </Link>
             <Spacer/>
-            <Box>profile</Box>
+            <Box><GetHeaderProfile /></Box>
         </Flex>
     )
 }

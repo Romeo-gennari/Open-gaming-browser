@@ -27,6 +27,7 @@ width: 300px;
 height: 400px;
 background-color: black;
 color: white;
+font-family: "Helvetica";
 `
 
 const GameImg = styled.img`
