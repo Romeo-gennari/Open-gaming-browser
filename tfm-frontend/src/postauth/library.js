@@ -25,7 +25,7 @@ background-color: red;
 margin-left: 10px;
 margin-right: 10px;
 font-size: 20px;
-font-color: black;
+color: black;
 `
 
 function LibraryList(){
