@@ -14,7 +14,7 @@ margin: 5px 5px;
 border: solid black;
 padding: 2px 2px 2px 2px;
 width: 85vw;
-height: 10vh;
+height: 15vh;
 color: grey;
 font-size: 30px;
 text-align: left;
