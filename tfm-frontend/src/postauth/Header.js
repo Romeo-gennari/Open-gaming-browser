@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link, Heading, Flex, Box, Image, Spacer } from "@chakra-ui/react";
+import { Link, Heading, Flex, Box, Image, Spacer, HStack } from "@chakra-ui/react";
 import OpenGaming from '../images/open_gaming_logo.png';
 
 import { WarningIcon, CheckCircleIcon } from "@chakra-ui/icons";
@@ -26,9 +26,11 @@ function GetHeaderProfile(){
 function Headband(){
     return(
         <Flex alignItems='row' h='40px' paddingLeft={20} bgColor='#ffffff'>
-            <Image bg='#ffffff' boxSize='40px' src={OpenGaming} alt='logo' ml ='5px'/>
             <Link href="/home">
-                <Heading fontSize={30}>OpenGaming</Heading>
+                <HStack>
+                    <Image bg='#ffffff' boxSize='40px' src={OpenGaming} alt='logo' ml ='5px'/>
+                    <Heading fontSize={30}>OpenGaming</Heading>
+                </HStack>
             </Link>
             <Spacer/>
             <Box><GetHeaderProfile /></Box>
