@@ -20,7 +20,7 @@ const ButtonCluster = styled.div`
   `
 const Button = styled.button`
   background-color: grey;
-  font-size: 20px;
+  font-size: 2vh;
   border: solid black 1px;
   margin: 0px 0px;
   padding: 8px 8px;
