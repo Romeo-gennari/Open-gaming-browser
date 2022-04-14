@@ -1,21 +1,21 @@
-export default {
-  /**
-   * @param { import("knex").Knex } knex
-   * @returns { Promise<void> }
-   */
-  up: (knex) => {
-    return knex.schema.createTable('plays', t => {
-      t.integer('game_id').primary().unsigned().references('game.id');
-      t.integer('player_id').primary().unsigned().references('player.id');
-      t.integer('player_level');
-    });
-  },
+/**
+ * @param { import("knex").Knex } knex
+ * @returns { Promise<void> }
+ */
+export function up(knex) {
+  return knex.schema.createTable('plays', t => {
+    t.integer('game_id').unsigned().references('game.id');
+    t.integer('user_id').unsigned().references('user.id');
+    t.integer('user_level');
+    t.primary(['game_id', 'user_id']);
+    t.timestamps(true, true);
+  });
+}
 
-  /**
-   * @param { import("knex").Knex } knex
-   * @returns { Promise<void> }
-   */
-  down: (knex) => {
-    return knex.schema.dropTable('game_of_genre');
-  },
-};
+/**
+ * @param { import("knex").Knex } knex
+ * @returns { Promise<void> }
+ */
+export function down(knex) {
+  return knex.schema.dropTable('plays');
+}

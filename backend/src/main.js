@@ -30,7 +30,7 @@ app.use(session({
     httpOnly: true,
     maxAge: 15 * 24 * 3600 * 1000, // 15 days
   },
-  store: new KnexSessionStore({ knex, tableName: 'sessions' }),
+  store: new KnexSessionStore({ knex, tableName: 'websessions' }),
 }));
 app.use(passport.initialize());
 app.use(passport.session());

@@ -1,20 +1,19 @@
-export default {
-  /**
-   * @param { import("knex").Knex } knex
-   * @returns { Promise<void> }
-   */
-  up: (knex) => {
-    return knex.schema.createTable('perset', t => {
-      t.increments('id').primary().unsigned();
-      t.string('name').unique().index();
-    });
-  },
+/**
+ * @param { import("knex").Knex } knex
+ * @returns { Promise<void> }
+ */
+export function up(knex) {
+  return knex.schema.createTable('publisher', t => {
+    t.increments('id').primary().unsigned();
+    t.string('name').unique().index();
+    t.timestamps(true, true);
+  });
+}
 
-  /**
-   * @param { import("knex").Knex } knex
-   * @returns { Promise<void> }
-   */
-  down: (knex) => {
-    return knex.schema.dropTable('editor');
-  },
-};
+/**
+ * @param { import("knex").Knex } knex
+ * @returns { Promise<void> }
+ */
+export function down(knex) {
+  return knex.schema.dropTable('publisher');
+}

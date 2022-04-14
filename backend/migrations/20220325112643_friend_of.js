@@ -1,21 +1,21 @@
-export default {
-  /**
-   * @param { import("knex").Knex } knex
-   * @returns { Promise<void> }
-   */
-  up: (knex) => {
-    return knex.schema.createTable('is_in_preset', t => {
-      t.integer('player1_id').primary().unsigned().references('player.id');
-      t.integer('player2_id').primary().unsigned().references('player.id');
-      t.string('friend_group');
-    });
-  },
+/**
+ * @param { import("knex").Knex } knex
+ * @returns { Promise<void> }
+ */
+export function up(knex) {
+  return knex.schema.createTable('friend_of', t => {
+    t.integer('user1_id').unsigned().references('user.id');
+    t.integer('user2_id').unsigned().references('user.id');
+    t.string('friend_group');
+    t.primary(['user1_id', 'user2_id']);
+    t.timestamps(true, true);
+  });
+}
 
-  /**
-   * @param { import("knex").Knex } knex
-   * @returns { Promise<void> }
-   */
-  down: (knex) => {
-    return knex.schema.dropTable('friend_of');
-  },
-};
+/**
+ * @param { import("knex").Knex } knex
+ * @returns { Promise<void> }
+ */
+export function down(knex) {
+  return knex.schema.dropTable('friend_of');
+}
