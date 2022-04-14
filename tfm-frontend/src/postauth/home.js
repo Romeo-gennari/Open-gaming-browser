@@ -1,7 +1,7 @@
 import './../App.css';
 import Sidebar from "./sidebar";
 import Headband from "./Header";
-import frienddata from '../dummyData/friends.json';
+import userdata from '../dummyData/test.json';
 
 import MmClient from "./mmClient";
 
@@ -40,12 +40,12 @@ color: green;
 
 function FriendsLister(research) {
 
-    const refinedData = frienddata.filter((el) => { return el.username.toLowerCase().includes(research.input) })
+    const refinedData = userdata[0].friends.filter((el) => { return el.username.toLowerCase().includes(research.input) })
         
     if (research.input === ''){
         return(
             <FriendList>
-               {frienddata.map((game)=>(<FriendListed key={game.id} onClick={() => {}} >{game.username}</FriendListed>))} 
+               {userdata[0].friends.map((game)=>(<FriendListed key={game.id} onClick={() => {}} >{game.username}</FriendListed>))} 
             </FriendList>
         );
     }
