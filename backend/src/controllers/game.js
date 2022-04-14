@@ -9,7 +9,7 @@ import duplicateHandler from '../utils/duplicateHandler.js';
  */
 export async function findOne(req, res) {
   const id = req.params.id;
-  const game = await db('games').where('game_id', id).first();
+  const game = await db('game').where('id', id).first();
   if (!game)
     res.status(404).json({ message: 'Game not found' });
   res.status(200).json(game);
@@ -21,7 +21,7 @@ export async function findOne(req, res) {
  * @param {import('express').Response} res
  */
 export async function findAll(_req, res) {
-  const games = await db('games').select();
+  const games = await db('game').select();
   res.status(200).json(games);
 }
 
@@ -32,20 +32,43 @@ export async function findAll(_req, res) {
  * @param {import('express').NextFunction} next
  */
 export async function create(req, res, next) {
+  // Parse the given body to check if it contain a valid game data
   const { success, data, error } = createGame.safeParse(req.body);
   if (!success) {
     next(error);
     return;
   }
 
-  const result = await db('games')
-    .returning(['game_id', 'name', 'description', 'editor', 'release_year'])
+  // Check if the given publisher ID exists
+  const publisher = await db('publisher').where('id', data.publisher_id).first();
+  if (!publisher) {
+    res.status(400).json({ message: 'Publisher not found' });
+    return;
+  }
+
+  // Check if the given editor ID exists
+  const editor = await db('editor').where('id', data.editor_id).first();
+  if (!editor) {
+    res.status(400).json({ message: 'Editor not found' });
+    return;
+  }
+
+  // Insert the new game into the database
+  const insertResult = await db('game')
+    .returning(['id'])
     .insert(data)
     .catch(duplicateHandler('Name is already in use', res));
-  if (!result)
+  if (!insertResult)
     return;
 
-  res.status(201).json(result[0]);
+  // Return the newly created game with its editor and publisher data
+  const result = await db('game')
+    .where('id', insertResult[0].id)
+    .leftJoin('publisher', 'game.publisher_id', 'publisher.id')
+    .leftJoin('editor', 'game.editor_id', 'editor.id')
+    .first();
+
+  res.status(201).json(result);
 }
 
 /**
@@ -62,9 +85,9 @@ export async function update(req, res, next) {
     return;
   }
 
-  const result = await db('games')
-    .where('game_id', id)
-    .returning(['game_id', 'name', 'description', 'editor', 'release_year'])
+  const result = await db('game')
+    .where('id', id)
+    .returning(['id', 'name', 'description', 'editor', 'release_year'])
     .update(data);
   res.status(200).json(result[0]);
 }
@@ -76,7 +99,7 @@ export async function update(req, res, next) {
  */
 export async function remove(req, res) {
   const id = req.params.id;
-  const result = await db('games').where('game_id', id).del();
+  const result = await db('game').where('id', id).del();
   if (result === 0)
     res.status(404).json({ message: 'Game not found' });
   else

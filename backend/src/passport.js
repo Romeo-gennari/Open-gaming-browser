@@ -6,7 +6,7 @@ import db from './database.js';
 passport.use('local', new LocalStrategy(
   { usernameField: 'username', passwordField: 'password' },
   (emailOrUsername, password, done) => {
-    db('users')
+    db('user')
       .where('email', emailOrUsername.toLowerCase())
       .orWhere('username', emailOrUsername.toLowerCase())
       .first()
@@ -16,7 +16,7 @@ passport.use('local', new LocalStrategy(
 
         // If the password is the same, then go forward
         if (await bcrypt.compare(password, user.password))
-          return done(null, user)
+          return done(null, user);
         return done(null, null, { message: 'Incorrect password' });
       });
   }));
@@ -24,7 +24,7 @@ passport.use('local', new LocalStrategy(
 passport.serializeUser((user, done) => done(null, user.username));
 
 passport.deserializeUser((id, done) => {
-  db('users')
+  db('user')
     .where('username', id)
     .first()
     .then(user => done(null, user))

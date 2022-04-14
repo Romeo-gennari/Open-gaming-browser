@@ -33,7 +33,7 @@ export async function register(req, res, next) {
     return;
   }
 
-  const existingUser = await db('users')
+  const existingUser = await db('user')
     .select()
     .where('email', data.email?.toLowerCase())
     .orWhere('username', data.username?.toLowerCase())
@@ -44,12 +44,10 @@ export async function register(req, res, next) {
   }
 
   const password = await bcrypt.hash(data.password, 10);
-  const newUser = await db('users')
-    .returning(['username', 'firstname', 'lastname', 'email'])
+  const newUser = await db('user')
+    .returning(['username', 'email'])
     .insert({
       username: data.username.toLowerCase(),
-      firstname: data.firstname,
-      lastname: data.lastname,
       email: data.email.toLowerCase(),
       password,
     })
