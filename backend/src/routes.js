@@ -1,6 +1,7 @@
 import { Router } from 'express';
-import game from './controllers/game.js';
 import editor from './controllers/editor.js';
+import game from './controllers/game.js';
+import publisher from './controllers/publisher.js';
 import * as auth from './controllers/auth.js';
 import ensureAuthenticated from './middlewares/ensureAuthenticated.js';
 import safeUser from './utils/safeUser.js';
@@ -27,7 +28,7 @@ router.route('/games/:id')
   .patch(ensureAuthenticated, game.update)
   .delete(ensureAuthenticated, game.remove);
 
-// Game CRUD
+// Editor CRUD
 router.route('/editors')
   .get(editor.findAll)
   .post(ensureAuthenticated, editor.create);
@@ -35,5 +36,14 @@ router.route('/editors/:id')
   .get(editor.findOne)
   .patch(ensureAuthenticated, editor.update)
   .delete(ensureAuthenticated, editor.remove);
+
+// Publisher CRUD
+router.route('/publishers')
+  .get(publisher.findAll)
+  .post(ensureAuthenticated, publisher.create);
+router.route('/publishers/:id')
+  .get(publisher.findOne)
+  .patch(ensureAuthenticated, publisher.update)
+  .delete(ensureAuthenticated, publisher.remove);
 
 export default router;
