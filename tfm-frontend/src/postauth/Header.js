@@ -8,8 +8,8 @@ import userdata from '.././dummyData/test.json';
 import axios from 'axios';
 
 function DisplayConnexionIcon(status){
-    if (status == 1) return(<CheckCircleIcon w={8} h={8} color="green" />);
-    else return(<WarningIcon w={8} h={8} color="red.500" />);
+    if (status == 1) return(<CheckCircleIcon w={5} h={5} color="green" />);
+    else return(<WarningIcon w={5} h={5} color="red.500" />);
 }
 
 function GetHeaderProfile(){
