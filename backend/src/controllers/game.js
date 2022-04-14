@@ -58,7 +58,7 @@ export async function create(req, res, next) {
     .returning(['id'])
     .insert(data)
     .catch(duplicateHandler('Name is already in use', res));
-  if (!result)
+  if (!insertResult)
     return;
 
   // Return the newly created game with its editor and publisher data
@@ -85,9 +85,9 @@ export async function update(req, res, next) {
     return;
   }
 
-  const result = await db('games')
-    .where('game_id', id)
-    .returning(['game_id', 'name', 'description', 'editor', 'release_year'])
+  const result = await db('game')
+    .where('id', id)
+    .returning(['id', 'name', 'description', 'editor', 'release_year'])
     .update(data);
   res.status(200).json(result[0]);
 }
@@ -99,7 +99,7 @@ export async function update(req, res, next) {
  */
 export async function remove(req, res) {
   const id = req.params.id;
-  const result = await db('games').where('game_id', id).del();
+  const result = await db('game').where('id', id).del();
   if (result === 0)
     res.status(404).json({ message: 'Game not found' });
   else
