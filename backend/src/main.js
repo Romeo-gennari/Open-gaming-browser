@@ -3,7 +3,6 @@ import './passport.js';
 
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import express from 'express';
 import helmet from 'helmet';
 import knexSession from 'connect-session-knex';
 import session from 'express-session';
@@ -11,8 +10,7 @@ import passport from 'passport';
 import { ZodError } from 'zod';
 import knex from './database.js';
 import index from './routes.js';
-
-const app = express();
+import { app } from './server.js';
 
 const KnexSessionStore = knexSession(session);
 
@@ -58,10 +56,4 @@ app.use((err, _req, res, _next) => {
     console.error(err);
     res.status(500).json({ message: 'Internal server error' });
   }
-});
-
-// Application listener
-const port = process.env.PORT ?? 5050;
-app.listen(port, () => {
-  console.log(`Listening on http://localhost:${port}`);
 });
