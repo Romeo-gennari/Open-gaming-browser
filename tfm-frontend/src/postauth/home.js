@@ -2,6 +2,7 @@ import './../App.css';
 import Sidebar from "./sidebar";
 import Headband from "./Header";
 import userdata from '../dummyData/test.json';
+import presetdata from '../dummyData/test-preset.json'
 
 import MmClient from "./mmClient";
 
@@ -32,6 +33,23 @@ font-size: 30px;
 text-align: left;
 background-color: white;
 `
+
+const Launcher = styled.div`
+margin: 5px 5px;
+border: solid black;
+width: 85vw;
+height: 20vh;
+background-color: white;
+`
+
+const PresetSelector = styled.div`
+display: flex;
+`
+
+const GenericButton = styled.button`
+border: 1px solid black;
+`
+
 const CoFi = styled.h1`
 font-size: 30px;
 padding: 3px 3px 3px 3px;
@@ -58,6 +76,30 @@ function FriendsLister(research) {
     }
 }
 
+function PresetLauncher(){
+    const [selected, select] = useState(0);
+    let body = presetdata[selected].title;
+    function decSelect(){
+        if(selected>0)select(selected-1);
+    }
+    function incSelect(){
+        if(selected<presetdata.length-1)select(selected+1);
+    }
+    function getTitle(){
+        return(presetdata[selected].title)
+    }
+    return(
+        <Launcher>
+            <PresetSelector>
+                <GenericButton onClick={()=>{decSelect();body=presetdata[selected].title;}}>L</GenericButton>
+                <button>{body}</button>
+                <GenericButton onClick={()=>{incSelect();body=presetdata[selected].title;}}>R</GenericButton>
+            </PresetSelector>
+            <GenericButton onClick={()=>{alert("Preset "+ {getTitle} +" ignited!")}}>START</GenericButton>
+        </Launcher>
+    );
+}
+
 function Home(){
 
     const [inputText, setInputText] = useState("");
@@ -77,7 +119,7 @@ function Home(){
                 <CoFi>Online Friends</CoFi>
                 <FriendsLister input={inputText}/>
                 <CoFi>Research match</CoFi>
-                <p>TBA</p>
+                <PresetLauncher />
 
             </div>
         </div>

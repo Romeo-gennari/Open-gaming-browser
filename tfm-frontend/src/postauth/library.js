@@ -1,6 +1,6 @@
 import Sidebar from "./sidebar";
 import Headband from "./Header";
-import userdata from '../dummyData/test.json';
+import userdata from '../dummyData/test-preset.json';
 
 import styled from "styled-components";
 
@@ -55,6 +55,7 @@ margin: 1px 1px 1px 1px;
 const GameResearch = styled.input`
 height: 3vh;
 width: 9vw;
+font-size: 2vh;
 border: 1px solid black;
 border-radius: 3px;
 padding: 2px 2px 2px 2px;
@@ -93,14 +94,14 @@ function PresetList(){
     return(
         <div>
             <LeLibraryList>
-                {userdata[0].games.map((game)=>(
-                <LeLibraryListed key={game.id} onClick={() => {}} >
+                {userdata.map((preset)=>(
+                <LeLibraryListed key={preset.id} onClick={() => {}} >
                     <div>
-                        {game.title}
+                        {preset.title}
                         <div><LibraryButton>Edit</LibraryButton><LibraryButton>Delete</LibraryButton></div>
                     </div>
                     <TagList>
-                        {userdata[0].games.map((game)=>(
+                        {preset.games.map((game)=>(
                             <Tagged key={game.id}>{game.title}</Tagged>
                         ))}
                         <GameResearch label="Search">

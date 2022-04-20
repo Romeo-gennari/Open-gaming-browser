@@ -1,0 +1,42 @@
+[
+    {
+        "id":1,
+        "title":"Combat",
+        "default":1,
+        "games":
+        [
+            {
+                "id": 11,
+                "title": "StickFight"
+            },
+            {
+                "id": 13,
+                "title": "Guilty Gear: Strive"
+            }
+        ]
+    },
+    {
+        "id":2,
+        "title":"Shooter",
+        "default":0,
+        "games":
+        [
+            {
+                "id": 1,
+                "title": "Battlefield 2042"
+            },
+            {
+                "id": 2,
+                "title": "Battlefield 1"
+            },
+            {
+                "id": 9,
+                "title": "Sniper Elite 4"
+            },
+            {
+                "id": 10,
+                "title": "Sniper Elite 5"
+            }
+        ]
+    }
+]
