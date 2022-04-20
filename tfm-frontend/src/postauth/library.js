@@ -21,11 +21,19 @@ text-align: left;
 background-color: white;
 `
 const LibraryButton = styled.button`
-background-color: red;
+border: 2px solid red;
+border-radius: 5px;
 margin-left: 10px;
 margin-right: 10px;
 font-size: 20px;
-color: black;
+color: red;
+`
+
+const PHeader = styled.div`
+background-color: grey;
+height: 4vh;
+font-size: 3vh;
+margin-bottom: 15px;
 `
 
 function LibraryList(){
@@ -43,6 +51,29 @@ function LibraryList(){
     );
 }
 
+function PresetHeader(){
+    return(
+    <PHeader>
+        <div>Add    Sort    Select</div>
+    </PHeader>
+    )
+}
+
+function PresetList(){
+    return(
+        <div>
+            <LeLibraryList>
+               {userdata[0].games.map((game)=>(
+               <LeLibraryListed key={game.id} onClick={() => {}} >
+                    {game.title}
+                    <div><LibraryButton>Edit</LibraryButton><LibraryButton>Delete</LibraryButton></div>
+               </LeLibraryListed>))} 
+            </LeLibraryList>
+        </div>
+        
+    );
+}
+
 function Library(){
     return(
         <div className="pApp">
@@ -50,7 +81,8 @@ function Library(){
             <Headband />
             <div className="paBody">
                 <h1>Library</h1>
-                <LibraryList/>
+                <PresetHeader/>
+                <PresetList/>
             </div>
         </div>
     );

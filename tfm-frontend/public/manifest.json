@@ -1,7 +1,12 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Match Maker",
+  "name": "Open Gamin's Match Maker",
   "icons": [
+    {
+      "src":"old_open_gaming_logo.png",
+      "type":"image/png",
+      "sizes": "90x87"
+    },
     {
       "src": "logo192.png",
       "type": "image/png",
