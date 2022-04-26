@@ -2,6 +2,9 @@ import Sidebar from "./sidebar";
 import Headband from "./Header";
 import userdata from '../dummyData/test-preset.json';
 
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 import styled from "styled-components";
 
 const LeLibraryList = styled.div`
@@ -82,6 +85,30 @@ function LibraryList(){
     );
 }
 
+function GetPresets() {
+    const [data, setData] = useState("");
+    
+    const getData = () => {
+      axios
+        .get ("http://localhost:5051/presets.json")
+        .then((response) => {
+          console.log(response.data);
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    
+    useEffect(() => {
+      getData();
+    }, []);
+    
+    return(
+      data
+    );
+}
+
 function PresetHeader(){
     return(
     <PHeader>
@@ -90,11 +117,14 @@ function PresetHeader(){
     )
 }
 
-function PresetList(){
+function PresetList(presetdata){
+
+    presetdata = presetdata.input;
+
     return(
         <div>
             <LeLibraryList>
-                {userdata.map((preset)=>(
+                {presetdata.map((preset)=>(
                 <LeLibraryListed key={preset.id} onClick={() => {}} >
                     <div>
                         {preset.title}
@@ -114,6 +144,25 @@ function PresetList(){
     );
 }
 
+function DisplayPresets(){
+    const data = GetPresets();
+    console.log(data);
+    const displayData = () => {
+    return data ? (
+      <div>
+        <PresetList input={data}/>
+      </div>) : 
+      (
+      <h3>No data yet</h3>
+    );
+  }
+  return (
+    <>
+      {displayData()}
+    </>
+  );
+}
+
 function Library(){
     return(
         <div className="pApp">
@@ -122,7 +171,7 @@ function Library(){
             <div className="paBody">
                 <h1>Library</h1>
                 <PresetHeader/>
-                <PresetList/>
+                <DisplayPresets/>
             </div>
         </div>
     );
