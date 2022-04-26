@@ -47,14 +47,23 @@ function TrueSettings(Data){
     const handleModifyUsername = (event) => {
         event.preventDefault();
         console.log('UsernameChangeTo: ', username);
+        Data.username = username;
+        console.log(Data);
+        axios.post("http://localhost:5051/test2.json",Data).then(alert("Username changed!"));
     }
     const handleModifyEmail = (event) => {
         event.preventDefault();
         console.log('EmailChangeTo: ', email);
+        Data.email = email;
+        console.log(Data);
+        axios.post("http://localhost:5051/test2.json",Data).then(alert("Email changed!"));
     }
     const handleModifyNumber = (event) => {
         event.preventDefault();
         console.log('NumberChangeTo: ', number);
+        Data.tel = number;
+        console.log(Data);
+        axios.post("http://localhost:5051/test2.json",Data).then(alert("Number changed!"));
     }
 
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -70,6 +79,9 @@ function TrueSettings(Data){
         if(Data.password === currentpassword && newpassword === vpassword ){
             event.preventDefault();
             console.log('New Password: ', newpassword);
+            //Most Probably Terrible practice, but whatever
+            Data.password= newpassword;
+            axios.post("http://localhost:5051/test2.json",Data).then(alert("Password changed! You'll probably get redirected soon ..."));
             navigate('/Login');
         }
         else if (Data.password != currentpassword)
@@ -180,12 +192,12 @@ function TrueSettings(Data){
                 <Flex flexDir='row' w='400px' mb='1%'>
                     <Text>Matchmaker Notification</Text>
                     <Spacer/>
-                    <Button onClick={() => mmNotifOff(!mmNotifOn)}>{mmNotifOn ? <IoIosNotifications/> : <IoIosNotificationsOff/>}</Button>
+                    <Button onClick={() => {mmNotifOff(!mmNotifOn);Data.mmNotification=mmNotifOn;axios.post("http://localhost:5051/test2.json",Data);}}>{mmNotifOn ? <IoIosNotifications/> : <IoIosNotificationsOff/>}</Button>
                 </Flex>
                 <Flex flexDir='row' w='400px' mb='1%'>
                     <Text>Newsletter</Text>
                     <Spacer/>
-                    <Button onClick={() => newsNotifOff(!newsNotifOn)}>{newsNotifOn ? <IoIosNotifications/> : <IoIosNotificationsOff/>}</Button>
+                    <Button onClick={() => {newsNotifOff(!newsNotifOn);Data.newsNotification=newsNotifOn;axios.post("http://localhost:5051/test2.json",Data);}}>{newsNotifOn ? <IoIosNotifications/> : <IoIosNotificationsOff/>}</Button>
                 </Flex>
             </Flex>
             <Spacer/>
