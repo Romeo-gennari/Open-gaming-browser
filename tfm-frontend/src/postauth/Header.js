@@ -14,7 +14,7 @@ function DisplayConnexionIcon(status){
 
 function GetHeaderProfile(){
 
-    let nuserdata = axios.get("localhost:5050/user/data");
+    //let nuserdata = axios.get("localhost:5050/user/data");
     let ruserdata = userdata[0];
 
     return(

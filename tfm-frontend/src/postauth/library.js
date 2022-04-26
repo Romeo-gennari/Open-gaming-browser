@@ -102,7 +102,7 @@ function PresetList(){
                     </div>
                     <TagList>
                         {preset.games.map((game)=>(
-                            <Tagged key={game.id}>{game.title}</Tagged>
+                            <Tagged key={game.id}>{game.name}</Tagged>
                         ))}
                         <GameResearch label="Search">
                         </GameResearch>

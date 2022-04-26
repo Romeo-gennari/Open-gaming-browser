@@ -1,53 +1,53 @@
 [{
     "id": 1,
-    "text": "Battlefield 2042",
+    "name": "Battlefield 2042",
     "poster": "https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/d36ee3121424199.60c5d6860b34d.jpg"
 },{
     "id": 2,
-    "text": "Battlefield 1",
+    "name": "Battlefield 1",
     "poster": "https://images-na.ssl-images-amazon.com/images/I/91rO-107XmL.jpg"
 },{
     "id": 3,
-    "text": "Fallout 76",
+    "name": "Fallout 76",
     "poster": "https://static.posters.cz/image/750/affiches-et-posters/fallout-76-t51b-i59193.jpg"
 },{
     "id": 4,
-    "text": "Satisfactory",
+    "name": "Satisfactory",
     "poster": "https://preview.redd.it/hmeo9odoiab51.jpg?auto=webp&s=40940f77053e50c15533983c0468115285341dff"
 },{
     "id": 5,
-    "text": "Genshin Impact",
+    "name": "Genshin Impact",
     "poster": "https://www.ubuy.vn/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvODEzLVd1SkxMN1MuX0FDX1NMMTUwMF8uanBn.jpg"
 },{
     "id": 6,
-    "text": "Minecraft",
+    "name": "Minecraft",
     "poster": "https://i.pinimg.com/originals/0a/29/12/0a291217a56b3ec53d71fe71755f37d9.jpg"
 },{
     "id": 7,
-    "text": "Portal 2",
+    "name": "Portal 2",
     "poster": "https://laughingsquid.com/wp-content/uploads/portal-2-20110325-155039.jpg"
 },{
     "id": 8,
-    "text": "SpeedRunners",
+    "name": "SpeedRunners",
     "poster": "https://www.mobygames.com/images/covers/l/428946-speedrunners-xbox-one-front-cover.png"
 },{
     "id": 9,
-    "text": "Sniper Elite 4",
+    "name": "Sniper Elite 4",
     "poster": "https://d3fa68hw0m2vcc.cloudfront.net/a0a/173005287.jpeg"
 },{
     "id": 10,
-    "text": "Sniper Elite 5",
+    "name": "Sniper Elite 5",
     "poster": "https://picfiles.alphacoders.com/490/thumb-490663.jpg"
 },{
     "id": 11,
-    "text": "StickFight",
+    "name": "StickFight",
     "poster": "https://media.senscritique.com/media/000019802876/source_big/Stick_Fight_The_Game.png"
 },{
     "id": 12,
-    "text": "The Elder Scrolls: Online",
+    "name": "The Elder Scrolls: Online",
     "poster": "https://images-na.ssl-images-amazon.com/images/I/81hIHJomPRL.jpg"
 },{
     "id":13,
-    "text": "Guilty Gear: Strive",
+    "name": "Guilty Gear: Strive",
     "poster": "https://s1.gaming-cdn.com/images/products/6948/orig-fallback-v1/jeu-steam-guilty-gear-strive-cover.jpg"
 }] 

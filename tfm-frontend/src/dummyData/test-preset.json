@@ -7,11 +7,11 @@
         [
             {
                 "id": 11,
-                "title": "StickFight"
+                "name": "StickFight"
             },
             {
                 "id": 13,
-                "title": "Guilty Gear: Strive"
+                "name": "Guilty Gear: Strive"
             }
         ]
     },
@@ -23,19 +23,19 @@
         [
             {
                 "id": 1,
-                "title": "Battlefield 2042"
+                "name": "Battlefield 2042"
             },
             {
                 "id": 2,
-                "title": "Battlefield 1"
+                "name": "Battlefield 1"
             },
             {
                 "id": 9,
-                "title": "Sniper Elite 4"
+                "name": "Sniper Elite 4"
             },
             {
                 "id": 10,
-                "title": "Sniper Elite 5"
+                "name": "Sniper Elite 5"
             }
         ]
     }

@@ -3,7 +3,7 @@ import gamedata from '../dummyData/games.json';
 
 import axios from 'axios';
 import styled from 'styled-components';
-import {React, useState} from "react";
+import {React, useState, useEffect} from "react";
 
 import Sidebar from './sidebar';
 import Headband from "./Header";
@@ -38,7 +38,33 @@ margin-left: auto;
 margin-right: auto;
 `
 
-//let gameArray = await axios.get('localhost:5050/user/games')
+
+function Get() {
+    const [data, setData] = useState("");
+    
+    const getData = () => {
+      axios
+        .get ("http://localhost:5051/games.json")
+        .then((response) => {
+          console.log(response.data);
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    
+    useEffect(() => {
+      getData();
+    }, []);
+    
+    return(
+      data
+    );
+  }
+
+
+
 let gameArray = []
 
 function addGame(gid){
@@ -47,47 +73,59 @@ function addGame(gid){
 return(0)
 }
 
-function AddGame(id) {
-    axios.post('localhost:5050/user/games',gameArray).then(()=>(alert("Successfully added game to library"))).catch(()=>(alert("Task Failed Successfully")))
+function SearchBar (Data){
+    const [query, setQuery] = useState("")
+    Data = Data.input;
+    console.log(Data);
+    return(
+      <div>
+          <input placeholder="Research" onChange={event => setQuery(event.target.value)} />
+          <GameList>
+          {Data.filter(game => {
+            if (query === '') {
+                return game;
+            }
+            else if (game.name.toLowerCase().includes(query.toLowerCase())) {
+              return game;
+            }
+          }).map((game) => (<GameListed key={game.id} onClick={() => {addGame(game.id)}}>{game.name}<GameImg src={game.poster} alt="img ?"></GameImg></GameListed>))}
+            
+          </GameList>
+      </div>
+    )
 }
 
-function GamesLister(research) {
+function AddGame(id) {
+    //axios.post('localhost:5050/user/games',gameArray).then(()=>(alert("Successfully added game to library"))).catch(()=>(alert("Task Failed Successfully")))
+}
 
-    const refinedData = gamedata.filter((el) => { return el.text.toLowerCase().includes(research.input) })
-    if (research.input === ''){
-        return(
-            <GameList>
-               {gamedata.map((game)=>(<GameListed key={game.id} onClick={() => {addGame(game.id);AddGame(game.id);}} ><GameImg src={game.poster} alt="img ?"></GameImg>{game.text}</GameListed>))} 
-            </GameList>
-        );
-    }
-    else {
-        return(
-            <GameList>
-               {refinedData.map((game)=>(<GameListed key={game.id} onClick={() => {addGame(game.id)}}>{game.text}<GameImg src={game.poster} alt="img ?"></GameImg></GameListed>))} 
-            </GameList>
-        )
-    }
+function Gamess(){
+    const data = Get();
+    console.log(data);
+    const displayData = () => {
+    return data ? (
+      <div>
+        <SearchBar input={data}/>
+      </div>) : 
+      (
+      <h3>No data yet</h3>
+    );
+  }
+  return (
+    <>
+      {displayData()}
+    </>
+  );
 }
 
 function Games(){
-
-    const [inputText, setInputText] = useState("");
-    let inputHandler = (e) => {
-        var lowercase = e.target.value.toLowerCase();
-        setInputText(lowercase);
-    };
-
     return(
         <div className="pApp">
             <Sidebar />
             <Headband />
             <div className='paBody'>
                 <h1>Games</h1>
-                <div className='search'>
-                    <ResearchBar id="outlined-basic" label="Search" onChange={inputHandler}/>
-                    <GamesLister input={inputText} />
-                </div>
+                <Gamess />
             </div>
         </div>
     );

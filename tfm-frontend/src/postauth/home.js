@@ -40,14 +40,30 @@ border: solid black;
 width: 85vw;
 height: 20vh;
 background-color: white;
+justify-content: center;
+align-items: center;
 `
 
 const PresetSelector = styled.div`
 display: flex;
+margin-left: auto;
+margin-right: auto;
 `
 
 const GenericButton = styled.button`
 border: 1px solid black;
+`
+
+const GreenButton = styled.button`
+border: 1px solid black;
+background-color: green;
+color: white;
+`
+
+const YellowButton = styled.button`
+border: 1px solid black;
+background-color: yellow;
+color: white;
 `
 
 const CoFi = styled.h1`
@@ -78,6 +94,8 @@ function FriendsLister(research) {
 
 function PresetLauncher(){
     const [selected, select] = useState(0);
+    const [color, setColor] = useState("green");
+
     let body = presetdata[selected].title;
     function decSelect(){
         if(selected>0)select(selected-1);
@@ -90,12 +108,13 @@ function PresetLauncher(){
     }
     return(
         <Launcher>
+            <style>{`.red {color: red}.green {color: green}`}</style>
             <PresetSelector>
                 <GenericButton onClick={()=>{decSelect();body=presetdata[selected].title;}}>L</GenericButton>
                 <button>{body}</button>
                 <GenericButton onClick={()=>{incSelect();body=presetdata[selected].title;}}>R</GenericButton>
             </PresetSelector>
-            <GenericButton onClick={()=>{alert("Preset "+ {getTitle} +" ignited!")}}>START</GenericButton>
+            <button className={color} onClick={()=>{alert("Preset "+ {getTitle} +" ignited!");setColor((color) => (color === "red" ? "green" : "red"));}}>START</button>
         </Launcher>
     );
 }
