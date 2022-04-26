@@ -209,12 +209,6 @@ function DisplayPresets(){
 
 function Home(){
 
-    const [inputText, setInputText] = useState("");
-    let inputHandler = (e) => {
-        var lowercase = e.target.value.toLowerCase();
-        setInputText(lowercase);
-    };
-
     return(
         <div className="pApp">
             <Sidebar />

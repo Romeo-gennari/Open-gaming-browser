@@ -3,7 +3,8 @@ import Headband from "./Header";
 import userdata from '../dummyData/test.json';
 
 import styled from 'styled-components';
-import {React, useState} from "react";
+import {React, useState, useEffect} from "react";
+import axios from "axios";
 
 const ResearchBar = styled.input`
 color: black;
@@ -41,45 +42,82 @@ font-size: 25px;
 color: red;
 `
 
-function NarrowFriendsLister(research) {
-
-    const refinedData = userdata[0].friends.filter((el) => { return el.username.toLowerCase().includes(research.input) })
-        
-    if (research.input === ''){
-        return(
-            <NarrowFriendList>
-               {userdata[0].friends.map((game)=>(<NarrowFriendListed key={game.id} onClick={() => {}} >{game.username}</NarrowFriendListed>))} 
-            </NarrowFriendList>
-        );
-    }
-    else {
-        return(
-            <NarrowFriendList>
-               {refinedData.map((game)=>(<NarrowFriendListed key={game.id} onClick={() => {}}>{game.username}</NarrowFriendListed>))} 
-            </NarrowFriendList>
-        )
-    }
-}
-function Friends(){
+function GetFriends() {
+    const [data, setData] = useState("");
     
-    const [inputText, setInputText] = useState("");
-    let inputHandler = (e) => {
-        var lowercase = e.target.value.toLowerCase();
-        setInputText(lowercase);
+    const getData = () => {
+      axios
+        .get ("http://localhost:5051/friends.json")
+        .then((response) => {
+          console.log(response.data);
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     };
+    
+    useEffect(() => {
+      getData();
+    }, []);
+    
+    return(
+      data
+    );
+}
+
+function SearchBar (Data){
+    const [query, setQuery] = useState("")
+    Data = Data.input;
+    console.log(Data);
+    return(
+      <div>
+          <ResearchBar placeholder="Research" onChange={event => setQuery(event.target.value)} />
+          <NarrowFriendList>
+          {Data.filter(friend => {
+            if (query === '') {
+                return friend;
+            }
+            else if (friend.username.toLowerCase().includes(query.toLowerCase())) {
+              return friend;
+            }
+          }).map((friend) => (<NarrowFriendListed key={friend.id} onClick={() => {}} >{friend.username}</NarrowFriendListed>))}
+            
+            </NarrowFriendList>
+      </div>
+    )
+}
+
+function DisplayFriends(status){
+    const data = GetFriends();
+    console.log(data);
+    const displayData = () => {
+    return data ? (
+      <div>
+        <SearchBar input={data.filter(friend => {if (friend.status==status.input) {return friend;}})}/>
+      </div>) : 
+      (
+      <h3>No data yet</h3>
+    );
+  }
+  return (
+    <>
+      {displayData()}
+    </>
+  );
+}
+
+function Friends(){
 
     return(
         <div className="pApp">
             <Sidebar />
             <Headband />
             <MasterFriendList>
-                <div className='search'>
-                    <ResearchBar id="outlined-basic" label="Search"  placeholder='Search' onChange={inputHandler}/>
-                </div>
                 <CoFi>Online Friends</CoFi>
-                <NarrowFriendsLister input={inputText}/>
+                <DisplayFriends input={1}/>
                 <DeFi>Offline Friends</DeFi>
-                <NarrowFriendsLister input={"kkkkkkkk"}/>
+                <DisplayFriends input={0}/>
             </MasterFriendList>
             <div className="paBody">
                 <p>Now I gotta do the f'ing chat. Thx Kevin :unamused: :angry: :flamethrower: </p>
