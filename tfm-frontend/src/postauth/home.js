@@ -1,13 +1,10 @@
 import './../App.css';
 import Sidebar from "./sidebar";
 import Headband from "./Header";
-import userdata from '../dummyData/test.json';
-import presetdata from '../dummyData/test-preset.json'
-
-import MmClient from "./mmClient";
 
 import styled from 'styled-components';
-import {React, useState} from "react";
+import {React, useState, useEffect} from "react";
+import axios from 'axios';
 import {Box} from "@chakra-ui/react"
 
 const ResearchBar = styled.input`
@@ -72,27 +69,99 @@ padding: 3px 3px 3px 3px;
 color: green;
 `
 
-function FriendsLister(research) {
-
-    const refinedData = userdata[0].friends.filter((el) => { return el.username.toLowerCase().includes(research.input) })
-        
-    if (research.input === ''){
-        return(
-            <FriendList>
-               {userdata[0].friends.map((game)=>(<FriendListed key={game.id} onClick={() => {}} >{game.username}</FriendListed>))} 
-            </FriendList>
-        );
-    }
-    else {
-        return(
-            <FriendList>
-               {refinedData.map((game)=>(<FriendListed key={game.id} onClick={() => {}}>{game.username}</FriendListed>))} 
-            </FriendList>
-        )
-    }
+function GetFriends() {
+    const [data, setData] = useState("");
+    
+    const getData = () => {
+      axios
+        .get ("http://localhost:5051/friends.json")
+        .then((response) => {
+          console.log(response.data);
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    
+    useEffect(() => {
+      getData();
+    }, []);
+    
+    return(
+      data
+    );
 }
 
-function PresetLauncher(){
+function SearchBar (Data){
+    const [query, setQuery] = useState("")
+    Data = Data.input;
+    console.log(Data);
+    return(
+      <div>
+          <input placeholder="Research" onChange={event => setQuery(event.target.value)} />
+          <FriendList>
+          {Data.filter(friend => {
+            if (query === '') {
+                return friend;
+            }
+            else if (friend.username.toLowerCase().includes(query.toLowerCase())) {
+              return friend;
+            }
+          }).map((friend) => (<FriendListed key={friend.id} onClick={() => {}} >{friend.username}</FriendListed>))}
+            
+            </FriendList>
+      </div>
+    )
+}
+
+function DisplayFriends(){
+    const data = GetFriends();
+    console.log(data);
+    const displayData = () => {
+    return data ? (
+      <div>
+        <SearchBar input={data}/>
+      </div>) : 
+      (
+      <h3>No data yet</h3>
+    );
+  }
+  return (
+    <>
+      {displayData()}
+    </>
+  );
+}
+
+function GetPresets() {
+    const [data, setData] = useState("");
+    
+    const getData = () => {
+      axios
+        .get ("http://localhost:5051/presets.json")
+        .then((response) => {
+          console.log(response.data);
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    
+    useEffect(() => {
+      getData();
+    }, []);
+    
+    return(
+      data
+    );
+}
+
+function PresetLauncher(presetdata){
+
+    presetdata = presetdata.input;
+    
     const [selected, select] = useState(0);
     const [color, setColor] = useState("green");
 
@@ -119,6 +188,25 @@ function PresetLauncher(){
     );
 }
 
+function DisplayPresets(){
+    const data = GetPresets();
+    console.log(data);
+    const displayData = () => {
+    return data ? (
+      <div>
+        <PresetLauncher input={data}/>
+      </div>) : 
+      (
+      <h3>No data yet</h3>
+    );
+  }
+  return (
+    <>
+      {displayData()}
+    </>
+  );
+}
+
 function Home(){
 
     const [inputText, setInputText] = useState("");
@@ -132,13 +220,10 @@ function Home(){
             <Sidebar />
             <Headband />
             <div className="paBody">
-                <div className='search'>
-                    <ResearchBar id="outlined-basic" label="Search"  placeholder='Search' onChange={inputHandler}/>
-                </div>
                 <CoFi>Online Friends</CoFi>
-                <FriendsLister input={inputText}/>
+                <DisplayFriends />
                 <CoFi>Research match</CoFi>
-                <PresetLauncher />
+                <DisplayPresets />
 
             </div>
         </div>

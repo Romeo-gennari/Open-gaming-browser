@@ -24,29 +24,49 @@
 			"status": "0"
 		}
 	   ],
-	   "games":
+	   "presets":
 	   [
-	   	{
-	   		"id":1,
-	   		"title":"Satisfactory",
-	   		"avatar":"https://game-icons.net/icons/ffffff/000000/1x1/skoll/console-controller.svg"
-	   	},
-	   	{
-	   		"id":2,
-	   		"title":"Minecraft",
-	   		"avatar":"https://game-icons.net/icons/ffffff/000000/1x1/skoll/console-controller.svg"
-	   	},
-	   	{
-	   		"id":3,
-	   		"title":"The Elder Scrolls: Online",
-	   		"avatar":"https://game-icons.net/icons/ffffff/000000/1x1/skoll/console-controller.svg"
-	   	},
-	   	{
-	   		"id":9,
-	   		"title":"SpeedRunners",
-	   		"avatar":"https://game-icons.net/icons/ffffff/000000/1x1/skoll/console-controller.svg"
-	   	}
-	   ],
+		{
+			"id":1,
+			"title":"Combat",
+			"default":1,
+			"games":
+			[
+				{
+					"id": 11,
+					"name": "StickFight"
+				},
+				{
+					"id": 13,
+					"name": "Guilty Gear: Strive"
+				}
+			]
+		},
+		{
+			"id":2,
+			"title":"Shooter",
+			"default":0,
+			"games":
+			[
+				{
+					"id": 1,
+					"name": "Battlefield 2042"
+				},
+				{
+					"id": 2,
+					"name": "Battlefield 1"
+				},
+				{
+					"id": 9,
+					"name": "Sniper Elite 4"
+				},
+				{
+					"id": 10,
+					"name": "Sniper Elite 5"
+				}
+			]
+		}
+	],
 	   "age":19,
 	   "status":1
 	},
@@ -56,7 +76,7 @@
 		"email":"kevin.op@gmail.com",
 		"icon":"https://icon-library.com/images/doge-icon/doge-icon-0.jpg",
 		"friends":[1],
-		"games":[4,6],
+		"presets":[],
 		"age":18,
 		"status":0
 	},
@@ -66,7 +86,7 @@
 		"email":"jaques.zhang@wanadoo.fr",
 		"icon":"https://icon-library.com/images/doge-icon/doge-icon-0.jpg",
 		"friends":[1,2],
-		"games":[2,6,8],
+		"presets":[],
 		"age":19,
 		"status":0
 	}
