@@ -1,6 +1,5 @@
 import Sidebar from "./sidebar";
 import Headband from "./Header";
-import userdata from '../dummyData/test.json';
 
 import styled from 'styled-components';
 import {React, useState, useEffect} from "react";
@@ -79,7 +78,7 @@ function SearchBar (Data){
                 return friend;
             }
             else if (friend.username.toLowerCase().includes(query.toLowerCase())) {
-              return friend;
+                return friend;
             }
           }).map((friend) => (<NarrowFriendListed key={friend.id} onClick={() => {}} >{friend.username}</NarrowFriendListed>))}
             

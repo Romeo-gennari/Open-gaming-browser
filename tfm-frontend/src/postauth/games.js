@@ -1,5 +1,4 @@
 import './../App.css';
-import gamedata from '../dummyData/games.json';
 
 import axios from 'axios';
 import styled from 'styled-components';
@@ -7,10 +6,6 @@ import {React, useState, useEffect} from "react";
 
 import Sidebar from './sidebar';
 import Headband from "./Header";
-
-const ResearchBar = styled.input`
-color: black;
-`
 
 const GameList = styled.div`
 margin-top: 3vh;

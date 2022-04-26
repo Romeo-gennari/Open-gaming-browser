@@ -99,7 +99,7 @@ function SearchBar (Data){
     console.log(Data);
     return(
       <div>
-          <input placeholder="Research" onChange={event => setQuery(event.target.value)} />
+          <ResearchBar placeholder="Research" onChange={event => setQuery(event.target.value)} />
           <FriendList>
           {Data.filter(friend => {
             if (query === '') {
