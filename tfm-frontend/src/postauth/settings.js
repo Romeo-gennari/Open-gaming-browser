@@ -115,14 +115,14 @@ function TrueSettings(Data){
                     <Spacer/>
                     <form onSubmit={handleModifyEmail}>
                         <HStack>
-                            <Input placeholder="Username" borderRadius='none' bg='white' htmlSize='40' mr='30px' value={email} onChange={({target}) => setEmail(target.value)}></Input>
+                            <Input placeholder="Email Address" borderRadius='none' bg='white' htmlSize='40' mr='30px' value={email} onChange={({target}) => setEmail(target.value)}></Input>
                             <Button type='submit' borderRadius='none' bg='orange' color='white' width='300px'>Modify</Button>
                         </HStack>
                     </form>
                     <Spacer/>
                     <form onSubmit={handleModifyNumber}>
                         <HStack>
-                            <Input placeholder="Username" borderRadius='none' bg='white' htmlSize='40' mr='30px' value={number} onChange={({target}) => setNumber(target.value)}></Input>
+                            <Input placeholder="Phone Number" borderRadius='none' bg='white' htmlSize='40' mr='30px' value={number} onChange={({target}) => setNumber(target.value)}></Input>
                             <Button type='submit' borderRadius='none' bg='orange' color='white' width='300px'>Modify</Button>
                         </HStack>
                     </form>

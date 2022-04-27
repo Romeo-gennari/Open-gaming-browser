@@ -43,7 +43,7 @@ function Login() {
                             <Stack bg='#DD6B20' maxWidth='400px' margin='auto' spacing='5'>
                                 <FormControl>
                                     <FormLabel htmlFor="email" marginTop='5'>Email Address</FormLabel>
-                                    <Input isRequired bg='white' type='email' id='email' value={emailAddress} onChange={({target}) => setEmailAddress(target.value)}/>
+                                    <Input isRequired bg='white' id='email' value={emailAddress} onChange={({target}) => setEmailAddress(target.value)}/>
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel htmlFor="password">Password</FormLabel>
