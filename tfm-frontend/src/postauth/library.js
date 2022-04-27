@@ -1,6 +1,8 @@
 import Sidebar from "./sidebar";
 import Headband from "./Header";
 import userdata from '../dummyData/test-preset.json';
+import { Flex, Heading, HStack, VStack, Input, Button, Select, Image, Spacer, Modal, useDisclosure, ModalContent, ModalHeader, ModalOverlay, 
+  Center, InputGroup, InputRightElement, Text, Slider, SliderTrack, SliderFilledTrack, SliderThumb, SliderMark, Box } from '@chakra-ui/react';
 
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -45,6 +47,14 @@ border-radius: 3px;
 display: flex;
 flex-wrap: wrap;
 width: 40vw;
+margin-left: auto;
+`
+const TagListS = styled.div`
+border: 1px solid black;
+border-radius: 3px;
+display: flex;
+flex-wrap: wrap;
+width: 30vw;
 margin-left: auto;
 `
 const Tagged = styled.div`
@@ -109,36 +119,114 @@ function GetPresets() {
     );
 }
 
-function PresetHeader(){
-    return(
-    <PHeader>
-        <div>Add    Sort    Select</div>
-    </PHeader>
-    )
-}
-
 function PresetList(presetdata){
 
-    presetdata = presetdata.input;
+  //Experimental way to get the gamedata  
+  
+  const [gamedata, setGameData] = useState([]);
+      
+    const getData = () => {
+      axios
+        .get ("http://localhost:5051/games.json")
+        .then((response) => {
+          console.log(response.data);
+          setGameData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    
+    useEffect(() => {
+      getData();
+    }, []);
+
+
+
+    //const [ data, setdata] = useState(presetdata.input)
+    var data = presetdata.input
+    console.log(data);
+    const [ deleted, dodelete ] = useState("");
+
+    const [newtitle, editnewtitle] = useState("");
+    const [newlist, editnewlist] = useState([]);
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [query, setQuery] = useState("")
+
+    function handleDelete(){
+        data=(data.filter((preset)=>{if(preset.title!=deleted)return(preset)}));
+        console.log(data);
+        axios.post("http://localhost:5051/presets.json",data).then(alert("Preset removed!"));
+    }
+
+    const handleAddPreset = (event) => {
+      event.preventDefault();
+      data.push({"id":data[data.length-1].id+1,"title":newtitle,"default":0,"games":newlist})
+      console.log(data);
+      editnewlist([])
+      editnewtitle("")
+      axios.post("http://localhost:5051/presets.json",data).then(alert("Preset added!"));
+    }
 
     return(
         <div>
+            <PHeader>
+              <Button onClick={onOpen} borderRadius='none' bg='red' color='white' width='458px' colorScheme='red'>AddPreset</Button>
+            </PHeader>
             <LeLibraryList>
-                {presetdata.map((preset)=>(
+                {data.map((preset)=>(
                 <LeLibraryListed key={preset.id} onClick={() => {}} >
                     <div>
-                        {preset.title}
-                        <div><LibraryButton>Edit</LibraryButton><LibraryButton>Delete</LibraryButton></div>
+                        <h1>{preset.title}</h1>
+                        <div><LibraryButton>Edit</LibraryButton><LibraryButton onClick={()=>{dodelete(preset.title);handleDelete();}}>Delete</LibraryButton></div>
                     </div>
                     <TagList>
                         {preset.games.map((game)=>(
                             <Tagged key={game.id}>{game.name}</Tagged>
                         ))}
-                        <GameResearch label="Search">
-                        </GameResearch>
                     </TagList> 
                 </LeLibraryListed>))} 
             </LeLibraryList>
+            <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
+                        <ModalOverlay />
+                        <ModalContent>
+                            <Center>
+                                <Flex w='400px' flexDir='column' alignItems='center'>
+                                    <ModalHeader color='red'>New Preset</ModalHeader>
+                                    <form onSubmit={handleAddPreset}>
+                                        <p>Yo</p>
+                                        <InputGroup w='30vw'>
+                                            <Input isRequired id='title' placeholder="title" mb='3%' value={newtitle} onChange={({target}) => editnewtitle(target.value)}/>
+                                        </InputGroup>
+                                        <TagListS>
+                                          {newlist.map((game)=>(
+                                              <Tagged key={game.id}>{game.name}</Tagged>
+                                          ))}
+                                          <div>
+                                              <GameResearch placeholder="Research" onChange={event => setQuery(event.target.value)} />
+                                              {gamedata.filter(post => {
+                                                if (query == '') {}
+                                                else if (post.name.toLowerCase().includes(query.toLowerCase())) {
+                                                  return post;
+                                                }
+                                              }).map((game) => (
+                                                <div className="box" key={game.id}>
+                                                  <button onClick={()=>{newlist.push(game);setQuery("")}}>{game.name}</button>
+                                                </div>
+                                              ))}
+                                          </div>
+                                      </TagListS>
+                                        <Center mb='3%'>
+                                            <Button onClick={()=>{onClose();editnewlist([]);editnewtitle("");}} bg='red' colorScheme='red' w='45%' mr='1%'>Cancel Changes</Button>
+                                            <Button type='submit' bg='orange' colorScheme='orange' w='45%' ml='1%'>Save Preset</Button>
+                                        </Center>
+                                    </form>
+                                </Flex>
+                            </Center>
+                        </ModalContent>
+                    </Modal>
+        
         </div>
         
     );
@@ -170,7 +258,6 @@ function Library(){
             <Headband />
             <div className="paBody">
                 <h1>Library</h1>
-                <PresetHeader/>
                 <DisplayPresets/>
             </div>
         </div>
