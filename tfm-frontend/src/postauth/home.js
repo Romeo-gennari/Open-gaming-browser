@@ -102,6 +102,11 @@ function SearchBar (Data){
           <ResearchBar placeholder="Research" onChange={event => setQuery(event.target.value)} />
           <FriendList>
           {Data.filter(friend => {
+            if (friend.status==1){
+              return friend;
+            }
+          })
+          .filter(friend => {
             if (query === '') {
                 return friend;
             }
