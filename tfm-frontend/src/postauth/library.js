@@ -158,6 +158,20 @@ function PresetList(presetdata){
         axios.post("http://localhost:5051/presets.json",data).then(alert("Preset removed!"));
     }
 
+    function handleRemoveGame(id){
+      let temp = newlist;
+      for(let i=0;i<newlist.length;i++){
+        console.log(newlist[i]);
+        if(newlist[i].id==id){
+          temp.splice(i,1);
+          console.log(temp);
+          editnewlist(temp);
+          return;
+        }
+      }
+
+    }
+
     const handleAddPreset = (event) => {
       event.preventDefault();
       data.push({"id":data[data.length-1].id+1,"title":newtitle,"default":0,"games":newlist})
@@ -215,7 +229,7 @@ function PresetList(presetdata){
                           <Box borderWidth='1px' borderColor='black' borderRadius='5px' w={[175, 280, 350]} h={[50, 80, 100]} overflowY='auto'>
                             <Flex flexWrap='wrap'>
                               {newlist.map((game)=>(
-                                <Box w='-moz-fit-content' maxH='30px' m='1px' borderWidth='1px' borderColor='black' borderRadius='5px' alignContent='center' textAlign='center' key={game.id}>{game.name}</Box>
+                                <Button w='-moz-fit-content' maxH='30px' m='1px' borderWidth='1px' borderColor='black' borderRadius='5px' alignContent='center' textAlign='center' key={game.id} onClick={()=>{handleRemoveGame(game.id)}}>{game.name}</Button>
                               ))}
                             </Flex>
                           </Box>
@@ -238,7 +252,6 @@ function PresetList(presetdata){
 
 function DisplayPresets(){
     const data = GetPresets();
-    console.log(data);
     const displayData = () => {
     return data ? (
       <div>
