@@ -45,55 +45,55 @@ function Sidebar(){
                     </HStack>
                     <Box w='100%'>
                         {barSize == "closed" ? 
-                        <Link href="/Home" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiHome color='white'/></Flex></Link>
+                        <Link href="/#/Home" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiHome color='white'/></Flex></Link>
                         : 
-                        <Link href="/Home" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiHome color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Home</Text></Flex></Link>
+                        <Link href="/#/Home" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiHome color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Home</Text></Flex></Link>
                         }
                     </Box>
                     <Box w='100%'>
                         {barSize == "closed" ? 
-                        <Link href="/Friends" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiUsers color='white'/></Flex></Link>
+                        <Link href="/#/Friends" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiUsers color='white'/></Flex></Link>
                         : 
-                        <Link href="/Friends" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiUsers color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Friends</Text></Flex></Link>
+                        <Link href="/#/Friends" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiUsers color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Friends</Text></Flex></Link>
 
                         }
                     </Box>
                     <Box w='100%'>
                         {barSize == "closed" ? 
-                        <Link href="/Library" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiBookOpen color='white'/></Flex></Link>
+                        <Link href="/#/Library" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiBookOpen color='white'/></Flex></Link>
                         : 
-                        <Link href="/Library" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiBookOpen color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Library</Text></Flex></Link>
+                        <Link href="/#/Library" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiBookOpen color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Library</Text></Flex></Link>
                         }
                     </Box>
                     <Box w='100%'>
                         {barSize == "closed" ? 
-                        <Link href="/Games" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><IoGameControllerOutline color='white'/></Flex></Link>
+                        <Link href="/#/Games" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><IoGameControllerOutline color='white'/></Flex></Link>
                         : 
-                        <Link href="/Games" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><IoGameControllerOutline color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Games</Text></Flex></Link>
+                        <Link href="/#/Games" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><IoGameControllerOutline color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Games</Text></Flex></Link>
 
                         }
                     </Box>
                     <Box w='100%'>
                         {barSize == "closed" ? 
-                        <Link href="/Stats" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><IoBarChartOutline color='white'/></Flex></Link>
+                        <Link href="/#/Stats" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><IoBarChartOutline color='white'/></Flex></Link>
                         : 
-                        <Link href="/Stats" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><IoBarChartOutline color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Stats</Text></Flex></Link>
+                        <Link href="/#/Stats" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><IoBarChartOutline color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Stats</Text></Flex></Link>
 
                         }
                     </Box>
                     <Box w='100%'>
                         {barSize == "closed" ? 
-                        <Link href="/Calendar" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiCalendar color='white'/></Flex></Link>
+                        <Link href="/#/Calendar" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiCalendar color='white'/></Flex></Link>
                         : 
-                        <Link href="/Calendar" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiCalendar color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Calendar</Text></Flex></Link>
+                        <Link href="/#/Calendar" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiCalendar color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Calendar</Text></Flex></Link>
 
                         }
                     </Box>
                     <Box w='100%'>
                         {barSize == "closed" ? 
-                        <Link href="/Settings" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiSettings color='white'/></Flex></Link>
+                        <Link href="/#/Settings" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiSettings color='white'/></Flex></Link>
                         : 
-                        <Link href="/Settings" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiSettings color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Settings</Text></Flex></Link>
+                        <Link href="/#/Settings" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiSettings color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Settings</Text></Flex></Link>
 
                         }
                     </Box>

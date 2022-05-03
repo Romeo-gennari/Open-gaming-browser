@@ -48,7 +48,7 @@ function Header2() {
                 Contact
               </Button>
               <Button colorScheme='orange' size={{xs:'10px', sm:'30px', md:'50px', lg:'70px'}} borderRadius='m' bg='#1A202C' color='white'>
-                <LinkOverlay href="/Login">
+                <LinkOverlay href="/#/Login">
                     Log In
                 </LinkOverlay>
               </Button>

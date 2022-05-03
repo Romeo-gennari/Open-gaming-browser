@@ -18,31 +18,31 @@ import Settings from './postauth/settings';
 
 import reportWebVitals from './reportWebVitals';
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, HashRouter, Routes, Route } from "react-router-dom";
 
 import { ChakraProvider } from '@chakra-ui/react'; 
 
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="Profile" element={<Profile />} />
-          <Route path="Download" element={<Download />} />
-          <Route path="Login" element={<Login />} />
-          <Route path="Register" element={<Register />} />
+          <Route exact path="/" element={<App />} />
+          <Route exact path="Profile" element={<Profile />} />
+          <Route exact path="Download" element={<Download />} />
+          <Route exact path="Login" element={<Login />} />
+          <Route exact path="Register" element={<Register />} />
 
-          <Route path="Home" element={<Home />} />
-          <Route path="Friends" element={<Friends />} />
-          <Route path="Library" element={<Library />} />
-          <Route path="Games" element={<Games />} />
-          <Route path="Stats" element={<Stats />} />
-          <Route path="Calendar" element={<Calendar />} />
-          <Route path="Settings" element={<Settings />} />
+          <Route exact path="Home" element={<Home />} />
+          <Route exact path="Friends" element={<Friends />} />
+          <Route exact path="Library" element={<Library />} />
+          <Route exact path="Games" element={<Games />} />
+          <Route exact path="Stats" element={<Stats />} />
+          <Route exact path="Calendar" element={<Calendar />} />
+          <Route exact path="Settings" element={<Settings />} />
           
         </Routes>
-      </BrowserRouter>,
+      </HashRouter>,
     </ChakraProvider>
   </React.StrictMode>,
   
