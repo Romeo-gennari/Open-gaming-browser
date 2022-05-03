@@ -59,7 +59,7 @@ function Login() {
                                 <Button type='submit' bg='black' color='white'>Log In</Button>
                             </Stack>
                             <div>
-                                <Link ml='50px' href="/Register">Nouveau sur OpenGaming ?</Link>  
+                                <Link ml='50px' href="/#/Register">Nouveau sur OpenGaming ?</Link>  
                             </div>
                         </Box>
                     </Box>
