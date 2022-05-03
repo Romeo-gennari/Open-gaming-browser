@@ -63,7 +63,7 @@ export async function create(req, res, next) {
 
   // Return the newly created game with its editor and publisher data
   const result = await db('game')
-    .where('id', insertResult[0].id)
+    .where('game.id', insertResult[0].id)
     .leftJoin('publisher', 'game.publisher_id', 'publisher.id')
     .leftJoin('editor', 'game.editor_id', 'editor.id')
     .first();
