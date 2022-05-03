@@ -1,9 +1,7 @@
 import Sidebar from "./sidebar";
 import Headband from "./Header";
 import userdata from '../dummyData/test-preset.json';
-import { Flex, Heading, HStack, VStack, Input, Button, Select, Image, Spacer, Modal, useDisclosure, ModalContent, ModalHeader, ModalOverlay, 
-  Center, InputGroup, InputRightElement, Text, Slider, SliderTrack, SliderFilledTrack, SliderThumb, SliderMark, Box } from '@chakra-ui/react';
-
+import { Flex, Input, Button, Modal, useDisclosure, ModalContent, ModalHeader, ModalOverlay, Center,Box, FormControl, ModalBody, FormLabel, ModalFooter } from '@chakra-ui/react';
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -17,7 +15,7 @@ align:left;
 const LeLibraryListed = styled.a`
 margin: 5px 5px;
 border: solid black;
-border-radius: 3px;
+border-radius: 5px;
 padding: 2px 2px 2px 2px;
 width: 85vw;
 height: 15vh;
@@ -43,7 +41,7 @@ margin-bottom: 15px;
 `
 const TagList = styled.div`
 border: 1px solid black;
-border-radius: 3px;
+border-radius: 5px;
 display: flex;
 flex-wrap: wrap;
 width: 40vw;
@@ -61,7 +59,7 @@ const Tagged = styled.div`
 height: 3vh;
 font-size: 2vh;
 border: 1px solid black;
-border-radius: 3px;
+border-radius: 5px;
 padding: 2px 2px 2px 2px;
 margin: 1px 1px 1px 1px;
 `
@@ -172,14 +170,16 @@ function PresetList(presetdata){
     return(
         <div>
             <PHeader>
-              <Button onClick={onOpen} borderRadius='none' bg='red' color='white' width='458px' colorScheme='red'>AddPreset</Button>
+              <Center>
+              <Button onClick={onOpen} borderRadius='none' bg='red' color='white' width='40%' h='4vh' colorScheme='red'>AddPreset</Button>
+              </Center>
             </PHeader>
             <LeLibraryList>
                 {data.map((preset)=>(
                 <LeLibraryListed key={preset.id} onClick={() => {}} >
                     <div>
                         <h1>{preset.title}</h1>
-                        <div><LibraryButton>Edit</LibraryButton><LibraryButton onClick={()=>{dodelete(preset.title);handleDelete();}}>Delete</LibraryButton></div>
+                        <Flex flexDir='row'><Button m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' colorScheme='gray'>Edit</Button><Button m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' colorScheme='gray' onClick={()=>{dodelete(preset.title);handleDelete();}}>Delete</Button></Flex>
                     </div>
                     <TagList>
                         {preset.games.map((game)=>(
@@ -188,44 +188,48 @@ function PresetList(presetdata){
                     </TagList> 
                 </LeLibraryListed>))} 
             </LeLibraryList>
-            <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false}>
-                        <ModalOverlay />
-                        <ModalContent>
-                            <Center>
-                                <Flex w='400px' flexDir='column' alignItems='center'>
-                                    <ModalHeader color='red'>New Preset</ModalHeader>
-                                    <form onSubmit={handleAddPreset}>
-                                        <p>Yo</p>
-                                        <InputGroup w='30vw'>
-                                            <Input isRequired id='title' placeholder="title" mb='3%' value={newtitle} onChange={({target}) => editnewtitle(target.value)}/>
-                                        </InputGroup>
-                                        <TagListS>
-                                          {newlist.map((game)=>(
-                                              <Tagged key={game.id}>{game.name}</Tagged>
-                                          ))}
-                                          <div>
-                                              <GameResearch placeholder="Research" onChange={event => setQuery(event.target.value)} />
-                                              {gamedata.filter(post => {
-                                                if (query == '') {}
-                                                else if (post.name.toLowerCase().includes(query.toLowerCase())) {
-                                                  return post;
-                                                }
-                                              }).map((game) => (
-                                                <div className="box" key={game.id}>
-                                                  <button onClick={()=>{newlist.push(game);setQuery("")}}>{game.name}</button>
-                                                </div>
-                                              ))}
-                                          </div>
-                                      </TagListS>
-                                        <Center mb='3%'>
-                                            <Button onClick={()=>{onClose();editnewlist([]);editnewtitle("");}} bg='red' colorScheme='red' w='45%' mr='1%'>Cancel Changes</Button>
-                                            <Button type='submit' bg='orange' colorScheme='orange' w='45%' ml='1%'>Save Preset</Button>
-                                        </Center>
-                                    </form>
-                                </Flex>
-                            </Center>
-                        </ModalContent>
-                    </Modal>
+            <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} >
+                <ModalOverlay />
+                <ModalContent margin='auto' alignItems='center' w='full' >
+                    <ModalHeader color='red'>New Preset</ModalHeader>
+                    <ModalBody>
+                      <form onSubmit={handleAddPreset}>
+                        <FormControl alignSelf='center' m='auto'>
+                          <FormLabel>Title:</FormLabel>
+                          <Input isRequired type='text' id='title' placeholder="Preset Title" value={newtitle} onChange={({target}) => editnewtitle(target.value)} mb='5%'/>
+                          <FormLabel>Preset Games:</FormLabel>
+                          <Input type='text' placeholder="Research" onChange={event => setQuery(event.target.value)}/>
+                          <Box borderWidth='1px' borderColor='black' borderRadius='5px' w='auto' h={['50px', '80px']} overflowY='auto'>
+                            {gamedata.filter(post => {
+                              if (query == '') {}
+                              else if (post.name.toLowerCase().includes(query.toLowerCase())) {
+                                return post;
+                              }
+                              }).map((game) => (
+                                <Box className="box" key={game.id}>
+                                  <Box borderWidth='1px' role='button' _hover={{backgroundColor: '#D3D3D3'}} onClick={()=>{newlist.push(game);setQuery("")}}>{game.name}</Box>
+                                </Box>
+                            ))}
+                          </Box>
+                          <FormLabel mt='5%'>Games Added:</FormLabel>
+                          <Box borderWidth='1px' borderColor='black' borderRadius='5px' w={[175, 280, 350]} h={[50, 80, 100]} overflowY='auto'>
+                            <Flex flexWrap='wrap'>
+                              {newlist.map((game)=>(
+                                <Box w='-moz-fit-content' maxH='30px' m='1px' borderWidth='1px' borderColor='black' borderRadius='5px' alignContent='center' textAlign='center' key={game.id}>{game.name}</Box>
+                              ))}
+                            </Flex>
+                          </Box>
+                        </FormControl>
+                      </form>
+                    </ModalBody>
+                    <ModalFooter>
+                      <Center mb='3%'>
+                        <Button onClick={()=>{onClose();editnewlist([]);editnewtitle("");}} bg='red' colorScheme='red' w='45%' mr='1%'>Cancel Changes</Button>
+                        <Button type='submit' bg='orange' colorScheme='orange' w='45%' ml='1%'>Save Preset</Button>
+                      </Center>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         
         </div>
         

@@ -5,7 +5,8 @@ import Headband from "./Header";
 import styled from 'styled-components';
 import {React, useState, useEffect} from "react";
 import axios from 'axios';
-import {Box} from "@chakra-ui/react"
+import { Button, Box, Text, Flex, Spacer } from "@chakra-ui/react";
+import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 
 const ResearchBar = styled.input`
 color: black;
@@ -182,13 +183,17 @@ function PresetLauncher(presetdata){
     }
     return(
         <Launcher>
-            <style>{`.red {color: red}.green {color: green}`}</style>
+            <style>{`.red {background-color: #FF0000}.green {background-color: #00C04B}`}</style>
             <PresetSelector>
-                <GenericButton onClick={()=>{decSelect();body=presetdata[selected].title;}}>L</GenericButton>
-                <button>{body}</button>
-                <GenericButton onClick={()=>{incSelect();body=presetdata[selected].title;}}>R</GenericButton>
+              <Flex w='auto'>
+                <Button bg='#00C04B' colorScheme='green' size='sm' onClick={()=>{decSelect();body=presetdata[selected].title;}}><ArrowBackIcon/></Button>
+                <Spacer/>
+                <Box borderRadius='5px' borderWidth='2px' borderColor='black'>{body}</Box>
+                <Spacer/>
+                <Button bg='#FF0000' colorScheme='red' size='sm' onClick={()=>{incSelect();body=presetdata[selected].title;}}><ArrowForwardIcon/></Button>
+              </Flex>            
             </PresetSelector>
-            <button className={color} onClick={()=>{alert("Preset "+ {getTitle} +" ignited!");setColor((color) => (color === "red" ? "green" : "red"));}}>START</button>
+            <Button className={color} color='white' colorScheme={color === 'red' ? 'red' : 'green'} onClick={()=>{alert("Preset "+ {getTitle} +" ignited!");setColor((color) => (color === "red" ? "green" : "red"));}}>{color === 'red' ? <Text>END</Text> : <Text>START</Text>}</Button>
         </Launcher>
     );
 }
@@ -223,7 +228,6 @@ function Home(){
                 <DisplayFriends />
                 <CoFi>Research match</CoFi>
                 <DisplayPresets />
-
             </div>
         </div>
         
