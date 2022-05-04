@@ -1,6 +1,15 @@
 import db from '../database.js';
-import { createPublisher, updatePublisher } from '../validators/publisher.js';
+import { createPublisher, publisherShape, publishersShape, updatePublisher } from '../models/publisher.js';
 import duplicateHandler from '../utils/duplicateHandler.js';
+
+async function fetchPublisher(id) {
+  return await publisherShape.withQuery(
+    db('publisher')
+      .where('publisher.id', id)
+      .select('publisher.*')
+      .first()
+  ).catch(duplicateHandler('Name is already in use', res));
+}
 
 /**
  * Find a specific publisher, with the ID given in the request's parameters
@@ -9,10 +18,11 @@ import duplicateHandler from '../utils/duplicateHandler.js';
  */
 export async function findOne(req, res) {
   const id = req.params.id;
-  const publisher = await db('publisher').where('id', id).first();
-  if (!publisher)
+  const publisher = await fetchPublisher(id);
+  if (publisher)
+    res.status(200).json(publisher);
+  else
     res.status(404).json({ message: 'Publisher not found' });
-  res.status(200).json(publisher);
 }
 
 /**
@@ -21,7 +31,9 @@ export async function findOne(req, res) {
  * @param {import('express').Response} res
  */
 export async function findAll(_req, res) {
-  const publishers = await db('publisher').select();
+  const publishers = await publishersShape.withQuery(
+    db('publisher').select('publisher.*')
+  );
   res.status(200).json(publishers);
 }
 
@@ -48,11 +60,8 @@ export async function create(req, res, next) {
     return;
 
   // Return the newly created publisher
-  const result = await db('publisher')
-    .where('id', insertResult[0].id)
-    .first();
-
-  res.status(201).json(result);
+  const publisher = await fetchPublisher(insertResult[0].id);
+  res.status(201).json(publisher);
 }
 
 /**
@@ -69,11 +78,13 @@ export async function update(req, res, next) {
     return;
   }
 
-  const result = await db('publisher')
+  await db('publisher')
     .where('id', id)
-    .returning(['id', 'name'])
+    .returning()
     .update(data);
-  res.status(200).json(result[0]);
+
+  const publisher = await fetchPublisher(id);
+  res.status(200).json(publisher);
 }
 
 /**

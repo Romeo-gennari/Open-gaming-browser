@@ -1,6 +1,19 @@
 import db from '../database.js';
-import { createGame, updateGame } from '../validators/game.js';
+import { createGame, gamesShape, updateGame } from '../models/game.js';
 import duplicateHandler from '../utils/duplicateHandler.js';
+import { gameShape } from '../models/game.js';
+import notFoundHandler from '../utils/notFoundHandler.js';
+
+async function fetchGame(id) {
+  return await gameShape.withQuery(
+    db('game')
+      .where('game.id', id)
+      .select('game.*', 'publisher.*', 'editor.*')
+      .leftJoin('publisher', 'game.publisher_id', 'publisher.id')
+      .leftJoin('editor', 'game.editor_id', 'editor.id')
+      .first()
+  ).catch(notFoundHandler);
+}
 
 /**
  * Find a specific game, with the ID given in the request's parameters
@@ -9,10 +22,12 @@ import duplicateHandler from '../utils/duplicateHandler.js';
  */
 export async function findOne(req, res) {
   const id = req.params.id;
-  const game = await db('game').where('id', id).first();
-  if (!game)
+
+  const game = await fetchGame(id);
+  if (game)
+    res.status(200).json(game);
+  else
     res.status(404).json({ message: 'Game not found' });
-  res.status(200).json(game);
 }
 
 /**
@@ -21,7 +36,12 @@ export async function findOne(req, res) {
  * @param {import('express').Response} res
  */
 export async function findAll(_req, res) {
-  const games = await db('game').select();
+  const games = await gamesShape.withQuery(
+    db('game')
+      .select('game.*', 'publisher.name as publisher_name', 'editor.name as editor_name')
+      .leftJoin('publisher', 'game.publisher_id', 'publisher.id')
+      .leftJoin('editor', 'game.editor_id', 'editor.id')
+  );
   res.status(200).json(games);
 }
 
@@ -62,13 +82,8 @@ export async function create(req, res, next) {
     return;
 
   // Return the newly created game with its editor and publisher data
-  const result = await db('game')
-    .where('game.id', insertResult[0].id)
-    .leftJoin('publisher', 'game.publisher_id', 'publisher.id')
-    .leftJoin('editor', 'game.editor_id', 'editor.id')
-    .first();
-
-  res.status(201).json(result);
+  const game = await fetchGame(insertResult[0].id);
+  res.status(201).json(game);
 }
 
 /**
@@ -85,11 +100,13 @@ export async function update(req, res, next) {
     return;
   }
 
-  const result = await db('game')
+  await db('game')
     .where('id', id)
-    .returning(['id', 'name', 'description', 'editor', 'release_year'])
+    .returning()
     .update(data);
-  res.status(200).json(result[0]);
+
+  const game = await fetchGame(id);
+  res.status(200).json(game);
 }
 
 /**
