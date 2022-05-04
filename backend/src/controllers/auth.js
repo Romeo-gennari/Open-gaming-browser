@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import passport from 'passport';
 import db from '../database.js';
-import { createUser, loginUser } from '../validators/user.js';
+import { createUser, loginUser } from '../models/user.js';
 import duplicateHandler from '../utils/duplicateHandler.js';
 
 /**

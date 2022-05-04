@@ -1,6 +1,16 @@
 import db from '../database.js';
-import { createEditor, updateEditor } from '../validators/editor.js';
+import { createEditor, editorShape, editorsShape, updateEditor } from '../models/editor.js';
 import duplicateHandler from '../utils/duplicateHandler.js';
+import notFoundHandler from '../utils/notFoundHandler.js';
+
+async function fetchEditor(id) {
+  return await editorShape.withQuery(
+    db('editor')
+      .where('editor.id', id)
+      .select('editor.*')
+      .first()
+  ).catch(notFoundHandler);
+}
 
 /**
  * Find a specific editor, with the ID given in the request's parameters
@@ -9,10 +19,11 @@ import duplicateHandler from '../utils/duplicateHandler.js';
  */
 export async function findOne(req, res) {
   const id = req.params.id;
-  const editor = await db('editor').where('id', id).first();
-  if (!editor)
+  const editor = await fetchEditor(id);
+  if (editor)
+    res.status(200).json(editor);
+  else
     res.status(404).json({ message: 'Editor not found' });
-  res.status(200).json(editor);
 }
 
 /**
@@ -21,7 +32,9 @@ export async function findOne(req, res) {
  * @param {import('express').Response} res
  */
 export async function findAll(_req, res) {
-  const editors = await db('editor').select();
+  const editors = await editorsShape.withQuery(
+    db('editor').select('editor.*')
+  );
   res.status(200).json(editors);
 }
 
@@ -48,11 +61,8 @@ export async function create(req, res, next) {
     return;
 
   // Return the newly created editor
-  const result = await db('editor')
-    .where('id', insertResult[0].id)
-    .first();
-
-  res.status(201).json(result);
+  const editor = await fetchEditor(insertResult[0].id);
+  res.status(201).json(editor);
 }
 
 /**
@@ -69,11 +79,13 @@ export async function update(req, res, next) {
     return;
   }
 
-  const result = await db('editor')
+  await db('editor')
     .where('id', id)
-    .returning(['id', 'name'])
+    .returning()
     .update(data);
-  res.status(200).json(result[0]);
+
+  const editor = await fetchEditor(id);
+  res.status(200).json(editor);
 }
 
 /**
