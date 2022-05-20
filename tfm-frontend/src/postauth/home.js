@@ -8,6 +8,8 @@ import axios from 'axios';
 import { Button, Box, Text, Flex, Spacer } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 
+import api from '../api';
+
 const ResearchBar = styled.input`
 color: black;
 width: 85vw;
@@ -74,8 +76,7 @@ function GetFriends() {
     const [data, setData] = useState("");
     
     const getData = () => {
-      axios
-        .get ("http://localhost:5051/friends.json")
+      api.get ("/friends")
         .then((response) => {
           console.log(response.data);
           setData(response.data);
@@ -144,8 +145,7 @@ function GetPresets() {
     const [data, setData] = useState("");
     
     const getData = () => {
-      axios
-        .get ("http://localhost:5051/presets.json")
+      api.get ("/presets")
         .then((response) => {
           console.log(response.data);
           setData(response.data);
