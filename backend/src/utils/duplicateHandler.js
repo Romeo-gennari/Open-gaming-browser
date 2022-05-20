@@ -1,7 +1,7 @@
 export default function duplicateHandler(message, res) {
   return function (err) {
     // pg: 23505, mysql: ER_DUP_ENTRY
-    if (err.code === '23505') {
+    if (err.code === 'ER_DUP_ENTRY') {
       res.status(401).json({ message });
       return;
     }
