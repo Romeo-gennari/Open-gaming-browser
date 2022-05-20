@@ -2,6 +2,7 @@ import { Router } from 'express';
 import editor from './controllers/editor.js';
 import game from './controllers/game.js';
 import publisher from './controllers/publisher.js';
+import friend from './controllers/friends.js';
 import * as auth from './controllers/auth.js';
 import ensureAuthenticated from './middlewares/ensureAuthenticated.js';
 import safeUser from './utils/safeUser.js';
@@ -45,5 +46,13 @@ router.route('/publishers/:id')
   .get(publisher.findOne)
   .patch(ensureAuthenticated, publisher.update)
   .delete(ensureAuthenticated, publisher.remove);
+
+// Friends CRUD
+router.route('/friend_of')
+  .get(friend.findAll)
+  .post(ensureAuthenticated, friend.create);
+router.route('/friend_of/:id')
+  .get(friend.findOne)
+  .delete(ensureAuthenticated, friend.remove);
 
 export default router;
