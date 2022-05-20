@@ -1,17 +1,22 @@
 import db from '../database.js';
 import duplicateHandler from '../utils/duplicateHandler.js';
-import { createFriends, friendShape } from '../models/friends.js';
-import notFoundHandler from '../utils/notFoundHandler.js';
+import { createFriends } from '../models/friends.js';
+import { userShape, usersShape } from '../models/user.js';
 
 async function fetchFriend(id1, id2) {
-  return await friendShape.withQuery(
-    db('friend_of')
-    .where('user1_id', id1)
-    .where('user2_id', id2)
-    .leftJoin('user as user1', 'friend_of.user1_id', 'user1.id')
-    //.leftJoin('user as u2', 'friend_of.user2_id', 'u2.id')
-    .first()
-  ).catch(notFoundHandler);
+  const friend = await db('friend_of').where({
+    user1_id: id1,
+    user2_id: id2,
+  }).first();
+  if (!friend) return null;
+
+  delete friend.user1_id;
+  delete friend.user2_id;
+
+  friend.user1 = await userShape.withQuery(db('user').where({ id: id1 }).first());
+  friend.user2 = await userShape.withQuery(db('user').where({ id: id2 }).first());
+
+  return friend;
 }
 
 /**
@@ -19,9 +24,9 @@ async function fetchFriend(id1, id2) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
- export async function findOne(req, res) {
+export async function findOne(req, res) {
   const id = req.params.id;
-  const friend = await db('friend_of').where('user2_id', id).first();
+  const friend = await fetchFriend(req.user.id, id);
   if (!friend)
     res.status(404).json({ message: 'Friend not found' });
   res.status(200).json(friend);
@@ -32,10 +37,19 @@ async function fetchFriend(id1, id2) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
- export async function findAll(_req, res) {
-    const friends = await db('friend_of').select();
-    res.status(200).json(friends);
+export async function findAll(_req, res) {
+  const friends = await db('friend_of').select();
+  const users = await usersShape.withQuery(db('user').select());
+
+  for (const friend of friends) {
+    friend.user1 = users.find(user => user.id === friend.user1_id);
+    friend.user2 = users.find(user => user.id === friend.user2_id);
+    delete friend.user1_id;
+    delete friend.user2_id;
   }
+
+  res.status(200).json(friends);
+}
 
 /**
  * Create a new friend
@@ -51,8 +65,6 @@ export async function create(req, res, next) {
     return;
   }
 
-  console.log(data);
-
   // Check if the user2 exists
   const user2 = await db('user').where('id', data.user2_id).first();
   if (!user2) {
@@ -66,7 +78,7 @@ export async function create(req, res, next) {
     .insert({ ...data, user1_id: req.user.id })
     .catch(duplicateHandler('Already your friend', res));
   if (!insertResult)
-    return;    
+    return;
 
   // Return the newly created friend
   const result = await fetchFriend(insertResult[0].user1_id, insertResult[0].user2_id)
@@ -79,18 +91,18 @@ export async function create(req, res, next) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
- export async function remove(req, res) {
-    const id = req.params.id;
-    const result = await db('friend_of').where('user2_id', id).del();
-    if (result === 0)
-      res.status(404).json({ message: 'Friend not found' });
-    else
-      res.status(204).json();
+export async function remove(req, res) {
+  const id = req.params.id;
+  const result = await db('friend_of').where('user2_id', id).del();
+  if (result === 0)
+    res.status(404).json({ message: 'Friend not found' });
+  else
+    res.status(204).json();
 }
 
 export default {
-    findOne, 
-    findAll, 
-    create,
-    remove,
+  findOne,
+  findAll,
+  create,
+  remove,
 }

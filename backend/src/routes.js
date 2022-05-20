@@ -48,10 +48,10 @@ router.route('/publishers/:id')
   .delete(ensureAuthenticated, publisher.remove);
 
 // Friends CRUD
-router.route('/friend_of')
+router.route('/friends')
   .get(friend.findAll)
   .post(ensureAuthenticated, friend.create);
-router.route('/friend_of/:id')
+router.route('/friends/:id')
   .get(friend.findOne)
   .delete(ensureAuthenticated, friend.remove);
 
