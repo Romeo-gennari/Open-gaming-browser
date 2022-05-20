@@ -5,7 +5,7 @@ import 'dotenv/config';
  */
 export default {
   development: {
-    client: 'postgresql',
+    client: 'mariadb',
     connection: {
       host: '127.0.0.1',
       user: process.env.DATABASE_USER,
@@ -15,7 +15,7 @@ export default {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'mariadb',
     connection: {
       host: '127.0.0.1',
       user: process.env.DATABASE_USER,
