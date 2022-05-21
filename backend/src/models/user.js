@@ -29,3 +29,4 @@ export const userShape = n.type({
   username: n.string('user.username'),
   email: n.string('user.email'),
 });
+export const usersShape = n.array(userShape);

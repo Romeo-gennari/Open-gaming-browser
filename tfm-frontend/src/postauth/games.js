@@ -6,6 +6,7 @@ import {React, useState, useEffect} from "react";
 
 import Sidebar from './sidebar';
 import Headband from "./Header";
+import api from '../api';
 
 const GameList = styled.div`
 margin-top: 3vh;
@@ -38,8 +39,7 @@ function Get() {
     const [data, setData] = useState("");
     
     const getData = () => {
-      axios
-        .get ("http://localhost:5051/games.json")
+      api.get ("games.json")
         .then((response) => {
           console.log(response.data);
           setData(response.data);

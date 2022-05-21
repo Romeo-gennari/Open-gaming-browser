@@ -9,6 +9,8 @@ import OpenGaming from './../images/open_gaming_logo.png'
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import api from '../api';
+
 function Login() {
 
     const [emailAddress, setEmailAddress] = useState('');
@@ -21,7 +23,7 @@ function Login() {
         event.preventDefault();
         console.log('EmailAddress', emailAddress);
         console.log('Password', password);
-        axios.post("http://localhost:5050/auth/login",{
+        api.post("auth/login",{
             email: emailAddress,
             password:password
           }).then(res=>{console.log(res)}).catch(error=>{console.log(error)});
