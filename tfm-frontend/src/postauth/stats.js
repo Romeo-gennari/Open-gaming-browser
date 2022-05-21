@@ -36,7 +36,7 @@ function Stats(){
                                 })}
                             </Box>
                             <Divider orientation='vertical' h='auto' mr='2%'/>
-                            <Flex flexWrap='wrap' maxH='250px' overflowY='auto' w={{base: '120px', md:'185px', lg:'270px'}} h={{base: '170px', md:'225px', lg: '245px'}} margin='auto'>
+                            <Flex alignContent='flex-start' flexWrap='wrap' maxH='250px' overflowY='auto' w={{base: '120px', md:'185px', lg:'270px'}} h={{base: '170px', md:'225px', lg: '245px'}} margin='auto'>
                             {mm.map((players)=>{
                                 return <Popover isLazy trigger='hover' closeDelay='100' maxW='100px' w='auto' h='auto'>
                                         <PopoverTrigger>

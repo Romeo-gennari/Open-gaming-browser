@@ -37,17 +37,17 @@ function Header2() {
               </HStack>
             </Link>
             <Spacer/>
-            <HStack gap='2'>
-              <Button colorScheme='orange' size={{xs:'10px', sm:'30px', md:'50px', lg:'70px'}} borderRadius='m' bg='#1A202C' color='white' onClick={scrollTop}>
+            <HStack gap='2px'>
+              <Button colorScheme='orange' size={{xs:'10px', sm:'30px', md:'50px', lg:'70px'}} borderRadius='5px' padding='2px' bg='#1A202C' color='white' onClick={scrollTop}>
                 Home
               </Button>
-              <Button colorScheme='orange' size={{xs:'10px', sm:'30px', md:'50px', lg:'70px'}} borderRadius='m' bg='#1A202C' color='white' onClick={scrollFeatures}>
+              <Button colorScheme='orange' size={{xs:'10px', sm:'30px', md:'50px', lg:'70px'}} borderRadius='5px' padding='2px' bg='#1A202C' color='white' onClick={scrollFeatures}>
                 Features
               </Button>
-              <Button colorScheme='orange' size={{xs:'10px', sm:'30px', md:'50px', lg:'70px'}} borderRadius='m' bg='#1A202C' color='white' onClick={scrollContact}>
+              <Button colorScheme='orange' size={{xs:'10px', sm:'30px', md:'50px', lg:'70px'}} borderRadius='5px' padding='2px' bg='#1A202C' color='white' onClick={scrollContact}>
                 Contact
               </Button>
-              <Button colorScheme='orange' size={{xs:'10px', sm:'30px', md:'50px', lg:'70px'}} borderRadius='m' bg='#1A202C' color='white'>
+              <Button colorScheme='orange' size={{xs:'10px', sm:'30px', md:'50px', lg:'70px'}} borderRadius='5px' padding='2px' bg='#1A202C' color='white'>
                 <LinkOverlay href="/#/Login">
                     Log In
                 </LinkOverlay>

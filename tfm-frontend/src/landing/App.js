@@ -4,10 +4,7 @@ import Benefits from "./Benefits";
 import Contact from "./Contact";
 import Community from "./Community";
 import About from "./About";
-import { VStack, HStack, Button, Input, Center, Box, Image, Heading, Flex, Text, Square } from '@chakra-ui/react';
-import { SearchIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
-import JSONDATA from "./MOCK_DATA.json";
+import { Center, Image, Heading, Flex, Text, useMediaQuery } from '@chakra-ui/react';
 import home_image from '../images/home_image.webp'
 import './../App.css';
 
@@ -58,24 +55,34 @@ function Home(){
 */
 
 function Home(){
+
+  const [isLarge] = useMediaQuery('(min-width: 900px)')
+
   return(
     <div className='App'>
-      <Center>
-        <VStack>
-          <HStack mt='170px'>
-            <VStack>
-              <Flex flexDir='column' alignItems='start'>
-                <Heading mb='40px' color='white' size='4xl'>MATCH</Heading>
-                <Heading color='white' size='4xl' mr='40px'>MATCHER</Heading>
-              </Flex>
-            </VStack>
-            <Image height='180px' src={home_image} alt='home_image'/>
-          </HStack>
-          <Flex alignItems='start'>
-            <Text color='white' size='3xl' mr='520px' mt='10px'>Match your friends to find a Match</Text>
+      {isLarge ? 
+      <Center mt='20vh' mb='0'>
+        <Flex flexDir='row' justifyContent='center' alignItems='center'>
+          <Flex w={[300, 400, 500, 600 ]} flexDir='column' alignItems='start'>
+            <Heading color='white' fontSize={{ base: '40px', md: '56px', lg: '90px'}}>MATCH</Heading>
+            <Heading color='white' fontSize={{ base: '40px', md: '56px', lg: '90px' }}>MATCHER</Heading>
+            <Text color='white' mt='5%' fontSize={{ base: '16px', md: '22px', lg: '30px' }}>Match your friends to find a Match</Text>
           </Flex>
-        </VStack>
+          <Image w={[300, 400, 500, 600, 700, 800 ]} src={home_image} alt='home_image'/>
+        </Flex>
+      </Center> 
+      :
+      <Center mt='20vh' mb='10vh'>
+        <Flex flexDir='column' h='max' w='max' justifyContent='space-around' alignItems='center'>
+          <Flex flexDir='column' alignItems='center'>
+            <Heading color='white' fontSize={{ base: '44px', md: '56px', lg: '90px'}}>MATCH</Heading>
+            <Heading color='white' fontSize={{ base: '44px', md: '56px', lg: '90px' }}>MATCHER</Heading>
+            <Text color='white' mt='5%' fontSize={{ base: '16px', md: '32px' }}>Match your friends to find a Match</Text>
+          </Flex>
+          <Image mt='10vh' alignSelf='start' w={[300, 400, 500, 600, 700]} src={home_image} alt='home_image'/>
+        </Flex>
       </Center>
+      }
     </div>
   )
 }
