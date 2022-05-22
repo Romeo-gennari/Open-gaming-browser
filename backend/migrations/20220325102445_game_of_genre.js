@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-export function up(knex) {
+exports.up = (knex) => {
   return knex.schema.createTable('game_of_genre', t => {
     t.integer('game_id').unsigned().references('game.id');
     t.integer('genre_id').unsigned().references('genre.id');
@@ -15,6 +15,6 @@ export function up(knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-export function down(knex) {
+exports.down = (knex) => {
   return knex.schema.dropTable('game_of_genre');
 }

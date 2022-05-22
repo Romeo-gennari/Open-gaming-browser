@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-export function up(knex) {
+exports.up = (knex) => {
   return knex.schema.createTable('session', t => {
     t.increments('id').primary().unsigned();
     t.datetime('date_and_time');
@@ -14,6 +14,6 @@ export function up(knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-export function down(knex) {
+exports.down = (knex) => {
   return knex.schema.dropTable('session');
 }

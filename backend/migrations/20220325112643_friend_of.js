@@ -2,7 +2,7 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-export function up(knex) {
+exports.up = (knex) => {
   return knex.schema.createTable('friend_of', t => {
     t.integer('user1_id').unsigned().references('user.id');
     t.integer('user2_id').unsigned().references('user.id');
@@ -16,6 +16,6 @@ export function up(knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-export function down(knex) {
+exports.down = (knex) => {
   return knex.schema.dropTable('friend_of');
 }
