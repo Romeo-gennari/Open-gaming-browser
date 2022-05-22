@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node ./src/main.js",
-    "dev": "nodemon ./src/main.js"
+    "dev": "nodemon ./src/main.js",
+    "migrate": "npx knex migrate:latest"
   },
   "keywords": [],
   "author": "Open Gaming",
