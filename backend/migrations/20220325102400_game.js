@@ -8,8 +8,8 @@ export function up(knex) {
     t.string('name').unique().index()
     t.date('release_date');
     t.string('description');
-    t.integer('editor_id').references('editor.id');
-    t.integer('publisher_id').references('publisher.id');
+    t.integer('editor_id').unsigned().references('editor.id');
+    t.integer('publisher_id').unsigned().references('publisher.id');
     t.timestamps(true, true);
   });
 }
