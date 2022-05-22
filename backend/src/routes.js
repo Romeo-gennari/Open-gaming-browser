@@ -1,11 +1,11 @@
-import { Router } from 'express';
-import editor from './controllers/editor.js';
-import game from './controllers/game.js';
-import publisher from './controllers/publisher.js';
-import friend from './controllers/friends.js';
-import * as auth from './controllers/auth.js';
-import ensureAuthenticated from './middlewares/ensureAuthenticated.js';
-import safeUser from './utils/safeUser.js';
+const { Router } = require('express');
+const editor = require('./controllers/editor.js');
+const game = require('./controllers/game.js');
+const publisher = require('./controllers/publisher.js');
+const friend = require('./controllers/friends.js');
+const auth = require('./controllers/auth.js');
+const ensureAuthenticated = require('./middlewares/ensureAuthenticated.js');
+const safeUser = require('./utils/safeUser.js');
 
 const router = Router();
 
@@ -55,4 +55,4 @@ router.route('/friends/:id')
   .get(friend.findOne)
   .delete(ensureAuthenticated, friend.remove);
 
-export default router;
+module.exports = router;

@@ -1,7 +1,7 @@
-import passport from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local';
-import bcrypt from 'bcrypt';
-import db from './database.js';
+const passport = require('passport');
+const { Strategy: LocalStrategy } = require('passport-local');
+const bcrypt = require('bcrypt');
+const db = require('./database.js');
 
 passport.use('local', new LocalStrategy(
   { usernameField: 'username', passwordField: 'password' },

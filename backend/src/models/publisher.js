@@ -1,20 +1,27 @@
-import { z } from 'zod';
-import * as n from 'nested-knex';
+const { z } = require('zod');
+const n = require('nested-knex');
 
 /**
  * Validation
  */
-export const createPublisher = z.object({
+const createPublisher = z.object({
   name: z.string().nonempty(),
 }).strict();
 
-export const updatePublisher = createPublisher.partial();
+const updatePublisher = createPublisher.partial();
 
 /**
  * Shape
  */
-export const publisherShape = n.type({
+const publisherShape = n.type({
   id: n.number('publisher.id', { id: true }),
   name: n.string('publisher.name'),
 });
-export const publishersShape = n.array(publisherShape);
+const publishersShape = n.array(publisherShape);
+
+module.exports = {
+  createPublisher,
+  updatePublisher,
+  publisherShape,
+  publishersShape,
+}

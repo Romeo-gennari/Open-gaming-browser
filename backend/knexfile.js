@@ -1,9 +1,9 @@
-import 'dotenv/config';
+require('dotenv/config');
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
-export default {
+module.exports = {
   development: {
     client: 'mysql',
     connection: {

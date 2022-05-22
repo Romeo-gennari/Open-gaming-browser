@@ -1,16 +1,16 @@
-import { z } from 'zod';
-import * as n from 'nested-knex';
+const { z } = require('zod');
+const n = require('nested-knex');
 
 /**
  * Validation
  */
-export const createUser = z.object({
+const createUser = z.object({
   username: z.string().nonempty(),
   email: z.string().email().nonempty(),
   password: z.string().nonempty(),
 }).strict();
 
-export const loginUser = z.union([
+const loginUser = z.union([
   z.object({
     username: z.string().nonempty(),
     password: z.string().nonempty(),
@@ -24,9 +24,16 @@ export const loginUser = z.union([
 /**
  * Shape
  */
-export const userShape = n.type({
+const userShape = n.type({
   id: n.number('user.id', { id: true }),
   username: n.string('user.username'),
   email: n.string('user.email'),
 });
-export const usersShape = n.array(userShape);
+const usersShape = n.array(userShape);
+
+module.exports = {
+  createUser,
+  loginUser,
+  userShape,
+  usersShape,
+}

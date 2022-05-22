@@ -1,4 +1,4 @@
-export default function safeUser(user) {
+module.exports = function safeUser(user) {
   return {
     username: user.username,
     email: user.email,

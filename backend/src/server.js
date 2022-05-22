@@ -1,11 +1,15 @@
-import { createServer } from 'node:http';
-import express from 'express';
+const { createServer } = require('http');
+const express = require('express');
 
-export const app = express();
-export const server = createServer(app);
+const app = express();
+const server = createServer(app);
 
 // Application listener
-export const port = process.env.PORT ?? 5050;
+const port = process.env.PORT ?? 5050;
 server.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`);
 });
+
+exports.app = app;
+exports.server = server;
+exports.port = port;

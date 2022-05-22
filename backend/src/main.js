@@ -1,16 +1,16 @@
-import 'dotenv/config';
-import './passport.js';
+require('dotenv/config');
+require('./passport.js');
 
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import helmet from 'helmet';
-import knexSession from 'connect-session-knex';
-import session from 'express-session';
-import passport from 'passport';
-import { ZodError } from 'zod';
-import knex from './database.js';
-import index from './routes.js';
-import { app } from './server.js';
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const helmet = require('helmet');
+const knexSession = require('connect-session-knex');
+const session = require('express-session');
+const passport = require('passport');
+const { ZodError } = require('zod');
+const knex = require('./database.js');
+const index = require('./routes.js');
+const { app } = require('./server.js');
 
 const KnexSessionStore = knexSession(session);
 

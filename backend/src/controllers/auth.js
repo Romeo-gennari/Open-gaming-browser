@@ -1,8 +1,8 @@
-import bcrypt from 'bcrypt';
-import passport from 'passport';
-import db from '../database.js';
-import { createUser, loginUser } from '../models/user.js';
-import duplicateHandler from '../utils/duplicateHandler.js';
+const bcrypt = require('bcrypt');
+const passport = require('passport');
+const db = require('../database.js');
+const { createUser, loginUser } = require('../models/user.js');
+const duplicateHandler = require('../utils/duplicateHandler.js');
 
 /**
  * Login in to an existing account
@@ -10,7 +10,7 @@ import duplicateHandler from '../utils/duplicateHandler.js';
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export function login(req, res, next) {
+function login(req, res, next) {
   const { success, error } = loginUser.safeParse(req.body);
   if (!success) {
     next(error);
@@ -26,7 +26,7 @@ export function login(req, res, next) {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export async function register(req, res, next) {
+async function register(req, res, next) {
   const { success, data, error } = createUser.safeParse(req.body);
   if (!success) {
     next(error);
@@ -61,7 +61,13 @@ export async function register(req, res, next) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export function logout(req, res) {
+function logout(req, res) {
   req.logout();
   res.status(200).json({ message: 'Logged Out' });
+}
+
+module.exports = {
+  login,
+  register,
+  logout,
 }

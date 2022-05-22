@@ -1,6 +1,6 @@
-import db from '../database.js';
-import { createPublisher, publisherShape, publishersShape, updatePublisher } from '../models/publisher.js';
-import duplicateHandler from '../utils/duplicateHandler.js';
+const db = require('../database.js');
+const { createPublisher, publisherShape, publishersShape, updatePublisher } = require('../models/publisher.js');
+const duplicateHandler = require('../utils/duplicateHandler.js');
 
 async function fetchPublisher(id) {
   return await publisherShape.withQuery(
@@ -16,7 +16,7 @@ async function fetchPublisher(id) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function findOne(req, res) {
+async function findOne(req, res) {
   const id = req.params.id;
   const publisher = await fetchPublisher(id);
   if (publisher)
@@ -30,7 +30,7 @@ export async function findOne(req, res) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function findAll(_req, res) {
+async function findAll(_req, res) {
   const publishers = await publishersShape.withQuery(
     db('publisher').select('publisher.*')
   );
@@ -43,7 +43,7 @@ export async function findAll(_req, res) {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export async function create(req, res, next) {
+async function create(req, res, next) {
   // Parse the given body to check if it contain a valid publisher data
   const { success, data, error } = createPublisher.safeParse(req.body);
   if (!success) {
@@ -70,7 +70,7 @@ export async function create(req, res, next) {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export async function update(req, res, next) {
+async function update(req, res, next) {
   const id = req.params.id;
   const { success, data, error } = updatePublisher.safeParse(req.body);
   if (!success) {
@@ -92,7 +92,7 @@ export async function update(req, res, next) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function remove(req, res) {
+async function remove(req, res) {
   const id = req.params.id;
   const result = await db('publisher').where('id', id).del();
   if (result === 0)
@@ -101,7 +101,7 @@ export async function remove(req, res) {
     res.status(204).json();
 }
 
-export default {
+module.exports = {
   findOne,
   findAll,
   create,

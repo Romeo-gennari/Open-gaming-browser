@@ -1,7 +1,7 @@
-import db from '../database.js';
-import duplicateHandler from '../utils/duplicateHandler.js';
-import { createFriends } from '../models/friends.js';
-import { userShape, usersShape } from '../models/user.js';
+const db = require('../database.js');
+const duplicateHandler = require('../utils/duplicateHandler.js');
+const { createFriends } = require('../models/friends.js');
+const { userShape, usersShape } = require('../models/user.js');
 
 async function fetchFriend(id1, id2) {
   const friend = await db('friend_of').where({
@@ -24,7 +24,7 @@ async function fetchFriend(id1, id2) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function findOne(req, res) {
+async function findOne(req, res) {
   const id = req.params.id;
   const friend = await fetchFriend(req.user.id, id);
   if (!friend)
@@ -37,7 +37,7 @@ export async function findOne(req, res) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function findAll(_req, res) {
+async function findAll(_req, res) {
   const friends = await db('friend_of').select();
   const users = await usersShape.withQuery(db('user').select());
 
@@ -57,7 +57,7 @@ export async function findAll(_req, res) {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export async function create(req, res, next) {
+async function create(req, res, next) {
   // Parse the given body to check if it contain a valid editor data
   const { success, data, error } = createFriends.safeParse(req.body);
   if (!success) {
@@ -91,7 +91,7 @@ export async function create(req, res, next) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function remove(req, res) {
+async function remove(req, res) {
   const id = req.params.id;
   const result = await db('friend_of').where('user2_id', id).del();
   if (result === 0)
@@ -100,7 +100,7 @@ export async function remove(req, res) {
     res.status(204).json();
 }
 
-export default {
+module.exports = {
   findOne,
   findAll,
   create,

@@ -1,7 +1,7 @@
-import db from '../database.js';
-import { createEditor, editorShape, editorsShape, updateEditor } from '../models/editor.js';
-import duplicateHandler from '../utils/duplicateHandler.js';
-import notFoundHandler from '../utils/notFoundHandler.js';
+const db = require('../database.js');
+const { createEditor, editorShape, editorsShape, updateEditor } = require('../models/editor.js');
+const duplicateHandler = require('../utils/duplicateHandler.js');
+const notFoundHandler = require('../utils/notFoundHandler.js');
 
 async function fetchEditor(id) {
   return await editorShape.withQuery(
@@ -17,7 +17,7 @@ async function fetchEditor(id) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function findOne(req, res) {
+async function findOne(req, res) {
   const id = req.params.id;
   const editor = await fetchEditor(id);
   if (editor)
@@ -31,7 +31,7 @@ export async function findOne(req, res) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function findAll(_req, res) {
+async function findAll(_req, res) {
   const editors = await editorsShape.withQuery(
     db('editor').select('editor.*')
   );
@@ -44,7 +44,7 @@ export async function findAll(_req, res) {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export async function create(req, res, next) {
+async function create(req, res, next) {
   // Parse the given body to check if it contain a valid editor data
   const { success, data, error } = createEditor.safeParse(req.body);
   if (!success) {
@@ -71,7 +71,7 @@ export async function create(req, res, next) {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export async function update(req, res, next) {
+async function update(req, res, next) {
   const id = req.params.id;
   const { success, data, error } = updateEditor.safeParse(req.body);
   if (!success) {
@@ -93,7 +93,7 @@ export async function update(req, res, next) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function remove(req, res) {
+async function remove(req, res) {
   const id = req.params.id;
   const result = await db('editor').where('id', id).del();
   if (result === 0)
@@ -102,7 +102,7 @@ export async function remove(req, res) {
     res.status(204).json();
 }
 
-export default {
+module.exports = {
   findOne,
   findAll,
   create,

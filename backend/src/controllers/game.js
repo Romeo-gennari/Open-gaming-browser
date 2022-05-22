@@ -1,8 +1,8 @@
-import db from '../database.js';
-import { createGame, gamesShape, updateGame } from '../models/game.js';
-import duplicateHandler from '../utils/duplicateHandler.js';
-import { gameShape } from '../models/game.js';
-import notFoundHandler from '../utils/notFoundHandler.js';
+const db = require('../database.js');
+const { createGame, gamesShape, updateGame } = require('../models/game.js');
+const duplicateHandler = require('../utils/duplicateHandler.js');
+const { gameShape } = require('../models/game.js');
+const notFoundHandler = require('../utils/notFoundHandler.js');
 
 async function fetchGame(id) {
   return await gameShape.withQuery(
@@ -20,7 +20,7 @@ async function fetchGame(id) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function findOne(req, res) {
+async function findOne(req, res) {
   const id = req.params.id;
 
   const game = await fetchGame(id);
@@ -35,7 +35,7 @@ export async function findOne(req, res) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function findAll(_req, res) {
+async function findAll(_req, res) {
   const games = await gamesShape.withQuery(
     db('game')
       .select('game.*', 'publisher.name as publisher_name', 'editor.name as editor_name')
@@ -51,7 +51,7 @@ export async function findAll(_req, res) {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export async function create(req, res, next) {
+async function create(req, res, next) {
   // Parse the given body to check if it contain a valid game data
   const { success, data, error } = createGame.safeParse(req.body);
   if (!success) {
@@ -92,7 +92,7 @@ export async function create(req, res, next) {
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} next
  */
-export async function update(req, res, next) {
+async function update(req, res, next) {
   const id = req.params.id;
   const { success, data, error } = updateGame.safeParse(req.body);
   if (!success) {
@@ -114,7 +114,7 @@ export async function update(req, res, next) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function remove(req, res) {
+async function remove(req, res) {
   const id = req.params.id;
   const result = await db('game').where('id', id).del();
   if (result === 0)
@@ -123,7 +123,7 @@ export async function remove(req, res) {
     res.status(204).json();
 }
 
-export default {
+module.exports = {
   findOne,
   findAll,
   create,
