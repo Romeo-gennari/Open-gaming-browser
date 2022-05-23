@@ -4,7 +4,7 @@ import OpenGaming from '../images/open_gaming_logo.png';
 
 import { WarningIcon, CheckCircleIcon } from "@chakra-ui/icons";
 
-import axios from 'axios';
+import api from "../api";
 import { useEffect, useState } from "react";
 
 const UserAvatar = styled.img`
@@ -26,8 +26,8 @@ function GetHeaderProfile(){
     const [userdata, setUserdata] = useState([]);
       
     const getData = () => {
-      axios
-        .get ("http://localhost:5051/test2.json")
+      api
+        .get ("/auth/me")
         .then((response) => {
           console.log(response.data);
           setUserdata(response.data);
