@@ -45,8 +45,8 @@ function GetFriends() {
     const [data, setData] = useState("");
     
     const getData = () => {
-      axios
-        .get ("api.open-gaming.fr/friends.json")
+      api
+        .get ("/friends")
         .then((response) => {
           console.log(response.data);
           setData(response.data);

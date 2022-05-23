@@ -39,7 +39,7 @@ function Get() {
     const [data, setData] = useState("");
     
     const getData = () => {
-      api.get ("games.json")
+      api.get ("/games")
         .then((response) => {
           console.log(response.data);
           setData(response.data);
