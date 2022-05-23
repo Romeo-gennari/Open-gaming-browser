@@ -6,7 +6,8 @@ import {React, useState, useEffect} from "react";
 
 import Sidebar from './sidebar';
 import Headband from "./Header";
-import api from '../api';
+
+import GetGames from './getters/GetGames';
 
 const GameList = styled.div`
 margin-top: 3vh;
@@ -33,31 +34,6 @@ display: block;
 margin-left: auto;
 margin-right: auto;
 `
-
-
-function Get() {
-    const [data, setData] = useState("");
-    
-    const getData = () => {
-      api.get ("/games")
-        .then((response) => {
-          console.log(response.data);
-          setData(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    
-    useEffect(() => {
-      getData();
-    }, []);
-    
-    return(
-      data
-    );
-  }
-
 
 
 let gameArray = []
@@ -95,7 +71,7 @@ function AddGame(id) {
 }
 
 function Gamess(){
-    const data = Get();
+    const data = GetGames();
     console.log(data);
     const displayData = () => {
     return data ? (
@@ -119,6 +95,11 @@ function Games(){
             <Sidebar />
             <Headband />
             <div className='paBody'>
+                <div>
+                  <button>Add Game</button>
+                  <button>Add Studio</button>
+                  <button>Add Publisher</button>
+                </div>
                 <h1>Games</h1>
                 <Gamess />
             </div>

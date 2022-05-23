@@ -3,7 +3,8 @@ import Headband from "./Header";
 
 import styled from 'styled-components';
 import {React, useState, useEffect} from "react";
-import axios from "axios";
+
+import GetFriends from "./getters/GetFriends";
 
 const ResearchBar = styled.input`
 color: black;
@@ -40,30 +41,6 @@ const DeFi = styled.h1`
 font-size: 25px;
 color: red;
 `
-
-function GetFriends() {
-    const [data, setData] = useState("");
-    
-    const getData = () => {
-      api
-        .get ("/friends")
-        .then((response) => {
-          console.log(response.data);
-          setData(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    
-    useEffect(() => {
-      getData();
-    }, []);
-    
-    return(
-      data
-    );
-}
 
 function SearchBar (Data){
     const [query, setQuery] = useState("")

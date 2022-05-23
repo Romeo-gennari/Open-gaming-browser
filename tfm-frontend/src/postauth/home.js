@@ -8,7 +8,8 @@ import axios from 'axios';
 import { Button, Box, Text, Flex, Spacer } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 
-import api from '../api';
+import GetFriends from './getters/GetFriends';
+import GetPresets from './getters/GetPresets';
 
 const ResearchBar = styled.input`
 color: black;
@@ -72,28 +73,7 @@ padding: 3px 3px 3px 3px;
 color: green;
 `
 
-function GetFriends() {
-    const [data, setData] = useState("");
-    
-    const getData = () => {
-      api.get ("/friends")
-        .then((response) => {
-          console.log(response.data);
-          setData(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    
-    useEffect(() => {
-      getData();
-    }, []);
-    
-    return(
-      data
-    );
-}
+
 
 function SearchBar (Data){
     const [query, setQuery] = useState("")
@@ -139,29 +119,6 @@ function DisplayFriends(){
       {displayData()}
     </>
   );
-}
-
-function GetPresets() {
-    const [data, setData] = useState("");
-    
-    const getData = () => {
-      api.get ("/presets")
-        .then((response) => {
-          console.log(response.data);
-          setData(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    
-    useEffect(() => {
-      getData();
-    }, []);
-    
-    return(
-      data
-    );
 }
 
 function PresetLauncher(presetdata){

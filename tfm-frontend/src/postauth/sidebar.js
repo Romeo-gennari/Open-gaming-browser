@@ -8,6 +8,8 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { FiSettings, FiCalendar, FiUsers, FiHome, FiBookOpen } from 'react-icons/fi'
 import { IoGameControllerOutline, IoBarChartOutline, IoPower } from 'react-icons/io5'
 
+import api from "../api";
+
 const Disco = styled.button`
     padding: 6px 8px 6px 16px;
     text-decoration: none;
@@ -22,7 +24,7 @@ function Sidebar(){
     
     const handleDisco = (event) => {
         event.preventDefault();
-        axios.post("http://localhost:5050/auth/login").then(res=>{console.log(res)}).catch(error=>{console.log(error)});
+        api.post("/auth/logout").then(res=>{console.log(res)}).catch(error=>{console.log(error)});
         console.log("PostDisco");
         navigate('/');
     }
