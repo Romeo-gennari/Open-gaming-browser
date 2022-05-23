@@ -3,8 +3,7 @@ import Sidebar from "./sidebar";
 import Headband from "./Header";
 
 import styled from 'styled-components';
-import {React, useState, useEffect} from "react";
-import axios from 'axios';
+import {React, useState} from "react";
 import { Button, Box, Text, Flex, Spacer } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 
@@ -49,22 +48,6 @@ const PresetSelector = styled.div`
 display: flex;
 margin-left: auto;
 margin-right: auto;
-`
-
-const GenericButton = styled.button`
-border: 1px solid black;
-`
-
-const GreenButton = styled.button`
-border: 1px solid black;
-background-color: green;
-color: white;
-`
-
-const YellowButton = styled.button`
-border: 1px solid black;
-background-color: yellow;
-color: white;
 `
 
 const CoFi = styled.h1`
