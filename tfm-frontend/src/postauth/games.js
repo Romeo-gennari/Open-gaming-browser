@@ -214,7 +214,7 @@ function SearchBar (Data){
               return 0;
             } 
           ).map((game) => (
-            <Popover>
+            <Popover trigger='hover'>
               <PopoverTrigger>
                 <GameListed key={game.id} onClick={() => {}}>
                   {game.name}<GameImg src={game.image_url} alt="img ?"></GameImg>
@@ -223,7 +223,10 @@ function SearchBar (Data){
               <PopoverContent w='auto' padding={1}>
               
                   <div style={{display:"flex"}}>
-                    {game.editor.name}{game.publisher.name}{game.release_date}{game.description}
+                    <p>{game.editor.name},</p>              
+                    <p>{game.publisher.name},</p>
+                    <p>{game.release_date},</p>
+                    <p>{game.description}</p>
                   </div>
 
               </PopoverContent>
