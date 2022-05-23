@@ -3,6 +3,7 @@ const editor = require('./controllers/editor.js');
 const game = require('./controllers/game.js');
 const publisher = require('./controllers/publisher.js');
 const friend = require('./controllers/friends.js');
+const user = require('./controllers/users.js');
 const auth = require('./controllers/auth.js');
 const ensureAuthenticated = require('./middlewares/ensureAuthenticated.js');
 const safeUser = require('./utils/safeUser.js');
@@ -54,5 +55,9 @@ router.route('/friends')
 router.route('/friends/:id')
   .get(friend.findOne)
   .delete(ensureAuthenticated, friend.remove);
+
+// Users
+router.route('/users')
+  .get(user.findAll);
 
 module.exports = router;
