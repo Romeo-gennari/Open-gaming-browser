@@ -71,6 +71,7 @@ function AddGame(){
         editor: newGameEditorId,
         publisher: newGamePublisherId,
       }).then(res=>{console.log(res)});
+      console.log("We got there");
     }
     
   }
@@ -79,27 +80,19 @@ function AddGame(){
       <div>
           <Popover trigger='hover'>
               <PopoverTrigger>
-                  <Box>AddGame</Box>
+                  <Box>Add Game</Box>
               </PopoverTrigger>
               <PopoverContent w='auto' padding={1}>
                 <input placeholder="Title" onChange={event => setNewGameTitle(event.target.value)} />
                 {games.filter(game => {
-                  if (newGameTitle === '') {
-                      return game;
-                  }
-                  else if (game.name.toLowerCase().includes(newGameTitle.toLowerCase())) {
-                    return game;
-                }
+                  if (newGameTitle === '') {}
+                  else if (game.name.toLowerCase().includes(newGameTitle.toLowerCase())) {return game;}
                 }).map((game) => (<p key={game.id} onClick={() => {}}>{game.name}</p>))}
 
                 <input placeholder="Studio" onChange={event => setNewGameEditor(event.target.value)} />
                 {editors.filter(game => {
-                  if (newGameEditor === ''|| newGameEditorId!=-1) {
-                      return game;
-                  }
-                  else if (game.name.toLowerCase().includes(newGameEditor.toLowerCase())) {
-                    return game;
-                }
+                  if (newGameEditor === ''|| newGameEditorId!=-1) {}
+                  else if (game.name.toLowerCase().includes(newGameEditor.toLowerCase())) {return game;}
                 }).map((game) => (<p key={game.id} onClick={() => {setNewGameEditorId(game.id)}}>{game.name}</p>))}
 
                 <input placeholder="Publisher" onChange={event => {setNewGamePublisher(event.target.value);setNewGamePublisherId(-1)}} />
@@ -111,7 +104,85 @@ function AddGame(){
                 <input placeholder="Poster" onChange={event => setNewGamePoster(event.target.value)} />
                 <input placeholder="Release" onChange={event => setNewGameRelease(event.target.value)} />
                 <input placeholder="Description" onChange={event => setNewGameDescription(event.target.value)} />
-                <button onClick={handleAddGame()}>Submit</button>
+                <button onClick={()=>{handleAddGame()}}>Submit</button>
+
+              </PopoverContent>
+          </Popover>
+      </div>
+  );
+}
+
+function AddEditor(){
+
+  const [newGameEditor, setNewGameEditor] = useState("");
+
+  editors = GetEditors();
+
+  function handleAddEditor(){
+    console.log(newGameEditor)
+    if(newGameEditor!=""){
+      api.post("/editors",{
+        name: newGameEditor
+      }).then(res=>{console.log(res)});
+      console.log("We got there");
+    }
+    
+  }
+
+  return(
+      <div>
+          <Popover trigger='hover'>
+              <PopoverTrigger>
+                  <Box>Add Studio</Box>
+              </PopoverTrigger>
+              <PopoverContent w='auto' padding={1}>
+                
+                <input placeholder="Studio" onChange={event => setNewGameEditor(event.target.value)} />
+                {editors.filter(game => {
+                  if (newGameEditor === '') {}
+                  else if (game.name.toLowerCase().includes(newGameEditor.toLowerCase())) {return game;}
+                }).map((game) => (<p key={game.id} onClick={() => {}}>{game.name}</p>))}
+
+                <button onClick={()=>{handleAddEditor()}}>Submit</button>
+
+              </PopoverContent>
+          </Popover>
+      </div>
+  );
+}
+
+function AddPublisher(){
+
+  const [newGamePublisher, setNewGamePublisher] = useState("");
+
+  publishers = GetPublishers();
+
+  function handleAddPublisher(){
+    console.log(newGamePublisher)
+    if(newGamePublisher!=""){
+      api.post("/publishers",{
+        name: newGamePublisher
+      }).then(res=>{console.log(res)});
+      console.log("We got there");
+    }
+    
+  }
+
+  return(
+      <div>
+          <Popover trigger='hover'>
+              <PopoverTrigger>
+                  <Box>Add Publisher</Box>
+              </PopoverTrigger>
+              <PopoverContent w='auto' padding={1}>
+                
+                <input placeholder="Publisher" onChange={event => setNewGamePublisher(event.target.value)} />
+                {publishers.filter(game => {
+                  if (newGamePublisher === '') {}
+                  else if (game.name.toLowerCase().includes(newGamePublisher.toLowerCase())) {return game;}
+                }).map((game) => (<p key={game.id} onClick={() => {}}>{game.name}</p>))}
+
+                <button onClick={()=>{handleAddPublisher()}}>Submit</button>
 
               </PopoverContent>
           </Popover>
@@ -168,8 +239,8 @@ function Games(){
             <div className='paBody'>
                 <div>
                   <AddGame />
-                  <button>Add Studio</button>
-                  <button>Add Publisher</button>
+                  <AddEditor />
+                  <AddPublisher />
                 </div>
                 <h1>Games</h1>
                 <Gamess />
