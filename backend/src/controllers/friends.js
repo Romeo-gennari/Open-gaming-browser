@@ -37,8 +37,10 @@ async function findOne(req, res) {
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-async function findAll(_req, res) {
-  const friends = await db('friend_of').select();
+async function findAll(req, res) {
+  const friends = await db('friend_of')
+    .where('user1_id', req.user.id)
+    .select();
   const users = await usersShape.withQuery(db('user').select());
 
   for (const friend of friends) {
