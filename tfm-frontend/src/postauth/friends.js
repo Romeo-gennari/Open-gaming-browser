@@ -136,7 +136,6 @@ function Friends(){
                 <DisplayFriends input={1}/>
             </MasterFriendList>
             <div className="paBody">
-                <p>Now I gotta do the f'ing chat. Thx Kevin :unamused: :angry: :flamethrower: </p>
             </div>
         </div>
     );

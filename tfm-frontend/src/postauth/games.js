@@ -17,7 +17,7 @@ margin-top: 3vh;
 display:flex;
 flex-wrap: wrap;
 `
-const GameListed = styled.a`
+const GameListed = styled.button`
 
 text-align: center;
 margin: 5px 5px;
@@ -205,7 +205,30 @@ function SearchBar (Data){
             else if (game.name.toLowerCase().includes(query.toLowerCase())) {
               return game;
             }
-          }).map((game) => (<GameListed key={game.id} onClick={() => {}}>{game.name}<GameImg src={game.image_url} alt="img ?"></GameImg></GameListed>))}
+          }).filter(
+            function(a, b){
+              let x = a.type.toLowerCase();
+              let y = b.type.toLowerCase();
+              if (x < y) {return -1;}
+              if (x > y) {return 1;}
+              return 0;
+            } 
+          ).map((game) => (
+            <Popover>
+              <PopoverTrigger>
+                <GameListed key={game.id} onClick={() => {}}>
+                  {game.name}<GameImg src={game.image_url} alt="img ?"></GameImg>
+                </GameListed>
+              </PopoverTrigger>
+              <PopoverContent w='auto' padding={1}>
+              
+                  <div style={{display:"flex"}}>
+                    {game.editor.name}{game.publisher.name}{game.release_date}{game.description}
+                  </div>
+
+              </PopoverContent>
+          </Popover>
+          ))}
             
           </GameList>
       </div>

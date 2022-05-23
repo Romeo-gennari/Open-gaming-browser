@@ -67,18 +67,13 @@ function SearchBar (Data){
           <ResearchBar placeholder="Research" onChange={event => setQuery(event.target.value)} />
           <FriendList>
           {Data.filter(friend => {
-            if (friend.status==1){
-              return friend;
-            }
-          })
-          .filter(friend => {
             if (query === '') {
                 return friend;
             }
-            else if (friend.username.toLowerCase().includes(query.toLowerCase())) {
+            else if (friend.user2.username.toLowerCase().includes(query.toLowerCase())) {
               return friend;
             }
-          }).map((friend) => (<FriendListed key={friend.id} onClick={() => {}} >{friend.username}</FriendListed>))}
+          }).map((friend) => (<FriendListed key={friend.user2.id} onClick={() => {}} >{friend.user2.username}</FriendListed>))}
             
             </FriendList>
       </div>
