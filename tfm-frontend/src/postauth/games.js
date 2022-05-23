@@ -205,7 +205,7 @@ function SearchBar (Data){
             else if (game.name.toLowerCase().includes(query.toLowerCase())) {
               return game;
             }
-          }).filter(
+          }).sort(
             function(a, b){
               let x = a.name.toLowerCase();
               let y = b.name.toLowerCase();
