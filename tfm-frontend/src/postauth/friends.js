@@ -57,7 +57,7 @@ function AddFriend(){
   function handleAddFriend(id){
     if(1){
       console.log(id);
-      api.post("/friends",{user2_id: id}).then(console.log);
+      api.post("/friends",{user2_id: id,friend_group:" "}).then(console.log);
       console.log("We got there");
     }
     
@@ -95,10 +95,10 @@ function SearchBar (Data){
             if (query === '') {
                 return friend;
             }
-            else if (friend.username.toLowerCase().includes(query.toLowerCase())) {
+            else if (friend.user2.username.toLowerCase().includes(query.toLowerCase())) {
                 return friend;
             }
-          }).map((friend) => (<NarrowFriendListed key={friend.id} onClick={() => {}} >{friend.username}</NarrowFriendListed>))}
+          }).map((friend) => (<NarrowFriendListed key={friend.user2.id} onClick={() => {}} >{friend.user2.username}</NarrowFriendListed>))}
             
             </NarrowFriendList>
       </div>
@@ -111,7 +111,7 @@ function DisplayFriends(status){
     const displayData = () => {
     return data ? (
       <div>
-        <SearchBar input={data.filter(friend => {if (friend.status==status.input) {return friend;}})}/>
+        <SearchBar input={data}/>
       </div>) : 
       (
       <h3>No data yet</h3>
@@ -132,10 +132,8 @@ function Friends(){
             <Headband />
             <MasterFriendList>
                 <AddFriend />
-                <CoFi>Online Friends</CoFi>
+                <CoFi>Friends</CoFi>
                 <DisplayFriends input={1}/>
-                <DeFi>Offline Friends</DeFi>
-                <DisplayFriends input={0}/>
             </MasterFriendList>
             <div className="paBody">
                 <p>Now I gotta do the f'ing chat. Thx Kevin :unamused: :angry: :flamethrower: </p>
