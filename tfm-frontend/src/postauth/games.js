@@ -207,8 +207,8 @@ function SearchBar (Data){
             }
           }).filter(
             function(a, b){
-              let x = a.type.toLowerCase();
-              let y = b.type.toLowerCase();
+              let x = a.name.toLowerCase();
+              let y = b.name.toLowerCase();
               if (x < y) {return -1;}
               if (x > y) {return 1;}
               return 0;
