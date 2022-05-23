@@ -64,13 +64,13 @@ function AddGame(){
     console.log(newGameDescription);
     if(newGameEditorId!=-1&&newGamePublisherId!=-1&&newGameTitle!=""){
       api.post("/games",{
-        game: newGameTitle,
+        name: newGameTitle,
         release_date: newGameRelease,
         image_url: newGamePoster,
         description: newGameDescription,
         editor: newGameEditorId,
         publisher: newGamePublisherId,
-      }).then(res=>{console.log(res)});
+      }).then(console.log);
       console.log("We got there");
     }
     
@@ -123,7 +123,7 @@ function AddEditor(){
     if(newGameEditor!=""){
       api.post("/editors",{
         name: newGameEditor
-      }).then(res=>{console.log(res)});
+      }).then(console.log);
       console.log("We got there");
     }
     
@@ -162,7 +162,7 @@ function AddPublisher(){
     if(newGamePublisher!=""){
       api.post("/publishers",{
         name: newGamePublisher
-      }).then(res=>{console.log(res)});
+      }).then(console.log);
       console.log("We got there");
     }
     

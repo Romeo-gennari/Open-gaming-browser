@@ -20,15 +20,12 @@ function Login() {
     
     const handleLogIn = (event) => {
         event.preventDefault();
-        console.log('EmailAddress:', emailAddress);
-        console.log('Password:', password);
+        console.log('username:', emailAddress);
+        console.log('password:', password);
         api.post("auth/login",{
-            email:emailAddress,
+            username:emailAddress,
             password:password
-          }).then(res=>{console.log(res)}).catch(error=>{console.log(error)});
-          
-        console.log("PostPost");
-        navigate('/Home');
+          }).then(res=>{console.log(res);navigate('/Home');}).catch(error=>{console.log(error)});
     }
 
     return (
