@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import api from '../../api';
 
 export default function GetGames() {
-    const [data, setData] = useState("");
+    const [data, setData] = useState([]);
     
     const getData = () => {
       api.get ("/games")

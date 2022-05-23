@@ -23,7 +23,7 @@ function Login() {
         console.log('EmailAddress:', emailAddress);
         console.log('Password:', password);
         api.post("auth/login",{
-            email: emailAddress,
+            email:emailAddress,
             password:password
           }).then(res=>{console.log(res)}).catch(error=>{console.log(error)});
           

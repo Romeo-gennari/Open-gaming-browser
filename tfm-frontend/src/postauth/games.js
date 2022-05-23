@@ -1,13 +1,16 @@
 import './../App.css';
 
-import axios from 'axios';
+import api from '../api';
 import styled from 'styled-components';
 import {React, useState, useEffect} from "react";
+import { Box, Popover, PopoverTrigger, PopoverContent } from "@chakra-ui/react";
 
 import Sidebar from './sidebar';
 import Headband from "./Header";
 
 import GetGames from './getters/GetGames';
+import GetEditors from './getters/GetEditors';
+import GetPublishers from './getters/GetPublishers';
 
 const GameList = styled.div`
 margin-top: 3vh;
@@ -35,13 +38,85 @@ margin-left: auto;
 margin-right: auto;
 `
 
+let games,editors,publishers;
 
-let gameArray = []
+function AddGame(){
 
-function addGame(gid){
-    gameArray.push(gid)
-    console.log(gameArray)
-return(0)
+  const [newGameTitle, setNewGameTitle] = useState("");
+  const [newGameEditor, setNewGameEditor] = useState("");
+  const [newGameEditorId, setNewGameEditorId] = useState(-1);
+  const [newGamePublisher, setNewGamePublisher] = useState("");
+  const [newGamePublisherId, setNewGamePublisherId] = useState(-1);
+  const [newGamePoster, setNewGamePoster] = useState("");
+  const [newGameRelease, setNewGameRelease] = useState("");
+  const [newGameDescription, setNewGameDescription] = useState("");
+
+  games = GetGames();
+  editors = GetEditors();
+  publishers = GetPublishers();
+
+  function handleAddGame(){
+    console.log(newGameTitle);
+    console.log(newGameEditorId);
+    console.log(newGamePublisherId);
+    console.log(newGamePoster);
+    console.log(newGameRelease);
+    console.log(newGameDescription);
+    if(newGameEditorId!=-1&&newGamePublisherId!=-1&&newGameTitle!=""){
+      api.post("/games",{
+        game: newGameTitle,
+        release_date: newGameRelease,
+        image_url: newGamePoster,
+        description: newGameDescription,
+        editor: newGameEditorId,
+        publisher: newGamePublisherId,
+      }).then(res=>{console.log(res)});
+    }
+    
+  }
+
+  return(
+      <div>
+          <Popover trigger='hover'>
+              <PopoverTrigger>
+                  <Box>AddGame</Box>
+              </PopoverTrigger>
+              <PopoverContent w='auto' padding={1}>
+                <input placeholder="Title" onChange={event => setNewGameTitle(event.target.value)} />
+                {games.filter(game => {
+                  if (newGameTitle === '') {
+                      return game;
+                  }
+                  else if (game.name.toLowerCase().includes(newGameTitle.toLowerCase())) {
+                    return game;
+                }
+                }).map((game) => (<p key={game.id} onClick={() => {}}>{game.name}</p>))}
+
+                <input placeholder="Studio" onChange={event => setNewGameEditor(event.target.value)} />
+                {editors.filter(game => {
+                  if (newGameEditor === ''|| newGameEditorId!=-1) {
+                      return game;
+                  }
+                  else if (game.name.toLowerCase().includes(newGameEditor.toLowerCase())) {
+                    return game;
+                }
+                }).map((game) => (<p key={game.id} onClick={() => {setNewGameEditorId(game.id)}}>{game.name}</p>))}
+
+                <input placeholder="Publisher" onChange={event => {setNewGamePublisher(event.target.value);setNewGamePublisherId(-1)}} />
+                {publishers.filter(game => {
+                  if (newGamePublisher === '' || newGamePublisherId!=-1) {}
+                  else if (game.name.toLowerCase().includes(newGamePublisher.toLowerCase())) {return game;}
+                }).map((game) => (<p key={game.id} onClick={() => {setNewGamePublisherId(game.id)}}>{game.name}</p>))} 
+
+                <input placeholder="Poster" onChange={event => setNewGamePoster(event.target.value)} />
+                <input placeholder="Release" onChange={event => setNewGameRelease(event.target.value)} />
+                <input placeholder="Description" onChange={event => setNewGameDescription(event.target.value)} />
+                <button onClick={handleAddGame()}>Submit</button>
+
+              </PopoverContent>
+          </Popover>
+      </div>
+  );
 }
 
 function SearchBar (Data){
@@ -59,15 +134,11 @@ function SearchBar (Data){
             else if (game.name.toLowerCase().includes(query.toLowerCase())) {
               return game;
             }
-          }).map((game) => (<GameListed key={game.id} onClick={() => {addGame(game.id)}}>{game.name}<GameImg src={game.poster} alt="img ?"></GameImg></GameListed>))}
+          }).map((game) => (<GameListed key={game.id} onClick={() => {}}>{game.name}<GameImg src={game.poster} alt="img ?"></GameImg></GameListed>))}
             
           </GameList>
       </div>
     )
-}
-
-function AddGame(id) {
-    //axios.post('localhost:5050/user/games',gameArray).then(()=>(alert("Successfully added game to library"))).catch(()=>(alert("Task Failed Successfully")))
 }
 
 function Gamess(){
@@ -96,7 +167,7 @@ function Games(){
             <Headband />
             <div className='paBody'>
                 <div>
-                  <button>Add Game</button>
+                  <AddGame />
                   <button>Add Studio</button>
                   <button>Add Publisher</button>
                 </div>
