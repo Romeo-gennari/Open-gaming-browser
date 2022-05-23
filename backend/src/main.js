@@ -15,14 +15,14 @@ const { app } = require('./server.js');
 const KnexSessionStore = knexSession(session);
 
 // Configure some middlewares
-app.use(cors());   // Allow all origins
+app.use(cors({ credentials: true, origin: ['localhost', 'http://open-gaming.fr', 'http://www.open-gaming.fr'] }));   // Allow all origins
 app.use(helmet()); // Secure the app against common web vulnerabilities
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     path: '/',
     httpOnly: true,
@@ -45,7 +45,7 @@ app.use('/', index);
 // 404 Handler (if we arrive up to this middleware, it means that the route was not found,
 // because middlewares are executed in order).
 app.use((_req, res) => {
-  res.send('Not Found', 404);
+  res.status(404).send('Not Found');
 });
 
 // Error handler
