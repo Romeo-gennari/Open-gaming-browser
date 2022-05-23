@@ -10,16 +10,10 @@ const createUser = z.object({
   password: z.string().nonempty(),
 }).strict();
 
-const loginUser = z.union([
-  z.object({
-    username: z.string().nonempty(),
-    password: z.string().nonempty(),
-  }).strict(),
-  z.object({
-    email: z.string().email().nonempty(),
-    password: z.string().nonempty(),
-  }).strict()
-]);
+const loginUser = z.object({
+  username: z.string().nonempty(),
+  password: z.string().nonempty(),
+}).strict();
 
 /**
  * Shape
@@ -27,6 +21,7 @@ const loginUser = z.union([
 const userShape = n.type({
   id: n.number('user.id', { id: true }),
   username: n.string('user.username'),
+  avatar_url: n.string('user.avatar_url'),
   email: n.string('user.email'),
 });
 const usersShape = n.array(userShape);
