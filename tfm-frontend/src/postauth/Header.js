@@ -48,7 +48,7 @@ function GetHeaderProfile(){
                     <Box><DisplayConnexionIcon input={userdata.status} />{userdata.username}</Box>
                 </PopoverTrigger>
                 <PopoverContent w='auto' padding={1}>
-                    <UserAvatar href={userdata.icon} alt="avatar"></UserAvatar>
+                    <UserAvatar href={userdata.avatar_url} alt="avatar"></UserAvatar>
                     <h2>{userdata.username}</h2>
                     <p>Button to change status</p>
                     <Link href="/#/settings">Settings</Link>

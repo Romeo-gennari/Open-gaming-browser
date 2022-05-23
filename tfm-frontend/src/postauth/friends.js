@@ -3,8 +3,12 @@ import Headband from "./Header";
 
 import styled from 'styled-components';
 import {React, useState, useEffect} from "react";
+import { Box, Popover, PopoverTrigger, PopoverContent, Button } from "@chakra-ui/react";
 
 import GetFriends from "./getters/GetFriends";
+import GetAllUsers from "./getters/GetAllUsers";
+
+import api from "../api";
 
 const ResearchBar = styled.input`
 color: black;
@@ -41,6 +45,43 @@ const DeFi = styled.h1`
 font-size: 25px;
 color: red;
 `
+
+function AddFriend(){
+
+  const [newFriendName, setNewFriendName] = useState("");
+  //const [newFriendId, setNewFriendId] = useState(-1);
+
+  let userslist = GetAllUsers();
+  console.log(userslist);
+
+  function handleAddFriend(id){
+    if(1){
+      console.log(id);
+      api.post("/friends",{user2_id: id}).then(console.log);
+      console.log("We got there");
+    }
+    
+  }
+
+  return(
+      <div>
+          <Popover>
+              <PopoverTrigger>
+                  <Button>+</Button>
+              </PopoverTrigger>
+              <PopoverContent w='auto' padding={1}>
+                
+                <input placeholder="Friend Pseudo" onChange={event => setNewFriendName(event.target.value)} />
+                {userslist.filter(game => {
+                  if (newFriendName === '') {}
+                  else if (game.username.toLowerCase().includes(newFriendName.toLowerCase())) {return game;}
+                }).map((game) => (<p key={game.id} onClick={() => {handleAddFriend(game.id)}}>{game.username}</p>))}
+
+              </PopoverContent>
+          </Popover>
+      </div>
+  );
+}
 
 function SearchBar (Data){
     const [query, setQuery] = useState("")
@@ -90,6 +131,7 @@ function Friends(){
             <Sidebar />
             <Headband />
             <MasterFriendList>
+                <AddFriend />
                 <CoFi>Online Friends</CoFi>
                 <DisplayFriends input={1}/>
                 <DeFi>Offline Friends</DeFi>
