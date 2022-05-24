@@ -56,12 +56,6 @@ function AddGame(){
   publishers = GetPublishers();
 
   function handleAddGame(){
-    console.log(newGameTitle);
-    console.log(newGameEditorId);
-    console.log(newGamePublisherId);
-    console.log(newGamePoster);
-    console.log(newGameRelease);
-    console.log(newGameDescription);
     if(newGameEditorId!=-1&&newGamePublisherId!=-1&&newGameTitle!=""){
       api.post("/games",{
         name: newGameTitle,
@@ -71,7 +65,15 @@ function AddGame(){
         editor_id: newGameEditorId,
         publisher_id: newGamePublisherId,
       }).then(console.log);
-      console.log("We got there");
+      setNewGameTitle("");
+      setNewGameRelease("");
+      setNewGamePoster("");
+      setNewGameDescription("");
+      setNewGameEditorId(-1);
+      setNewGameEditor("");
+      setNewGamePublisherId(-1);
+      setNewGamePublisher("");
+      window.location.reload(false);
     }
     
   }
@@ -119,12 +121,12 @@ function AddEditor(){
   editors = GetEditors();
 
   function handleAddEditor(){
-    console.log(newGameEditor)
     if(newGameEditor!=""){
       api.post("/editors",{
         name: newGameEditor
       }).then(console.log);
-      console.log("We got there");
+      setNewGameEditor("");
+      window.location.reload(false);
     }
     
   }
@@ -158,12 +160,12 @@ function AddPublisher(){
   publishers = GetPublishers();
 
   function handleAddPublisher(){
-    console.log(newGamePublisher)
     if(newGamePublisher!=""){
       api.post("/publishers",{
         name: newGamePublisher
       }).then(console.log);
-      console.log("We got there");
+      setNewGamePublisher("");
+      window.location.reload(false);
     }
     
   }
