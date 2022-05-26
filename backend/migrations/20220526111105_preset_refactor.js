@@ -12,7 +12,6 @@ exports.up = (knex) => {
     })
     .alterTable('is_in_preset', t => {
       t.dropForeign('user_id');
-      t.dropColumn('user_id');
     });
 };
 
