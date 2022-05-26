@@ -1,14 +1,13 @@
 const db = require('../database.js');
-const { createPublisher, publisherShape, publishersShape, updatePublisher } = require('../models/publisher.js');
+const { createPublisher, publishersShape, updatePublisher } = require('../models/publisher.js');
 const duplicateHandler = require('../utils/duplicateHandler.js');
 
 async function fetchPublisher(id) {
-  return await publisherShape.withQuery(
-    db('publisher')
-      .where('publisher.id', id)
-      .select('publisher.*')
-      .first()
-  ).catch(duplicateHandler('Name is already in use', res));
+  return await db('publisher')
+    .where('publisher.id', id)
+    .select('publisher.*')
+    .first()
+    .then(publisher => publisher ? { id: publisher.id, name: publisher.name } : null);
 }
 
 /**
@@ -17,8 +16,7 @@ async function fetchPublisher(id) {
  * @param {import('express').Response} res
  */
 async function findOne(req, res) {
-  const id = req.params.id;
-  const publisher = await fetchPublisher(id);
+  const publisher = await fetchPublisher(req.params.id);
   if (publisher)
     res.status(200).json(publisher);
   else
@@ -53,14 +51,14 @@ async function create(req, res, next) {
 
   // Insert the new publisher into the database
   const insertResult = await db('publisher')
-    .returning(['id'])
     .insert(data)
     .catch(duplicateHandler('Name is already in use', res));
+  console.log('DEBUG ~ file: publisher.js ~ line 54 ~ create ~ insertResult', insertResult);
   if (!insertResult)
     return;
 
   // Return the newly created publisher
-  const publisher = await fetchPublisher(insertResult[0].id);
+  const publisher = await fetchPublisher(insertResult[0]);
   res.status(201).json(publisher);
 }
 
@@ -71,7 +69,6 @@ async function create(req, res, next) {
  * @param {import('express').NextFunction} next
  */
 async function update(req, res, next) {
-  const id = req.params.id;
   const { success, data, error } = updatePublisher.safeParse(req.body);
   if (!success) {
     next(error);
@@ -79,11 +76,10 @@ async function update(req, res, next) {
   }
 
   await db('publisher')
-    .where('id', id)
-    .returning()
+    .where('id', req.params.id)
     .update(data);
 
-  const publisher = await fetchPublisher(id);
+  const publisher = await fetchPublisher(req.params.id);
   res.status(200).json(publisher);
 }
 
@@ -93,8 +89,7 @@ async function update(req, res, next) {
  * @param {import('express').Response} res
  */
 async function remove(req, res) {
-  const id = req.params.id;
-  const result = await db('publisher').where('id', id).del();
+  const result = await db('publisher').where('id', req.params.id).del();
   if (result === 0)
     res.status(404).json({ message: 'Publisher not found' });
   else
@@ -102,6 +97,7 @@ async function remove(req, res) {
 }
 
 module.exports = {
+  fetchPublisher,
   findOne,
   findAll,
   create,

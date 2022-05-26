@@ -11,7 +11,6 @@ async function fetchGame(id) {
       .select('game.*', 'publisher.*', 'editor.*')
       .leftJoin('publisher', 'game.publisher_id', 'publisher.id')
       .leftJoin('editor', 'game.editor_id', 'editor.id')
-      .first()
   ).catch(notFoundHandler);
 }
 
@@ -21,9 +20,7 @@ async function fetchGame(id) {
  * @param {import('express').Response} res
  */
 async function findOne(req, res) {
-  const id = req.params.id;
-
-  const game = await fetchGame(id);
+  const game = await fetchGame(req.params.id);
   if (game)
     res.status(200).json(game);
   else
@@ -60,14 +57,18 @@ async function create(req, res, next) {
   }
 
   // Check if the given publisher ID exists
-  const publisher = await db('publisher').where('id', data.publisher_id).first();
+  const publisher = await db('publisher')
+    .where('id', data.publisher_id)
+    .first();
   if (!publisher) {
     res.status(400).json({ message: 'Publisher not found' });
     return;
   }
 
   // Check if the given editor ID exists
-  const editor = await db('editor').where('id', data.editor_id).first();
+  const editor = await db('editor')
+    .where('id', data.editor_id)
+    .first();
   if (!editor) {
     res.status(400).json({ message: 'Editor not found' });
     return;
@@ -75,14 +76,14 @@ async function create(req, res, next) {
 
   // Insert the new game into the database
   const insertResult = await db('game')
-    .returning(['id'])
     .insert(data)
     .catch(duplicateHandler('Name is already in use', res));
   if (!insertResult)
     return;
+  console.log('DEBUG ~ file: game.js ~ line 76 ~ create ~ insertResult', insertResult);
 
   // Return the newly created game with its editor and publisher data
-  const game = await fetchGame(insertResult[0].id);
+  const game = await fetchGame(insertResult[0]);
   res.status(201).json(game);
 }
 
@@ -93,7 +94,6 @@ async function create(req, res, next) {
  * @param {import('express').NextFunction} next
  */
 async function update(req, res, next) {
-  const id = req.params.id;
   const { success, data, error } = updateGame.safeParse(req.body);
   if (!success) {
     next(error);
@@ -101,11 +101,10 @@ async function update(req, res, next) {
   }
 
   await db('game')
-    .where('id', id)
-    .returning()
+    .where('id', req.params.id)
     .update(data);
 
-  const game = await fetchGame(id);
+  const game = await fetchGame(req.params.id);
   res.status(200).json(game);
 }
 
@@ -115,8 +114,7 @@ async function update(req, res, next) {
  * @param {import('express').Response} res
  */
 async function remove(req, res) {
-  const id = req.params.id;
-  const result = await db('game').where('id', id).del();
+  const result = await db('game').where('id', req.params.id).del();
   if (result === 0)
     res.status(404).json({ message: 'Game not found' });
   else

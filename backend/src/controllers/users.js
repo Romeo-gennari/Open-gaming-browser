@@ -1,5 +1,14 @@
 const db = require('../database.js');
 const { usersShape } = require('../models/user.js');
+const safeUser = require('../utils/safeUser.js');
+
+async function fetchUser(id) {
+  return await db('user')
+    .where('user.id', id)
+    .select('user.*')
+    .first()
+    .then(user => user ? safeUser(user) : null);
+}
 
 /**
  * Find all users
@@ -15,5 +24,6 @@ async function findAll(_req, res) {
 
 
 module.exports = {
+  fetchUser,
   findAll,
 };

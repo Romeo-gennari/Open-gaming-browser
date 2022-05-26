@@ -1,15 +1,13 @@
 const db = require('../database.js');
-const { createEditor, editorShape, editorsShape, updateEditor } = require('../models/editor.js');
+const { createEditor, editorsShape, updateEditor } = require('../models/editor.js');
 const duplicateHandler = require('../utils/duplicateHandler.js');
-const notFoundHandler = require('../utils/notFoundHandler.js');
 
 async function fetchEditor(id) {
-  return await editorShape.withQuery(
-    db('editor')
-      .where('editor.id', id)
-      .select('editor.*')
-      .first()
-  ).catch(notFoundHandler);
+  return await db('editor')
+    .where('editor.id', id)
+    .select('editor.*')
+    .first()
+    .then(editor => editor ? { id: editor.id, name: editor.name } : null);
 }
 
 /**
@@ -18,8 +16,7 @@ async function fetchEditor(id) {
  * @param {import('express').Response} res
  */
 async function findOne(req, res) {
-  const id = req.params.id;
-  const editor = await fetchEditor(id);
+  const editor = await fetchEditor(req.params.id);
   if (editor)
     res.status(200).json(editor);
   else
@@ -54,14 +51,13 @@ async function create(req, res, next) {
 
   // Insert the new editor into the database
   const insertResult = await db('editor')
-    .returning(['id'])
     .insert(data)
     .catch(duplicateHandler('Name is already in use', res));
   if (!insertResult)
     return;
 
   // Return the newly created editor
-  const editor = await fetchEditor(insertResult[0].id);
+  const editor = await fetchEditor(insertResult[0]);
   res.status(201).json(editor);
 }
 
@@ -72,7 +68,6 @@ async function create(req, res, next) {
  * @param {import('express').NextFunction} next
  */
 async function update(req, res, next) {
-  const id = req.params.id;
   const { success, data, error } = updateEditor.safeParse(req.body);
   if (!success) {
     next(error);
@@ -80,11 +75,10 @@ async function update(req, res, next) {
   }
 
   await db('editor')
-    .where('id', id)
-    .returning()
+    .where('id', req.params.id)
     .update(data);
 
-  const editor = await fetchEditor(id);
+  const editor = await fetchEditor(req.params.id);
   res.status(200).json(editor);
 }
 
@@ -94,8 +88,7 @@ async function update(req, res, next) {
  * @param {import('express').Response} res
  */
 async function remove(req, res) {
-  const id = req.params.id;
-  const result = await db('editor').where('id', id).del();
+  const result = await db('editor').where('id', req.params.id).del();
   if (result === 0)
     res.status(404).json({ message: 'Editor not found' });
   else
@@ -103,6 +96,7 @@ async function remove(req, res) {
 }
 
 module.exports = {
+  fetchEditor,
   findOne,
   findAll,
   create,

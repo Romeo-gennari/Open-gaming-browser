@@ -2,19 +2,20 @@ const db = require('../database.js');
 const duplicateHandler = require('../utils/duplicateHandler.js');
 const { createFriends } = require('../models/friends.js');
 const { userShape, usersShape } = require('../models/user.js');
+const { fetchUser } = require('./users.js');
 
 async function fetchFriend(id1, id2) {
-  const friend = await db('friend_of').where({
-    user1_id: id1,
-    user2_id: id2,
-  }).first();
-  if (!friend) return null;
+  const friend = await db('friend_of')
+    .where({ user1_id: id1, user2_id: id2 })
+    .first();
+  if (!friend)
+    return null;
 
   delete friend.user1_id;
   delete friend.user2_id;
 
-  friend.user1 = await userShape.withQuery(db('user').where({ id: id1 }).first());
-  friend.user2 = await userShape.withQuery(db('user').where({ id: id2 }).first());
+  friend.user1 = await fetchUser(id1);
+  friend.user2 = await fetchUser(id2);
 
   return friend;
 }
@@ -25,8 +26,7 @@ async function fetchFriend(id1, id2) {
  * @param {import('express').Response} res
  */
 async function findOne(req, res) {
-  const id = req.params.id;
-  const friend = await fetchFriend(req.user.id, id);
+  const friend = await fetchFriend(req.user.id, req.params.id);
   if (!friend)
     res.status(404).json({ message: 'Friend not found' });
   res.status(200).json(friend);
@@ -68,7 +68,9 @@ async function create(req, res, next) {
   }
 
   // Check if the user2 exists
-  const user2 = await db('user').where('id', data.user2_id).first();
+  const user2 = await db('user')
+    .where('id', data.user2_id)
+    .first();
   if (!user2) {
     res.status(400).json({ message: 'User not found' });
     return;
@@ -76,15 +78,13 @@ async function create(req, res, next) {
 
   // Insert the new friend in the database
   const insertResult = await db('friend_of')
-    .returning(['user1_id', 'user2_id'])
     .insert({ ...data, user1_id: req.user.id })
     .catch(duplicateHandler('Already your friend', res));
   if (!insertResult)
     return;
 
   // Return the newly created friend
-  const result = await fetchFriend(insertResult[0].user1_id, insertResult[0].user2_id)
-
+  const result = await fetchFriend(req.user.id, data.user2_id);
   res.status(201).json(result);
 }
 
@@ -94,8 +94,10 @@ async function create(req, res, next) {
  * @param {import('express').Response} res
  */
 async function remove(req, res) {
-  const id = req.params.id;
-  const result = await db('friend_of').where('user2_id', id).del();
+  const result = await db('friend_of')
+    .where('user1_id', req.user.id)
+    .where('user2_id', req.params.id)
+    .del();
   if (result === 0)
     res.status(404).json({ message: 'Friend not found' });
   else

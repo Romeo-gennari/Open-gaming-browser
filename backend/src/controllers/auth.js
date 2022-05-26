@@ -3,6 +3,7 @@ const passport = require('passport');
 const db = require('../database.js');
 const { createUser, loginUser } = require('../models/user.js');
 const duplicateHandler = require('../utils/duplicateHandler.js');
+const { fetchUser } = require('./users.js');
 
 /**
  * Login in to an existing account
@@ -33,27 +34,19 @@ async function register(req, res, next) {
     return;
   }
 
-  const existingUser = await db('user')
-    .select()
-    .where('email', data.email?.toLowerCase())
-    .orWhere('username', data.username?.toLowerCase())
-    .first();
-  if (existingUser) {
-    res.status(400).json({ message: 'Username or email is already in use' });
-    return;
-  }
-
   const password = await bcrypt.hash(data.password, 10);
-  const newUser = await db('user')
-    .returning(['username', 'email'])
+  const insertResult = await db('user')
     .insert({
       username: data.username.toLowerCase(),
       email: data.email.toLowerCase(),
       password,
     })
-    .catch(duplicateHandler('Name is already in use', res));
+    .catch(duplicateHandler('Username or email is already in use', res));
+  if (!insertResult)
+    return;
 
-  res.status(201).json(newUser[0]);
+  const user = await fetchUser(insertResult[0]);
+  res.status(201).json(user);
 }
 
 /**
