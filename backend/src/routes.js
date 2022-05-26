@@ -5,6 +5,7 @@ const publisher = require('./controllers/publisher.js');
 const friend = require('./controllers/friends.js');
 const user = require('./controllers/users.js');
 const preset = require('./controllers/presets.js');
+const gameMode = require('./controllers/game_mode.js');
 const auth = require('./controllers/auth.js');
 const ensureAuthenticated = require('./middlewares/ensureAuthenticated.js');
 const safeUser = require('./utils/safeUser.js');
@@ -65,6 +66,15 @@ router.route('/presets/:id')
   .get(ensureAuthenticated, preset.findOne)
   .patch(ensureAuthenticated, preset.update)
   .delete(ensureAuthenticated, preset.remove);
+
+// Game Modes CRUD
+router.route('/gamemodes')
+  .get(gameMode.findAll)
+  .post(ensureAuthenticated, gameMode.create);
+router.route('/gamemodes/:id')
+  .get(gameMode.findOne)
+  .patch(ensureAuthenticated, gameMode.update)
+  .delete(ensureAuthenticated, gameMode.remove);
 
 // Users
 router.route('/users')
