@@ -1,6 +1,5 @@
 import './App.css';
 
-import Header2 from './landing/header';
 import {Get, GetFriendList, GetGameList, GetUserHeader, ProfilePage} from './queries/getters';
 
 import React from 'react';
@@ -149,7 +148,6 @@ function Profile() {
   return (
     
     <div className="App">
-        <Header2 />
         <header className="App-header">
           <ProfilePage />
           <GetUserHeader input={basedata} />

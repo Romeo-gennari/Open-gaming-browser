@@ -1,7 +1,7 @@
 import '../App.css';
 
 import { useState } from 'react';
-import { Stack, Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, Box, Center, Image, Heading, HStack, Link } from '@chakra-ui/react';
+import { VStack, Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, Box, Center, Image, Heading, Link } from '@chakra-ui/react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 import OpenGaming from './../images/open_gaming_logo.png'
@@ -43,24 +43,24 @@ function Register() {
     return (
         <div className="login">
             <form method='POST' onSubmit={handleRegister}>
-                <Center height='100vh'>
-                    <Box bg='black' borderRadius='5px' borderColor='black' borderWidth='2px' width='500px' height='547px'>
-                        <HStack marginBottom='8px' marginTop='5px'>
-                            <Image bg='black' boxSize='50px' src={OpenGaming} alt='logo' marginLeft='80px'/>
-                            <Link href="/"><Heading color='white'>OPEN GAMING</Heading></Link>
-                        </HStack>
-                        <Box bg='#DD6B20' maxWidth='500px' height='480px' >
-                            <Stack bg='#DD6B20' maxWidth='400px' margin='auto' spacing='5'>
+            <Center height='95vh'>
+                    <Box backgroundColor='#1A202C' w={['full', 'md']} p='1' borderColor='black' borderRadius='10' m='2%'>
+                        <VStack spacing='1' align='center' w='full' mb>
+                            <Link href="/" display='flex' justifyContent='center'>
+                                <Image boxSize={['12vw', '7vh']} src={OpenGaming} alt='logo' />
+                                <Heading fontSize={['8vw', '5vh']} color='white'>OPEN GAMING</Heading>
+                            </Link>
+                            <Box background='#DD6B20' w='full' p='5' borderRadius='10' >
                                 <FormControl>
-                                    <FormLabel htmlFor="email" marginTop='5'>Email Address</FormLabel>
+                                    <FormLabel fontSize={['5vw', '2.5vh']} htmlFor="email" >Email Address</FormLabel>
                                     <Input isRequired bg='white' type='email' id='email' value={emailAddress} onChange={({target}) => setEmailAddress(target.value)}/>
                                 </FormControl>
                                 <FormControl>
-                                    <FormLabel htmlFor="username" marginTop='1'>Username</FormLabel>
+                                    <FormLabel fontSize={['5vw', '2.5vh']} htmlFor="username" marginTop='1' mt={['1', '3']}>Username</FormLabel>
                                     <Input isRequired bg='white' type='username' id='username' value={username} onChange={({target}) => setUsername(target.value)}/>
                                 </FormControl>
                                 <FormControl>
-                                    <FormLabel htmlFor="password"  marginTop='1'>Password</FormLabel>
+                                    <FormLabel fontSize={['5vw', '2.5vh']} htmlFor="password"  marginTop='1' mt={['1', '3']}>Password</FormLabel>
                                     <InputGroup>
                                         <Input isRequired bg='white' type={showPassword ? 'text': 'password'} id='password' value={password} onChange={({target}) => setPassword(target.value)} />
                                         <InputRightElement width='3rem'>
@@ -71,7 +71,7 @@ function Register() {
                                     </InputGroup>
                                 </FormControl>
                                 <FormControl>
-                                    <FormLabel htmlFor="password"  marginTop='1'>ConfirmPassword</FormLabel>
+                                    <FormLabel fontSize={['5vw', '2.5vh']} htmlFor="password"  marginTop='1' mt={['1', '3']}>ConfirmPassword</FormLabel>
                                     <InputGroup>
                                         <Input isRequired bg='white' type={showPassword ? 'text': 'password'} id='vpassword' value={vpassword} onChange={({target}) => setVPassword(target.value)} />
                                         <InputRightElement width='3rem'>
@@ -81,18 +81,19 @@ function Register() {
                                         </InputRightElement>
                                     </InputGroup>
                                 </FormControl>
-                                <Button type='submit' bg='black' color='white'>Register</Button>
-                            </Stack>
-                            <div>
-                                <Link ml='50px' href="/#/Login">Déjà membre ?</Link>    
-                            </div>
-                        </Box>
+                                <Button type='submit' bg='black' color='white' w='full' mt={['4', '7']}>Register</Button>
+                                <Link ml='2px' href="/#/Login" fontSize={['4vw', '2.2vh']} >Already have an Account ? Log In !</Link>   
+                            </Box>
+                        </VStack>
                     </Box>
                 </Center>
+
+
             </form>
         </div>
     
   );
 }
+
 
 export default Register;

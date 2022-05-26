@@ -62,7 +62,7 @@ function GetHeaderProfile(){
 function Headband(){
     return(
         <Flex alignItems='row' h='40px' paddingLeft={50} bgColor='#ffffff' w='auto' >
-            <Link href="/#/home">
+            <Link href="/#/home" style={{ textDecoration: 'none' }}>
                 <HStack>
                     <Image bg='#ffffff' boxSize='40px' src={OpenGaming} alt='logo' ml ='5px'/>
                     <Heading fontSize={{inv:0, sm:10, md:20, lg:30}}>OpenGaming</Heading>

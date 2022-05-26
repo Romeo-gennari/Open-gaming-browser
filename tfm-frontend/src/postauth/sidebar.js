@@ -33,14 +33,14 @@ function Sidebar(){
 
     return(
         <div className='Sidebar'>
-                <Flex bg='#111' w={barSize == "closed" ? "auto" : "15%"} h='100%' position='fixed' flexDir='column' alignItems='start' zIndex={1}>
-                    <HStack>
-                        <Button borderRadius='none' bg='#DD6B20' size='md' onClick={() => {
+                <Flex bg='#111' w={barSize == "closed" ? "auto" : "15%"} h='100%' position='fixed' flexDir='column' alignItems='start' zIndex={99}>
+                    <HStack w='100%'>
+                        <Button borderRadius='none' _hover={{background: '#DD6B20'}} bg='#111' color='white' w={barSize == "open" ? "md" : "auto"} size='md' onClick={() => {
                             if (barSize=="closed"){
                                 changebarSize("open");
                             }
                             else{
-                                changebarSize("closed")
+                                changebarSize("closed");
                             }}}>
                             <HamburgerIcon/>
                         </Button>

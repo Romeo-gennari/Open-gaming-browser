@@ -1,7 +1,8 @@
+import '../App.css';
 import Sidebar from "./sidebar";
 import Headband from "./Header";
 import userdata from '../dummyData/test-preset.json';
-import { Flex, Input, Button, Modal, useDisclosure, ModalContent, ModalHeader, ModalOverlay, Center,Box, FormControl, ModalBody, FormLabel, ModalFooter } from '@chakra-ui/react';
+import { Flex, Input, Button, Modal, useDisclosure, ModalContent, ModalHeader, ModalOverlay, Center,Box, FormControl, ModalBody, FormLabel, ModalFooter, useMediaQuery, Heading, Text} from '@chakra-ui/react';
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -9,21 +10,28 @@ import styled from "styled-components";
 
 const LeLibraryList = styled.div`
 display:flex;
-flex-direction:column;
+flex-direction:row;
+flex-wrap: wrap;
 align:left;
+@media (orientation: portrait){
+  flex-direction:column;
+  align-items: center;
+}
 `
 const LeLibraryListed = styled.a`
 margin: 5px 5px;
 border: solid black;
 border-radius: 5px;
 padding: 2px 2px 2px 2px;
-width: 85vw;
-height: 15vh;
+width: fit-content;
+height: fit-content;
 color: grey;
 font-size: 30px;
-text-align: left;
+text-align: center;
 background-color: white;
 display: flex;
+flex-direction: column;
+align-items: center;
 `
 const LibraryButton = styled.button`
 border: 2px solid red;
@@ -33,30 +41,23 @@ margin-right: 10px;
 font-size: 20px;
 color: red;
 `
-const PHeader = styled.div`
-background-color: grey;
-height: 4vh;
-font-size: 3vh;
-margin-bottom: 15px;
-`
 const TagList = styled.div`
 border: 1px solid black;
 border-radius: 5px;
 display: flex;
-flex-wrap: wrap;
-width: 40vw;
-margin-left: auto;
-`
-const TagListS = styled.div`
-border: 1px solid black;
-border-radius: 3px;
-display: flex;
-flex-wrap: wrap;
-width: 30vw;
-margin-left: auto;
+flex-direction: column;
+width: 20vw;
+padding: 2px 2px 2px 2px;
+overflow-y: scroll;
+overflow-x: hidden;
+@media (orientation: portrait){
+  width: 60vw;
+}
 `
 const Tagged = styled.div`
-height: 3vh;
+background-color: rgba(255,181,30,1);
+width: 100%;
+height: auto;
 font-size: 2vh;
 border: 1px solid black;
 border-radius: 5px;
@@ -181,30 +182,60 @@ function PresetList(presetdata){
       axios.post("http://localhost:5051/presets.json",data).then(alert("Preset added!"));
     }
 
+    const [isLarge] = useMediaQuery('(min-width: 560px)')
+
     return(
         <div>
-            <PHeader>
-              <Center>
-              <Button onClick={onOpen} borderRadius='none' bg='red' color='white' width='40%' h='4vh' colorScheme='red'>AddPreset</Button>
-              </Center>
-            </PHeader>
+            {isLarge ? 
             <LeLibraryList>
-                {data.map((preset)=>(
-                <LeLibraryListed key={preset.id} onClick={() => {}} >
-                    <div>
-                        <h1>{preset.title}</h1>
-                        <Flex flexDir='row'><Button m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' colorScheme='gray'>Edit</Button><Button m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' colorScheme='gray' onClick={()=>{dodelete(preset.title);handleDelete();}}>Delete</Button></Flex>
-                    </div>
-                    <TagList>
-                        {preset.games.map((game)=>(
-                            <Tagged key={game.id}>{game.name}</Tagged>
-                        ))}
-                    </TagList> 
-                </LeLibraryListed>))} 
+            {data.map((preset)=>(
+              <Box className='library-list' m='5px' border='solid' borderColor='black' borderRadius='5px' p='1vw' w='25vw' h='fit-content' color='black'
+              textAlign='center' backgroundColor='white' display='flex' flexDir='column' alignItems='center'>
+                  <Heading>{preset.title}</Heading>
+                  <TagList className='game-list' >
+                    <Text>Games: </Text>
+                      {preset.games.map((game)=>(
+                          <Tagged key={game.id}>{game.name}</Tagged>
+                      ))}
+                  </TagList>
+                  <Flex flexDir='row' justifyContent='center' m='2px' zIndex={20} w='full' >
+                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='md' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' >Activate</Button>
+                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='md' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' colorScheme='gray'>Edit</Button>
+                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='md' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' onClick={()=>{dodelete(preset.title);handleDelete();}}>Delete</Button>
+                  </Flex>
+              </Box>
+            ))} 
+            <Center>
+              <Button m='1vw' onClick={onOpen} bg='red' color='white' w='4vh' h='4vh' colorScheme='red'>+</Button>
+            </Center>
             </LeLibraryList>
+            :
+            <LeLibraryList>
+            {data.map((preset)=>(
+              <Box className='library-list' m='5px' border='solid' borderColor='black' borderRadius='5px' p='1vw' w='65vw' h='fit-content' color='black'
+              textAlign='center' backgroundColor='white' display='flex' flexDir='column' alignItems='center'>
+                  <Heading>{preset.title}</Heading>
+                  <TagList className='game-list' >
+                    <Text>Games: </Text>
+                      {preset.games.map((game)=>(
+                          <Tagged key={game.id}>{game.name}</Tagged>
+                      ))}
+                  </TagList>
+                  <Flex flexDir='column' justifyContent='center' m='2px' zIndex={20} w='full' >
+                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='xs' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' >Activate</Button>
+                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='xs' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' colorScheme='gray'>Edit</Button>
+                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='xs' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' onClick={()=>{dodelete(preset.title);handleDelete();}}>Delete</Button>
+                  </Flex>
+              </Box>
+            ))} 
+            <Center>
+              <Button m='1vw' onClick={onOpen} bg='red' color='white' w='4vh' h='4vh' colorScheme='red'>+</Button>
+            </Center>
+            </LeLibraryList>
+            }
             <Modal isOpen={isOpen} onClose={onClose} closeOnOverlayClick={false} >
                 <ModalOverlay />
-                <ModalContent margin='auto' alignItems='center' w='full' >
+                <ModalContent margin='auto' alignItems='center' w='full' ml='5%' mr='5%'>
                     <ModalHeader color='red'>New Preset</ModalHeader>
                     <ModalBody>
                       <form onSubmit={handleAddPreset}>
@@ -244,7 +275,6 @@ function PresetList(presetdata){
                     </ModalFooter>
                 </ModalContent>
             </Modal>
-        
         </div>
         
     );
@@ -274,7 +304,7 @@ function Library(){
             <Sidebar />
             <Headband />
             <div className="paBody">
-                <h1>Library</h1>
+                <Heading textAlign='center' mb='1%'>Presets Library</Heading>
                 <DisplayPresets/>
             </div>
         </div>

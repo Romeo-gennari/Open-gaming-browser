@@ -2,7 +2,6 @@ import './../App.css';
 import { Flex, Center, HStack, VStack, Heading, Input, Box, Textarea, Button, FormControl, useMediaQuery } from '@chakra-ui/react';
 import { useState } from 'react';
 
-
 function Contact() {
 
   const [name, setName] = useState('');
@@ -22,7 +21,7 @@ function Contact() {
       <div className="Contact">
         
         {isLarge ?
-        <Flex flexDir='column'>
+        <Flex flexDir='column' padding='6vh' >
             <Heading fontSize={{ base: '32px', md: '44px' }} mt='4vh' mb='3vw'>Contact Us</Heading>
             <Center>
                 <HStack spacing='4vw' mb='4vh'>
@@ -52,7 +51,7 @@ function Contact() {
             </Center>
         </Flex>
         :
-        <Flex flexDir='column'>
+        <Flex flexDir='column' padding='3vw'>
             <Center mt='4vh' mb='5vw'>
                 <Heading fontSize={{ base: '32px', md: '44px', lg: '52px'}}>Contact Us</Heading>
             </Center>
@@ -76,7 +75,7 @@ function Contact() {
                         title='title'
                         width='100%'
                         height='100%'
-                        src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=efrei%20paris%20Cr%C3%A9teil+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2628.649536629006!2d2.361917500946093!3d48.78858066347233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e673e24be8f239%3A0x3d6f6bc71dbfd0d8!2sEfreitech!5e0!3m2!1sen!2sfr!4v1653336658503!5m2!1sen!2sfr"
                     />
                 </Box>
             </Center>

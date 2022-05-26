@@ -1,7 +1,7 @@
 import './../App.css';
 import features_image from '../images/features_image.webp'
 
-import { Center, HStack, Heading, Image, Flex, useMediaQuery } from '@chakra-ui/react'
+import { Center, Heading, Image, Flex, useMediaQuery } from '@chakra-ui/react'
 
 function Features() {
 
@@ -11,7 +11,7 @@ function Features() {
     <div className="Features">
       {isLarge ? 
       <Center>
-        <Flex mt='12vh' >
+        <Flex mt='15vh' mb='12vh' >
           <Flex flexDir='column' alignItems='start' mr='10vw'>
             <Heading fontSize={{ base: '32px', md: '44px', lg: '52px'}}>Features</Heading>
             <Heading fontSize={{ base: '16px', md: '22px', lg: '28px' }} mt='8' color='gray.700' >The convenient platform that</Heading>
