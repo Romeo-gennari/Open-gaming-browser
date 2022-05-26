@@ -3,6 +3,7 @@ const passport = require('passport');
 const db = require('../database.js');
 const { createUser, loginUser } = require('../models/user.js');
 const duplicateHandler = require('../utils/duplicateHandler.js');
+const failHandler = require('../utils/failHandler.js');
 const { fetchUser } = require('./users.js');
 
 /**
@@ -44,6 +45,14 @@ async function register(req, res, next) {
     .catch(duplicateHandler('Username or email is already in use', res));
   if (!insertResult)
     return;
+
+  await db('preset')
+    .insert({
+      name: 'Default',
+      type: 'default',
+      user_id: insertResult[0],
+    })
+    .catch(failHandler);
 
   const user = await fetchUser(insertResult[0]);
   res.status(201).json(user);
