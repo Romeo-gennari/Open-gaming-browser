@@ -5,7 +5,7 @@
 exports.up = (knex) => {
   return knex.schema.createTable('game', t => {
     t.increments('id').primary().unsigned();
-    t.string('name').unique().index()
+    t.string('name').unique().index();
     t.date('release_date');
     t.string('description');
     t.integer('editor_id').unsigned().references('editor.id');

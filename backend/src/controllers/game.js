@@ -1,3 +1,4 @@
+/** @type {import('knex').Knex} */
 const db = require('../database.js');
 const { createGame, gamesShape, updateGame } = require('../models/game.js');
 const duplicateHandler = require('../utils/duplicateHandler.js');
@@ -80,7 +81,6 @@ async function create(req, res, next) {
     .catch(duplicateHandler('Name is already in use', res));
   if (!insertResult)
     return;
-  console.log('DEBUG ~ file: game.js ~ line 76 ~ create ~ insertResult', insertResult);
 
   // Return the newly created game with its editor and publisher data
   const game = await fetchGame(insertResult[0]);

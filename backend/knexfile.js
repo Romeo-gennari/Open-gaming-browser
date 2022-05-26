@@ -23,7 +23,7 @@ module.exports = {
       database: process.env.DATABASE_NAME,
     },
     migrations: {
-      tableName: 'knex_migrations'
+      tableName: 'knex_migrations',
     }
   }
 };

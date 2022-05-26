@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const passport = require('passport');
+/** @type {import('knex').Knex} */
 const db = require('../database.js');
 const { createUser, loginUser } = require('../models/user.js');
 const duplicateHandler = require('../utils/duplicateHandler.js');

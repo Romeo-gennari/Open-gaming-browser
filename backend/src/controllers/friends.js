@@ -1,3 +1,4 @@
+/** @type {import('knex').Knex} */
 const db = require('../database.js');
 const duplicateHandler = require('../utils/duplicateHandler.js');
 const { createFriends } = require('../models/friends.js');

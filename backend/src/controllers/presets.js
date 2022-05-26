@@ -1,3 +1,4 @@
+/** @type {import('knex').Knex} */
 const db = require('../database.js');
 const { createPreset, presetsShape, updatePreset, presetShape } = require('../models/preset.js');
 const failHandler = require('../utils/failHandler.js');

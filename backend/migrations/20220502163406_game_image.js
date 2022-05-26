@@ -5,7 +5,7 @@
 exports.up = (knex) => {
   return knex.schema.alterTable('game', t => {
     t.string('image_url').defaultTo(null);
-  })
+  });
 }
 
 /**
@@ -15,5 +15,5 @@ exports.up = (knex) => {
 exports.down = (knex) => {
   return knex.schema.alterTable('game', t => {
     t.dropColumn('image_url');
-  })
+  });
 };

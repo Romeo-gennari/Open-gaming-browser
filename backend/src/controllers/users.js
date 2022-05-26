@@ -1,3 +1,4 @@
+/** @type {import('knex').Knex} */
 const db = require('../database.js');
 const { usersShape } = require('../models/user.js');
 const safeUser = require('../utils/safeUser.js');

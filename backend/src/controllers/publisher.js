@@ -1,3 +1,4 @@
+/** @type {import('knex').Knex} */
 const db = require('../database.js');
 const { createPublisher, publishersShape, updatePublisher } = require('../models/publisher.js');
 const duplicateHandler = require('../utils/duplicateHandler.js');
@@ -53,7 +54,6 @@ async function create(req, res, next) {
   const insertResult = await db('publisher')
     .insert(data)
     .catch(duplicateHandler('Name is already in use', res));
-  console.log('DEBUG ~ file: publisher.js ~ line 54 ~ create ~ insertResult', insertResult);
   if (!insertResult)
     return;
 

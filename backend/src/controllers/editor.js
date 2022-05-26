@@ -1,3 +1,4 @@
+/** @type {import('knex').Knex} */
 const db = require('../database.js');
 const { createEditor, editorsShape, updateEditor } = require('../models/editor.js');
 const duplicateHandler = require('../utils/duplicateHandler.js');
