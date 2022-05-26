@@ -67,6 +67,12 @@ router.route('/presets/:id')
   .patch(ensureAuthenticated, preset.update)
   .delete(ensureAuthenticated, preset.remove);
 
+router.route('/presets/:presetId/modes')
+  .get(ensureAuthenticated, preset.findAllModes);
+router.route('/presets/:presetId/modes/:gameModeId')
+  .put(ensureAuthenticated, preset.addMode)
+  .delete(ensureAuthenticated, preset.removeMode);
+
 // Game Modes CRUD
 router.route('/gamemodes')
   .get(gameMode.findAll)

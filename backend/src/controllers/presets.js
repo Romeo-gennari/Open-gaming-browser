@@ -1,8 +1,10 @@
 /** @type {import('knex').Knex} */
 const db = require('../database.js');
-const { createPreset, presetsShape, updatePreset, presetShape } = require('../models/preset.js');
+const { createPreset, presetsShape, updatePreset, presetShape, presetModesShape } = require('../models/preset.js');
+const duplicateHandler = require('../utils/duplicateHandler.js');
 const failHandler = require('../utils/failHandler.js');
 const notFoundHandler = require('../utils/notFoundHandler.js');
+const { fetchGameMode } = require('./game_mode.js');
 
 async function fetchPreset(id, userId) {
   return await presetShape.withQuery(
@@ -107,6 +109,79 @@ async function remove(req, res) {
     res.status(204).json();
 }
 
+/**
+ * Find all modes in a preset
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+async function findAllModes(req, res) {
+  const preset = await fetchPreset(req.params.presetId, req.user.id);
+  if (!preset) {
+    res.status(404).json({ message: 'Preset not found' });
+    return;
+  }
+
+  const modes = await presetModesShape.withQuery(
+    db('is_in_preset')
+      .select('preset.*', 'game_mode.*', 'game.*', 'editor.*', 'publisher.*')
+      .leftJoin('preset', 'is_in_preset.preset_id', 'preset.id')
+      .leftJoin('user', 'user.id', 'preset.user_id')
+      .leftJoin('game_mode', 'is_in_preset.game_mode_id', 'game_mode.id')
+      .leftJoin('game', 'game.id', 'game_mode.game_id')
+      .leftJoin('editor', 'editor.id', 'game.editor_id')
+      .leftJoin('publisher', 'publisher.id', 'game.publisher_id')
+      .where('preset.user_id', req.user.id)
+  );
+  res.status(201).json(modes);
+}
+
+/**
+ * Add a mode to a preset
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+async function addMode(req, res) {
+  const preset = await fetchPreset(req.params.presetId, req.user.id);
+  if (!preset) {
+    res.status(404).json({ message: 'Preset not found' });
+    return;
+  }
+
+  const mode = await fetchGameMode(req.params.gameModeId);
+  if (!mode) {
+    res.status(404).json({ message: 'GameMode not found' });
+    return;
+  }
+
+  const presetMode = await db('is_in_preset')
+    .insert({ preset_id: preset.id, game_mode_id: mode.id })
+    .catch(duplicateHandler('Mode already added', res));
+  if (!presetMode)
+    return;
+
+  res.status(200).json({ preset, game_mode: mode });
+}
+
+
+/**
+ * Remove a mode from a preset
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+async function removeMode(req, res) {
+  const presetMode = await db('is_in_preset')
+    .leftJoin('preset', 'is_in_preset.preset_id', 'preset.id')
+    .where('preset.user_id', req.user.id)
+    .andWhere('is_in_preset.game_mode_id', req.params.gameModeId)
+    .del();
+  if (!presetMode) {
+    res.status(404).json({ message: 'Mode not found' });
+    return;
+  }
+
+  res.status(204).json();
+}
+
 module.exports = {
   fetchPreset,
   findOne,
@@ -114,4 +189,7 @@ module.exports = {
   create,
   update,
   remove,
+  findAllModes,
+  addMode,
+  removeMode,
 };
