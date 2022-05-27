@@ -225,8 +225,8 @@ function PresetList(presetdata){
             <LeLibraryList>
             {data.map((preset)=>(
               <Box className='library-list' m='5px' border='solid' borderColor='black' borderRadius='5px' p='1vw' w='25vw' h='fit-content' color='black'
-              textAlign='center' backgroundColor='white' display='flex' flexDir='column' alignItems='center'>
-                  <Heading>{preset.title}</Heading>
+              textAlign='center' backgroundColor='white' display='flex' flexDir='column' alignItems='center' key={preset.id}>
+                  <Heading>{preset.name}</Heading>
                   <TagList className='game-list' >
                     <Text>Games: </Text>
                       {preset.games.map((game)=>(
@@ -240,16 +240,13 @@ function PresetList(presetdata){
                   </Flex>
               </Box>
             ))} 
-            <Center>
-              <Button m='1vw' onClick={onOpen} bg='red' color='white' w='4vh' h='4vh' colorScheme='red'>+</Button>
-            </Center>
             </LeLibraryList>
             :
             <LeLibraryList>
             {data.map((preset)=>(
               <Box className='library-list' m='5px' border='solid' borderColor='black' borderRadius='5px' p='1vw' w='65vw' h='fit-content' color='black'
               textAlign='center' backgroundColor='white' display='flex' flexDir='column' alignItems='center'>
-                  <Heading>{preset.title}</Heading>
+                  <Heading>{preset.name}</Heading>
                   <TagList className='game-list' >
                     <Text>Games: </Text>
                       {preset.games.map((game)=>(
@@ -263,9 +260,6 @@ function PresetList(presetdata){
                   </Flex>
               </Box>
             ))} 
-            <Center>
-              <Button m='1vw' onClick={onOpen} bg='red' color='white' w='4vh' h='4vh' colorScheme='red'>+</Button>
-            </Center>
             </LeLibraryList>
             }
             <AddPreset/>
