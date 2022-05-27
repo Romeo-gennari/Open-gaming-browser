@@ -69,7 +69,7 @@ function AddFriend(){
               <PopoverTrigger>
                   <Button>+</Button>
               </PopoverTrigger>
-              <PopoverContent w='auto' padding={1}>
+              <PopoverContent w='auto' padding={1} margin={50} >
                 
                 <input placeholder="Friend Pseudo" onChange={event => setNewFriendName(event.target.value)} />
                 {userslist.filter(game => {

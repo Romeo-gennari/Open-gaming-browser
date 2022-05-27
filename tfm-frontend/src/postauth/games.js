@@ -8,9 +8,9 @@ import { Box, Popover, PopoverTrigger, PopoverContent, Button } from "@chakra-ui
 import Sidebar from './sidebar';
 import Headband from "./Header";
 
-import GetGames from './getters/GetGames';
-import GetEditors from './getters/GetEditors';
-import GetPublishers from './getters/GetPublishers';
+import GetGames from './tgetters/GetGames';
+import GetEditors from './tgetters/GetEditors';
+import GetPublishers from './tgetters/GetPublishers';
 
 const GameList = styled.div`
 margin-top: 3vh;
@@ -24,7 +24,7 @@ margin: 5px 5px;
 border: solid black;
 padding: 2px 2px 2px 2px;
 width: 18vw;
-height: 40vh;
+min-width: 280px;
 background-color: black;
 color: white;
 font-family: "Helvetica";
