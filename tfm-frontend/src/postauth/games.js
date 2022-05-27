@@ -23,8 +23,8 @@ text-align: center;
 margin: 5px 5px;
 border: solid black;
 padding: 2px 2px 2px 2px;
-width: 300px;
-height: 400px;
+width: 18vw;
+height: 40vh;
 background-color: black;
 color: white;
 font-family: "Helvetica";
@@ -227,7 +227,7 @@ function SearchBar (Data){
                   <div style={{display:"flex"}}>
                     <p>{game.editor.name},</p>              
                     <p>{game.publisher.name},</p>
-                    <p>{game.release_date},</p>
+                    <p>{game.release_date.slice(0,4)},</p>
                     <p>{game.description}</p>
                   </div>
 

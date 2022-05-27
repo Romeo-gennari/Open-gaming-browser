@@ -1,11 +1,11 @@
 import {useState, useEffect} from "react";
-import api from "../../api";
+import api from '../../api';
 
-export default function GetPresets() {
+export default function GetGameModes() {
     const [data, setData] = useState([]);
     
     const getData = () => {
-      api.get ("/presets")
+      api.get ("/gamemodes")
         .then((response) => {
           console.log(response.data);
           setData(response.data);

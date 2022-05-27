@@ -10,6 +10,8 @@ import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import GetFriends from './getters/GetFriends';
 import GetPresets from './getters/GetPresets';
 
+import api from '../api';
+
 const ResearchBar = styled.input`
 color: black;
 width: 85vw;
@@ -99,6 +101,9 @@ function DisplayFriends(){
   );
 }
 
+
+
+
 function PresetLauncher(presetdata){
 
     presetdata = presetdata.input;
@@ -106,7 +111,15 @@ function PresetLauncher(presetdata){
     const [selected, select] = useState(0);
     const [color, setColor] = useState("green");
 
-    let body = presetdata[selected].title;
+    let body;
+
+    if(presetdata.length>0){
+      body = presetdata[selected].name;
+    }
+    else{
+      body = "list empty";
+    }
+    
     function decSelect(){
         if(selected>0)select(selected-1);
     }
@@ -114,8 +127,33 @@ function PresetLauncher(presetdata){
         if(selected<presetdata.length-1)select(selected+1);
     }
     function getTitle(){
-        return(presetdata[selected].title)
+        return(presetdata[selected].name)
     }
+
+    const [count, setCount] = useState(0);
+
+    const handleSearch = (preset) => {
+      const interval = setInterval(() => {
+        //setCount(count + 1);
+        //console.log(count);
+        getData();
+        //if(count>10){clearInterval(interval);}
+      }, 10000);
+    }
+
+    const [data, setData] = useState([]);
+    
+    const getData = () => {
+      api.get ("/presets")
+        .then((response) => {
+          console.log(response.data);
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
     return(
         <Launcher>
             <style>{`.red {background-color: #FF0000}.green {background-color: #00C04B}`}</style>
@@ -128,7 +166,7 @@ function PresetLauncher(presetdata){
                 <Button bg='#FF0000' colorScheme='red' size='sm' onClick={()=>{incSelect();body=presetdata[selected].title;}}><ArrowForwardIcon/></Button>
               </Flex>            
             </PresetSelector>
-            <Button className={color} color='white' colorScheme={color === 'red' ? 'red' : 'green'} onClick={()=>{alert("Preset "+ {getTitle} +" ignited!");setColor((color) => (color === "red" ? "green" : "red"));}}>{color === 'red' ? <Text>END</Text> : <Text>START</Text>}</Button>
+            <Button className={color} color='white' colorScheme={color === 'red' ? 'red' : 'green'} onClick={()=>{handleSearch(presetdata[selected]);setColor((color) => (color === "red" ? "green" : "red"));}}>{color === 'red' ? <Text>END</Text> : <Text>START</Text>}</Button>
         </Launcher>
     );
 }

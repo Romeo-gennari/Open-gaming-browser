@@ -11,6 +11,7 @@ import Download from './landing/Download';
 import Home from './postauth/home';
 import Friends from './postauth/friends';
 import Library from './postauth/library';
+import Gamemodes from './postauth/gamemodes';
 import Games from './postauth/games';
 import Stats from './postauth/stats';
 import Calendar from './postauth/calendar';
@@ -36,6 +37,7 @@ ReactDOM.render(
           <Route exact path="Home" element={<Home />} />
           <Route exact path="Friends" element={<Friends />} />
           <Route exact path="Library" element={<Library />} />
+          <Route exact path="Gamemodes" element={<Gamemodes />} />
           <Route exact path="Games" element={<Games />} />
           <Route exact path="Stats" element={<Stats />} />
           <Route exact path="Calendar" element={<Calendar />} />
