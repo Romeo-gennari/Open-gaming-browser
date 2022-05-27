@@ -2,10 +2,7 @@ import styled from "styled-components";
 import { Link, Heading, Flex, Box, Image, Spacer, HStack, Popover, PopoverTrigger, PopoverContent } from "@chakra-ui/react";
 import OpenGaming from '../images/open_gaming_logo.png';
 
-import { WarningIcon, CheckCircleIcon } from "@chakra-ui/icons";
-
-import api from "../api";
-import { useEffect, useState } from "react";
+import GetMe from "./getters/GetMe";
 
 const UserAvatar = styled.img`
 width:  128px;
@@ -15,37 +12,19 @@ margin-left: auto;
 margin-right: auto;
 `
 
-
-function DisplayConnexionIcon(status){
-    if (status == 1) return(<CheckCircleIcon w={5} h={5} color="green" />);
-    else return(<WarningIcon w={5} h={5} color="red.500" />);
-}
+const MarginalBox = styled.p`
+margin-right: 2vw;
+`
 
 function GetHeaderProfile(){
 
-    const [userdata, setUserdata] = useState([]);
-      
-    const getData = () => {
-      api
-        .get ("/auth/me")
-        .then((response) => {
-          console.log(response.data);
-          setUserdata(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    
-    useEffect(() => {
-      getData();
-    }, []);
+    let userdata = GetMe();
 
     return(
         <div>
             <Popover trigger='hover'>
                 <PopoverTrigger>
-                    <Box><DisplayConnexionIcon input={userdata.status} />{userdata.username}</Box>
+                    <MarginalBox>{userdata.username}</MarginalBox>
                 </PopoverTrigger>
                 <PopoverContent w='auto' padding={1}>
                     <UserAvatar href={userdata.avatar_url} alt="avatar"></UserAvatar>

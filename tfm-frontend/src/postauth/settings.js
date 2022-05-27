@@ -3,36 +3,14 @@ import Headband from "./Header";
 import { Flex, Heading, HStack, VStack, Input, Button, Select, Image, Spacer, Modal, useDisclosure, ModalContent, ModalHeader, ModalOverlay, 
     Center, InputGroup, InputRightElement, Text, Slider, SliderTrack, SliderFilledTrack, SliderThumb, SliderMark, Box } from '@chakra-ui/react';
 import pp from '../images/open_gaming_logo.png';
-import { useState, useEffect } from 'react'
+import { useState} from 'react'
 import axios from "axios";
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { IoIosNotifications, IoIosNotificationsOff } from 'react-icons/io'
 import { MdGraphicEq } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-function GetPresets() {
-    const [data, setData] = useState("");
-    
-    const getData = () => {
-      axios
-        .get ("http://localhost:5051/test2.json")
-        .then((response) => {
-          console.log(response.data);
-          setData(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
-    
-    useEffect(() => {
-      getData();
-    }, []);
-    
-    return(
-      data
-    );
-}
+import GetMe from "./getters/GetMe";
 
 function TrueSettings(Data){
 
@@ -42,7 +20,7 @@ function TrueSettings(Data){
 
     const [ username, setUsername ] = useState(Data.username);
     const [ email, setEmail ] = useState(Data.email);
-    const [ number, setNumber ] = useState(Data.tel);
+    const [ number, setNumber ] = useState(0);
 
     const handleModifyUsername = (event) => {
         event.preventDefault();
@@ -84,19 +62,19 @@ function TrueSettings(Data){
             axios.post("http://localhost:5051/test2.json",Data).then(alert("Password changed! You'll probably get redirected soon ..."));
             navigate('/Login');
         }
-        else if (Data.password != currentpassword)
+        else if (Data.password !== currentpassword)
         {
             event.preventDefault();
             alert("Current password is wrong! ")
         }
-        else if (newpassword != vpassword){
+        else if (newpassword !== vpassword){
             event.preventDefault();
             alert("Password don't match! ")
         }
     }
 
-    const [ mmNotifOn, mmNotifOff ] = useState(Data.mmNotification);
-    const [ newsNotifOn, newsNotifOff ] = useState(Data.newsNotification);
+    const [ mmNotifOn, mmNotifOff ] = useState(false);
+    const [ newsNotifOn, newsNotifOff ] = useState(false);
 
     const [sliderValue, setSliderValue] = useState(30);
 
@@ -223,7 +201,7 @@ function TrueSettings(Data){
 }
 
 function DisplaySettings(){
-    const data = GetPresets();
+    const data = GetMe();
     console.log(data);
     const displayData = () => {
     return data ? (

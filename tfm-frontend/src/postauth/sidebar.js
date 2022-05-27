@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link, Button, Flex, Text, Box, HStack, Drawer, DrawerOverlay, DrawerContent, VStack, useDisclosure, background, color} from "@chakra-ui/react";
-import axios from "axios";
 import { useState, useRef } from 'react';
 import { useNavigate } from "react-router";
 import { HamburgerIcon } from "@chakra-ui/icons";
@@ -69,6 +68,14 @@ function Sidebar(){
                     </Box>
                     <Box w='100%'>
                         {barSize == "closed" ? 
+                        <Link href="/#/Gamemodes" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiCalendar color='white'/></Flex></Link>
+                        : 
+                        <Link href="/#/Gamemodes" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiCalendar color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Gamemodes</Text></Flex></Link>
+
+                        }
+                    </Box>
+                    <Box w='100%'>
+                        {barSize == "closed" ? 
                         <Link href="/#/Games" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><IoGameControllerOutline color='white'/></Flex></Link>
                         : 
                         <Link href="/#/Games" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><IoGameControllerOutline color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Games</Text></Flex></Link>
@@ -80,14 +87,6 @@ function Sidebar(){
                         <Link href="/#/Stats" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><IoBarChartOutline color='white'/></Flex></Link>
                         : 
                         <Link href="/#/Stats" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><IoBarChartOutline color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Stats</Text></Flex></Link>
-
-                        }
-                    </Box>
-                    <Box w='100%'>
-                        {barSize == "closed" ? 
-                        <Link href="/#/Calendar" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiCalendar color='white'/></Flex></Link>
-                        : 
-                        <Link href="/#/Calendar" w='100%'><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiCalendar color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Calendar</Text></Flex></Link>
 
                         }
                     </Box>

@@ -1,7 +1,5 @@
-import api from "../../api";
 import { useEffect, useState } from "react";
-
-
+import api from "../../api";
 
 export default function GetMe(){
     const [userdata, setUserdata] = useState([]);

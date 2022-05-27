@@ -2,15 +2,13 @@ import './../App.css';
 
 import api from '../api';
 import styled from 'styled-components';
-import {React, useState, useEffect} from "react";
-import { Box, Popover, PopoverTrigger, PopoverContent, Button } from "@chakra-ui/react";
+import {React, useState} from "react";
+import { Popover, PopoverTrigger, PopoverContent, Button } from "@chakra-ui/react";
 
 import Sidebar from './sidebar';
 import Headband from "./Header";
 
 import GetGames from './getters/GetGames';
-import GetEditors from './getters/GetEditors';
-import GetPublishers from './getters/GetPublishers';
 import GetGameModes from './getters/GetGameModes';
 
 const GameList = styled.div`
@@ -38,16 +36,6 @@ background-color: white;
 color: black;
 font-family: "Helvetica";
 `
-
-const GameImg = styled.img`
-width: 280px;
-height: 350px;
-display: block;
-margin-left: auto;
-margin-right: auto;
-`
-
-
 function AddGameMode(id){
 
   const [newGameModeTitle, setNewGameModeTitle] = useState("");
@@ -56,7 +44,7 @@ function AddGameMode(id){
   const [newGameModeTime, setNewGameModeTime] = useState(0);
 
   function handleAddGameMode(){
-    if(newGameModeMinP!=0&&newGameModeMaxP!=0&&newGameModeTitle!=""&&newGameModeTime!=0){
+    if(newGameModeMinP!==0&&newGameModeMaxP!==0&&newGameModeTitle!==""&&newGameModeTime!==0){
       api.post("/gamemodes",{
         "name": newGameModeTitle,
         "minimum_players": parseInt(newGameModeMinP),
@@ -123,7 +111,7 @@ function SearchBar (Data){
               <PopoverContent w='auto' padding={1}>
               
                     {Gamemodes.filter(gamemode => {
-                        if(gamemode.game.id==game.id){return gamemode};
+                        if(gamemode.game.id===game.id){return gamemode};
                     }).map((gamemode) => (
                         
                         <Popover trigger='hover'>
