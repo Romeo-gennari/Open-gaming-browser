@@ -2,8 +2,9 @@
 const db = require('../database.js');
 const duplicateHandler = require('../utils/duplicateHandler.js');
 const { createFriends } = require('../models/friends.js');
-const { userShape, usersShape } = require('../models/user.js');
+const { usersShape } = require('../models/user.js');
 const { fetchUser } = require('./users.js');
+const { presetModesShape } = require('../models/preset.js');
 
 async function fetchFriend(id1, id2) {
   const friend = await db('friend_of')
@@ -105,9 +106,30 @@ async function remove(req, res) {
     res.status(204).json();
 }
 
+async function findAllPresets(req, res) {
+  const modes = await presetModesShape.withQuery(
+    db('is_in_preset')
+      .select('preset.*', 'game_mode.*', 'game.*', 'editor.*', 'publisher.*')
+      .rightJoin('preset', 'is_in_preset.preset_id', 'preset.id')
+      .leftJoin('user', 'user.id', 'preset.user_id')
+      .leftJoin('game_mode', 'is_in_preset.game_mode_id', 'game_mode.id')
+      .leftJoin('game', 'game.id', 'game_mode.game_id')
+      .leftJoin('editor', 'editor.id', 'game.editor_id')
+      .leftJoin('publisher', 'publisher.id', 'game.publisher_id')
+      .whereIn(
+        'preset.user_id',
+        db('friend_of')
+          .where('user1_id', req.user.id)
+          .select('user2_id')
+      )
+  );
+  res.status(200).json(modes);
+}
+
 module.exports = {
   findOne,
   findAll,
   create,
   remove,
+  findAllPresets,
 }

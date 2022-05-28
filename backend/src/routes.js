@@ -52,10 +52,12 @@ router.route('/publishers/:id')
 
 // Friends CRUD
 router.route('/friends')
-  .get(friend.findAll)
+  .get(ensureAuthenticated, friend.findAll)
   .post(ensureAuthenticated, friend.create);
+router.route('/friends/presets')
+  .get(ensureAuthenticated, friend.findAllPresets);
 router.route('/friends/:id')
-  .get(friend.findOne)
+  .get(ensureAuthenticated, friend.findOne)
   .delete(ensureAuthenticated, friend.remove);
 
 // Presets CRUD
