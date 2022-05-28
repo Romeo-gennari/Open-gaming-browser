@@ -38,7 +38,7 @@ async function findAll(req, res) {
   const modes = await presetModesShape.withQuery(
     db('is_in_preset')
       .select('preset.*', 'game_mode.*', 'game.*', 'editor.*', 'publisher.*')
-      .leftJoin('preset', 'is_in_preset.preset_id', 'preset.id')
+      .rightJoin('preset', 'is_in_preset.preset_id', 'preset.id')
       .leftJoin('user', 'user.id', 'preset.user_id')
       .leftJoin('game_mode', 'is_in_preset.game_mode_id', 'game_mode.id')
       .leftJoin('game', 'game.id', 'game_mode.game_id')
@@ -129,7 +129,7 @@ async function findAllModes(req, res) {
   const modes = await presetModesShape.withQuery(
     db('is_in_preset')
       .select('preset.*', 'game_mode.*', 'game.*', 'editor.*', 'publisher.*')
-      .leftJoin('preset', 'is_in_preset.preset_id', 'preset.id')
+      .rightJoin('preset', 'is_in_preset.preset_id', 'preset.id')
       .leftJoin('user', 'user.id', 'preset.user_id')
       .leftJoin('game_mode', 'is_in_preset.game_mode_id', 'game_mode.id')
       .leftJoin('game', 'game.id', 'game_mode.game_id')
