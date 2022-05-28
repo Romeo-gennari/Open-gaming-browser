@@ -95,6 +95,49 @@
   visibility: visible;
 }
 
+.match-button {
+  z-index: 99;
+  margin: 3vw;
+  transform: scale(1);
+  transition-duration: 1s;
+}
+
+.match-button:hover + .home-logo {
+  transform: scale(0.85);
+  transition-duration: 1s;
+}
+
+.match-button:not(hover) + .home-logo {
+  transform: scale(1);
+  transition-duration: 1s;
+}
+
+.home-logo-spin {
+  animation: logo-spin 0.5s ease-in-out;
+}
+
+.home-logo-reverse-spin {
+  animation: reverse-logo-spin 0.5s ease-in-out;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+@keyframes reverse-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg)
+  }
+}
+
 @media (orientation: portrait) {
   .App {
     min-height: 70vh;

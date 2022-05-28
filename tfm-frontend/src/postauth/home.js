@@ -4,13 +4,15 @@ import Headband from "./Header";
 
 import styled from 'styled-components';
 import {React, useState} from "react";
-import { Button, Box, Text, Flex, Spacer } from "@chakra-ui/react";
+import { Button, Box, Text, Center, Image, Heading, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerContent, DrawerCloseButton, useDisclosure } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
-
 import GetFriends from './getters/GetFriends';
 import GetPresets from './getters/GetPresets';
 
 import api from '../api';
+
+import logo from '../images/Logo_final.png';
+import reverse_logo from '../images/revert_Logo_final.png';
 
 const ResearchBar = styled.input`
 color: black;
@@ -94,9 +96,21 @@ function DisplayFriends(){
       <h3>No data yet</h3>
     );
   }
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   return (
     <>
-      {displayData()}
+      <Button bg='#1A202C' colorScheme='orange' onClick={onOpen} position='absolute' right='10px'>Friends List</Button>
+      <Drawer isOpen={isOpen} placement='right' onClose={onClose} >
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader>Friends List</DrawerHeader>
+          <DrawerBody>
+            {displayData()}
+          </DrawerBody>
+          <DrawerFooter></DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 }
@@ -117,7 +131,7 @@ function PresetLauncher(presetdata){
       body = presetdata[selected].name;
     }
     else{
-      body = "list empty";
+      body = "Empty List";
     }
     
     function decSelect(){
@@ -154,20 +168,50 @@ function PresetLauncher(presetdata){
         });
     };
 
+    const [ isLoading, setIsLoading ] = useState(false); 
+
+    function prevPresetButton() {
+      decSelect();body=presetdata[selected].title;
+      console.log('hello prev');
+    }
+    function prevPresetAnimation() {
+      var element = document.getElementById("spin");
+      element.classList.toggle("home-logo-reverse-spin");
+      setIsLoading(current => !current);
+      setTimeout(
+        function(){
+          element.classList.remove("home-logo-reverse-spin");
+          element.classList.toggle("home-logo");
+          setIsLoading(current => !current);
+        }, 600);
+      console.log('spin prev');
+    }
+
+    function nextPresetButton() {
+      incSelect();body=presetdata[selected].title;
+      console.log('hello next');
+    }
+    function nextPresetAnimation() {
+      var element = document.getElementById("spin");
+      element.classList.toggle("home-logo-spin");
+      setIsLoading(current => !current);
+      setTimeout(
+        function(){
+          element.classList.remove("home-logo-spin");
+          element.classList.toggle("home-logo");
+          setIsLoading(current => !current);
+        }, 600);
+      console.log('spin next');
+    }
+
     return(
-        <Launcher>
-            <style>{`.red {background-color: #FF0000}.green {background-color: #00C04B}`}</style>
-            <PresetSelector>
-              <Flex w='auto'>
-                <Button bg='#00C04B' colorScheme='green' size='sm' onClick={()=>{decSelect();body=presetdata[selected].title;}}><ArrowBackIcon/></Button>
-                <Spacer/>
-                <Box borderRadius='5px' borderWidth='2px' borderColor='black'>{body}</Box>
-                <Spacer/>
-                <Button bg='#FF0000' colorScheme='red' size='sm' onClick={()=>{incSelect();body=presetdata[selected].title;}}><ArrowForwardIcon/></Button>
-              </Flex>            
-            </PresetSelector>
-            <Button className={color} color='white' colorScheme={color === 'red' ? 'red' : 'green'} onClick={()=>{handleSearch(presetdata[selected]);setColor((color) => (color === "red" ? "green" : "red"));}}>{color === 'red' ? <Text>END</Text> : <Text>START</Text>}</Button>
-        </Launcher>
+            <Center h='90vh'>
+              <Button className='previous-button' mr='12vw' isDisabled={color === 'red' ? true : false || isLoading === true ? true : false } bg='#00C04B' colorScheme='green' size='md' zIndex={1} onClick={() => {prevPresetButton(); prevPresetAnimation();}}><ArrowBackIcon/></Button>
+              <Box borderRadius='5px' borderWidth='2px' w={['17vh', '20vw']} borderColor='black' zIndex={1} position='absolute' textAlign='center'><Heading fontSize={['lg', '2xl']}>{body}</Heading></Box>
+              <Button className='match-button' isDisabled={ isLoading === true ? true : false } mt={['20vh', '12vw']} color='white' zIndex={1} colorScheme={color === 'red' ? 'red' : 'green'} size='lg' onClick={() => {handleSearch(presetdata[selected]);setColor((color) => (color === "red" ? "green" : "red"));}}>{color === 'red' ? <Text>Cancel</Text> : <Text>Launch</Text>}</Button>
+              <Image className='home-logo' id="spin" h={['95vw', '95vh']} src={color === 'red' ? reverse_logo : logo} position='absolute' zIndex={0} />
+              <Button className='next-button' ml='12vw' isDisabled={color === 'red' ? true : false || isLoading === true ? true : false } bg='#FF0000' colorScheme='red' size='md' zIndex={1} onClick={() => {nextPresetButton(); nextPresetAnimation();}}><ArrowForwardIcon/></Button>
+            </Center>
     );
 }
 
@@ -192,6 +236,21 @@ function DisplayPresets(){
 
 function Home(){
 
+  return(
+      <div className="pApp">
+          <Sidebar />
+          <Headband />
+          <div className="paBody">
+            <DisplayFriends />
+            <DisplayPresets />
+          </div>
+      </div>
+      
+  );
+}
+/*
+function Home(){
+
     return(
         <div className="pApp">
             <Sidebar />
@@ -205,6 +264,6 @@ function Home(){
         </div>
         
     );
-}
+}*/
 
 export default Home;

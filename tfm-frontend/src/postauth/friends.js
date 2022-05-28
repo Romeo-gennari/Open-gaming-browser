@@ -3,7 +3,7 @@ import Headband from "./Header";
 
 import styled from 'styled-components';
 import {React, useState, useEffect} from "react";
-import { Box, Popover, PopoverTrigger, PopoverContent, Button } from "@chakra-ui/react";
+import { Heading, Popover, PopoverTrigger, PopoverContent, Button } from "@chakra-ui/react";
 
 import GetFriends from "./getters/GetFriends";
 import GetAllUsers from "./getters/GetAllUsers";
@@ -20,6 +20,7 @@ padding: 10px 3px 3px 5vw;
 width 20vw;
 background-color:grey;
 height:95vh;
+position: absolute;
 `
 
 const NarrowFriendList = styled.div`
@@ -65,11 +66,11 @@ function AddFriend(){
 
   return(
       <div>
-          <Popover>
+          <Popover placement='right'>
               <PopoverTrigger>
-                  <Button>+</Button>
+                  <Button>Add</Button>
               </PopoverTrigger>
-              <PopoverContent w='auto' padding={1} margin={50} >
+              <PopoverContent w='auto' padding={1} >
                 
                 <input placeholder="Friend Pseudo" onChange={event => setNewFriendName(event.target.value)} />
                 {userslist.filter(game => {
@@ -136,6 +137,8 @@ function Friends(){
                 <DisplayFriends input={1}/>
             </MasterFriendList>
             <div className="paBody">
+              <Heading textAlign='center'>OpenChat : Coming soon...</Heading>
+              <Heading textAlign='center'>Stay Tuned !!</Heading>
             </div>
         </div>
     );
