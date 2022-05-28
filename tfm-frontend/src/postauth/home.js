@@ -13,6 +13,7 @@ import api from '../api';
 
 import logo from '../images/Logo_final.png';
 import reverse_logo from '../images/revert_Logo_final.png';
+import { FiKey } from 'react-icons/fi';
 
 const ResearchBar = styled.input`
 color: black;
@@ -124,11 +125,15 @@ function PresetLauncher(presetdata){
     
     const [selected, select] = useState(0);
     const [color, setColor] = useState("green");
+    const [searchin,setSearchin] = useState(true);
+    const [activePreset,setActivePreset] = useState(0)
 
     let body;
-
     if(presetdata.length>0){
       body = presetdata[selected].name;
+      //setActivePreset(presetdata[selected]);
+      //console.log("Active:");
+      //console.log(presetdata[selected]);
     }
     else{
       body = "Empty List";
@@ -136,32 +141,48 @@ function PresetLauncher(presetdata){
     
     function decSelect(){
         if(selected>0)select(selected-1);
+        setActivePreset(presetdata[selected]);
+        console.log(activePreset);
     }
     function incSelect(){
         if(selected<presetdata.length-1)select(selected+1);
-    }
-    function getTitle(){
-        return(presetdata[selected].name)
+        setActivePreset(presetdata[selected]);
+        console.log(activePreset);
     }
 
-    const [count, setCount] = useState(0);
+    const [activeInterval, setActiveInterval] = useState(0);
 
     const handleSearch = (preset) => {
-      const interval = setInterval(() => {
-        //setCount(count + 1);
-        //console.log(count);
+      setActiveInterval(setInterval(() => {
+        console.log(searchin);
         getData();
-        //if(count>10){clearInterval(interval);}
-      }, 10000);
+        if(searchin==false){clearInterval(activeInterval)}
+      }, 10000));
     }
 
     const [data, setData] = useState([]);
     
     const getData = () => {
-      api.get ("/presets")
+      api.get ("/friends/presets")
         .then((response) => {
           console.log(response.data);
           setData(response.data);
+          response.forEach(preset => {
+            console.log(preset);
+            preset.modes.forEach(exgamemode => {
+              presetdata[selected].modes.forEach(locgamemode => {
+                console.log("Loopin Hard");
+                console.log(exgamemode);
+                console.log(locgamemode);
+                if(exgamemode.id==locgamemode.id){
+                  alert("MATCH FOUND!!!!!!");
+                  console.log(exgamemode);
+                  console.log(locgamemode);
+                  console.log("MATCH FOUND");
+                }
+              })
+            })
+        });
         })
         .catch((error) => {
           console.log(error);
@@ -207,8 +228,8 @@ function PresetLauncher(presetdata){
     return(
             <Center h='90vh'>
               <Button className='previous-button' mr='12vw' isDisabled={color === 'red' ? true : false || isLoading === true ? true : false } bg='#00C04B' colorScheme='green' size='md' zIndex={1} onClick={() => {prevPresetButton(); prevPresetAnimation();}}><ArrowBackIcon/></Button>
-              <Box borderRadius='5px' borderWidth='2px' w={['17vh', '20vw']} borderColor='black' zIndex={1} position='absolute' textAlign='center'><Heading fontSize={['lg', '2xl']}>{body}</Heading></Box>
-              <Button className='match-button' isDisabled={ isLoading === true ? true : false } mt={['20vh', '12vw']} color='white' zIndex={1} colorScheme={color === 'red' ? 'red' : 'green'} size='lg' onClick={() => {handleSearch(presetdata[selected]);setColor((color) => (color === "red" ? "green" : "red"));}}>{color === 'red' ? <Text>Cancel</Text> : <Text>Launch</Text>}</Button>
+              <Box borderRadius='5px' borderWidth='2px' w={['17vh', '20vw']} borderColor='black' zIndex={1} position='absolute' textAlign='center'><Heading fontSize={['lg', '2xl']}>{activePreset.name}</Heading></Box>
+              <Button className='match-button' isDisabled={ isLoading === true ? true : false } mt={['20vh', '12vw']} color='white' zIndex={1} colorScheme={color === 'red' ? 'red' : 'green'} size='lg' onClick={() => {searchin==true?setSearchin(false):setSearchin(true);clearInterval(activeInterval);console.log(searchin);handleSearch(presetdata[selected]);setColor((color) => (color === "red" ? "green" : "red"));}}>{color === 'red' ? <Text>Cancel</Text> : <Text>Launch</Text>}</Button>
               <Image className='home-logo' id="spin" h={['95vw', '95vh']} src={color === 'red' ? reverse_logo : logo} position='absolute' zIndex={0} />
               <Button className='next-button' ml='12vw' isDisabled={color === 'red' ? true : false || isLoading === true ? true : false } bg='#FF0000' colorScheme='red' size='md' zIndex={1} onClick={() => {nextPresetButton(); nextPresetAnimation();}}><ArrowForwardIcon/></Button>
             </Center>

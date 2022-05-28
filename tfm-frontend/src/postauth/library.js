@@ -171,7 +171,7 @@ function AddPreset(){
                     <Box borderWidth='1px' borderColor='black' borderRadius='5px' w={[175, 280, 350]} h={[50, 80, 100]} overflowY='auto'>
                       <Flex flexWrap='wrap'>
                         {newlist.map((game)=>(
-                          <Button w='-moz-fit-content' maxH='30px' m='1px' borderWidth='1px' borderColor='black' borderRadius='5px' alignContent='center' textAlign='center' key={game.id} onClick={()=>{handleRemoveGame(game.id)}}>{game.name}</Button>
+                          <Button w='-moz-fit-content' maxH='30px' m='1px' borderWidth='1px' borderColor='black' borderRadius='5px' alignContent='center' textAlign='center' key={game} onClick={()=>{handleRemoveGame(game.id)}}>{game}</Button>
                         ))}
                       </Flex>
                     </Box>
@@ -193,27 +193,12 @@ function AddPreset(){
 function PresetList(presetdata){
 
   //Experimental way to get the gamedata  
-  
-    let Gamedata = GetGames();
-    var Gamemodes = GetGameModes();
-
     //const [ data, setdata] = useState(presetdata.input)
     var data = GetPresets();
 
-    console.log(data);
-    const [ deleted, dodelete ] = useState("");
 
-    const [newtitle, editnewtitle] = useState("");
-    const [newlist, editnewlist] = useState([]);
-    const [newgmlist,editnewgmlist] = useState([]);
-
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [query, setQuery] = useState("")
-
-    function handleDelete(){
-        data=(data.filter((preset)=>{if(preset.title!=deleted)return(preset)}));
-        console.log(data);
-        axios.post("http://localhost:5051/presets.json",data).then(alert("Preset removed!"));
+    function handleDelete(id){
+        api.delete("/presets/"+id).then(alert("Preset removed!"));
     }
 
     const [isLarge] = useMediaQuery('(min-width: 560px)')
@@ -229,14 +214,14 @@ function PresetList(presetdata){
                   <Heading>{preset.name}</Heading>
                   <TagList className='game-list' >
                     <Text>Games: </Text>
-                      {preset.games.map((game)=>(
+                      {preset.modes.map((game)=>(
                           <Tagged key={game.id}>{game.name}</Tagged>
                       ))}
                   </TagList>
                   <Flex flexDir='row' justifyContent='center' m='2px' zIndex={20} w='full' >
                     <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='md' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' >Activate</Button>
                     <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='md' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' colorScheme='gray'>Edit</Button>
-                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='md' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' onClick={()=>{dodelete(preset.title);handleDelete();}}>Delete</Button>
+                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='md' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' onClick={()=>{handleDelete(preset.id);}}>Delete</Button>
                   </Flex>
               </Box>
             ))} 
@@ -245,18 +230,18 @@ function PresetList(presetdata){
             <LeLibraryList>
             {data.map((preset)=>(
               <Box className='library-list' m='5px' border='solid' borderColor='black' borderRadius='5px' p='1vw' w='65vw' h='fit-content' color='black'
-              textAlign='center' backgroundColor='white' display='flex' flexDir='column' alignItems='center'>
+              textAlign='center' backgroundColor='white' display='flex' flexDir='column' alignItems='center' key={preset.id}> 
                   <Heading>{preset.name}</Heading>
                   <TagList className='game-list' >
                     <Text>Games: </Text>
-                      {preset.games.map((game)=>(
+                      {preset.modes.map((game)=>(
                           <Tagged key={game.id}>{game.name}</Tagged>
                       ))}
                   </TagList>
                   <Flex flexDir='column' justifyContent='center' m='2px' zIndex={20} w='full' >
                     <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='xs' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' >Activate</Button>
                     <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='xs' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' colorScheme='gray'>Edit</Button>
-                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='xs' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' onClick={()=>{dodelete(preset.title);handleDelete();}}>Delete</Button>
+                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='xs' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' onClick={()=>{handleDelete(preset.id);}}>Delete</Button>
                   </Flex>
               </Box>
             ))} 
@@ -292,7 +277,7 @@ function Library(){
             <Headband />
             <div className="paBody">
                 <Heading textAlign='center' mb='1%'>Presets Library</Heading>
-                <DisplayPresets/>
+                <PresetList/>
             </div>
         </div>
     );

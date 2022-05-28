@@ -15,7 +15,7 @@ const { app } = require('./server.js');
 const KnexSessionStore = knexSession(session);
 
 // Configure some middlewares
-app.use(cors({ credentials: true, origin: ['localhost', 'http://open-gaming.fr', 'http://www.open-gaming.fr'] }));   // Allow all origins
+//app.use(cors({ credentials: true, origin: ['localhost', 'http://open-gaming.fr', 'http://www.open-gaming.fr'] }));   // Allow all origins
 app.use(helmet()); // Secure the app against common web vulnerabilities
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
