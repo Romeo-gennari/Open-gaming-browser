@@ -35,13 +35,18 @@ async function findOne(req, res) {
  * @param {import('express').Response} res
  */
 async function findAll(req, res) {
-  const presets = await presetsShape.withQuery(
-    db('preset')
-      .select('preset.*')
+  const modes = await presetModesShape.withQuery(
+    db('is_in_preset')
+      .select('preset.*', 'game_mode.*', 'game.*', 'editor.*', 'publisher.*')
+      .leftJoin('preset', 'is_in_preset.preset_id', 'preset.id')
+      .leftJoin('user', 'user.id', 'preset.user_id')
+      .leftJoin('game_mode', 'is_in_preset.game_mode_id', 'game_mode.id')
+      .leftJoin('game', 'game.id', 'game_mode.game_id')
+      .leftJoin('editor', 'editor.id', 'game.editor_id')
+      .leftJoin('publisher', 'publisher.id', 'game.publisher_id')
       .where('preset.user_id', req.user.id)
-      .leftJoin('user', 'preset.user_id', 'user.id')
   );
-  res.status(200).json(presets);
+  res.status(200).json(modes);
 }
 
 /**
@@ -130,7 +135,7 @@ async function findAllModes(req, res) {
       .leftJoin('game', 'game.id', 'game_mode.game_id')
       .leftJoin('editor', 'editor.id', 'game.editor_id')
       .leftJoin('publisher', 'publisher.id', 'game.publisher_id')
-      .where('preset.user_id', req.user.id)
+      .where('preset.id', preset.id)
   );
   res.status(201).json(modes);
 }
