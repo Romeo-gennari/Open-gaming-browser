@@ -152,22 +152,13 @@ function PresetLauncher(presetdata){
 
     const [activeInterval, setActiveInterval] = useState(0);
 
-    const handleSearch = (preset) => {
-      setActiveInterval(setInterval(() => {
-        console.log(searchin);
-        getData();
-        if(searchin==false){clearInterval(activeInterval)}
-      }, 10000));
-    }
-
-    const [data, setData] = useState([]);
+    const [superdata, setData] = useState([]);
     
     const getData = () => {
-      api.get ("/friends/presets")
+        api.get ("/friends/presets")
         .then((response) => {
           console.log(response.data);
-          setData(response.data);
-          response.forEach(preset => {
+          response.data.forEach(preset => {
             console.log(preset);
             preset.modes.forEach(exgamemode => {
               presetdata[selected].modes.forEach(locgamemode => {
@@ -189,6 +180,14 @@ function PresetLauncher(presetdata){
         });
     };
 
+    const handleSearch = () => {
+      setActiveInterval(setInterval(() => {
+        console.log(searchin);
+        getData();
+        if(searchin==false){clearInterval(activeInterval)}
+      }, 5000));
+    }
+    
     const [ isLoading, setIsLoading ] = useState(false); 
 
     function prevPresetButton() {
