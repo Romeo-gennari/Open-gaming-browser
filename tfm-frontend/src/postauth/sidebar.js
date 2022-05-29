@@ -62,7 +62,7 @@ function Sidebar(){
                         {barSize == "closed" ? 
                         <Link href="/#/Library" w='100%' style={{ textDecoration: 'none' }} ><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiBookOpen color='white'/></Flex></Link>
                         : 
-                        <Link href="/#/Library" w='100%' style={{ textDecoration: 'none' }} ><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiBookOpen color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Library</Text></Flex></Link>
+                        <Link href="/#/Library" w='100%' style={{ textDecoration: 'none' }} ><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiBookOpen color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Presets</Text></Flex></Link>
                         }
                     </Box>
                     <Box w='100%'>
