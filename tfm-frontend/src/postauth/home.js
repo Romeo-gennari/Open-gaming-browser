@@ -142,16 +142,6 @@ function PresetLauncher(presetdata){
       body = "Empty List";
     }
     
-    function decSelect(){
-        if(selected>0){body=presetdata[selected-1].name;activePreset=presetdata[selected-1];select(selected-1)};
-        console.log(selected);
-        console.log(activePreset);
-    }
-    function incSelect(){
-        if(selected<presetdata.length-1){body=presetdata[selected+1].name;activePreset=presetdata[selected+1];select(selected+1)};
-        console.log(selected);
-        console.log(activePreset);
-    }
 
     const [activeInterval, setActiveInterval] = useState(0);
     const [matchFound, setMatchFound] = useState(false);
@@ -220,8 +210,8 @@ function PresetLauncher(presetdata){
     const [ isLoading, setIsLoading ] = useState(false); 
 
     function prevPresetButton() {
-      decSelect();
-      //setActivePreset(presetdata[selected]);
+      if(selected>0){body=presetdata[selected-1].name;activePreset=presetdata[selected-1];select(selected-1);prevPresetAnimation();};
+      console.log(activePreset);
       console.log('hello prev');
     }
     function prevPresetAnimation() {
@@ -238,7 +228,8 @@ function PresetLauncher(presetdata){
     }
 
     function nextPresetButton() {
-      incSelect();
+      if(selected<presetdata.length-1){body=presetdata[selected+1].name;activePreset=presetdata[selected+1];select(selected+1);nextPresetAnimation();};
+      console.log(activePreset);
       console.log('hello next');
     }
     function nextPresetAnimation() {
@@ -263,11 +254,11 @@ function PresetLauncher(presetdata){
 
     return(
             <Center h='90vh'>
-              <Button className='previous-button' mr='12vw' isDisabled={color === 'red' ? true : false || isLoading === true ? true : false } bg='#00C04B' colorScheme='green' size='md' zIndex={1} onClick={() => {prevPresetButton(); prevPresetAnimation(); }}><ArrowBackIcon/></Button>
+              <Button className='previous-button' mr='12vw' isDisabled={color === 'red' ? true : false || isLoading === true ? true : false } bg='#00C04B' colorScheme='green' size='md' zIndex={1} onClick={() => {prevPresetButton();}}><ArrowBackIcon/></Button>
               <Box borderRadius='5px' borderWidth='2px' w={['17vh', '20vw']} borderColor='black' zIndex={1} position='absolute' textAlign='center'><Heading fontSize={['lg', '2xl']}>{body}</Heading></Box>
               <Button className='match-button' isDisabled={ isLoading === true ? true : false } mt={['20vh', '12vw']} color='white' zIndex={1} colorScheme={color === 'red' ? 'red' : 'green'} size='lg' onClick={() => {searchin==true?setSearchin(false):setSearchin(true);clearInterval(activeInterval);console.log(searchin);handleSearch(presetdata[selected]);setColor((color) => (color === "red" ? "green" : "red"));}}>{color === 'red' ? <Text>Cancel</Text> : <Text>Launch</Text>}</Button>
               <Image className='home-logo' id="spin" h={['95vw', '95vh']} src={color === 'red' ? reverse_logo : logo} position='absolute' zIndex={0} />
-              <Button className='next-button' ml='12vw' isDisabled={color === 'red' ? true : false || isLoading === true ? true : false } bg='#FF0000' colorScheme='red' size='md' zIndex={1} onClick={() => {nextPresetButton(); nextPresetAnimation();}}><ArrowForwardIcon/></Button>
+              <Button className='next-button' ml='12vw' isDisabled={color === 'red' ? true : false || isLoading === true ? true : false } bg='#FF0000' colorScheme='red' size='md' zIndex={1} onClick={() => {nextPresetButton();}}><ArrowForwardIcon/></Button>
               <div className="mmClient" >
                 <Modal isOpen={matchFound}>
                     <ModalOverlay/>
