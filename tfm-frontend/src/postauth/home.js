@@ -178,6 +178,7 @@ function PresetLauncher(presetdata){
         if(matchFound===false && stop===false){
           console.log(searchin);
           getData();
+          nextPresetAnimation();
           if(searchin==false){clearInterval(activeInterval);stop=true}
         }
       }, 5000));

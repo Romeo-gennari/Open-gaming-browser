@@ -91,7 +91,7 @@ function AddPreset(){
   const [query, setQuery] = useState("");
 
   const putGameMode = (res,element) => {
-    api.put("/presets/"+res.data.id+"/modes/"+element)
+    api.put("/presets/"+res.data.id+"/modes/"+element).then(window.location.reload(false));
   }
 
   const handleAddPreset = (event) => {
@@ -215,7 +215,7 @@ function PresetList(presetdata){
                   <TagList className='game-list' >
                     <Text>Games: </Text>
                       {preset.modes.map((game)=>(
-                          <Tagged key={game.id}>{game.name}</Tagged>
+                          <Tagged key={game.id}>{game.game.name} : {game.name}</Tagged>
                       ))}
                   </TagList>
                   <Flex flexDir='row' justifyContent='center' m='2px' zIndex={20} w='full' >
@@ -235,7 +235,7 @@ function PresetList(presetdata){
                   <TagList className='game-list' >
                     <Text>Games: </Text>
                       {preset.modes.map((game)=>(
-                          <Tagged key={game.id}>{game.name}</Tagged>
+                          <Tagged key={game.id}>{game.game.name} : {game.name}</Tagged>
                       ))}
                   </TagList>
                   <Flex flexDir='column' justifyContent='center' m='2px' zIndex={20} w='full' >

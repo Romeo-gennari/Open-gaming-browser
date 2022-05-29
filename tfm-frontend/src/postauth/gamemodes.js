@@ -52,6 +52,7 @@ function AddGameMode(id){
         "estimated_time_min": parseInt(newGameModeTime),
         "game_id": parseInt(id.input)
       }).then(console.log);
+      window.location.reload(false);
     }
     
   }
