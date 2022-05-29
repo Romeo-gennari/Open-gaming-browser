@@ -36,6 +36,30 @@ return(
           name: "Call of Duty: Black Ops III",
           publisher: {id: 7, name: 'Activision'},
           release_date: "2015-11-04T23:00:00.000Z"
+        }, {
+          description: "Shooting game",
+          editor: {id: 8, name: 'Treyarch'},
+          id: 4,
+          image_url: "https://webimg.secondhandapp.at/1.1/57b08f29afa4c5f9431c4224",
+          name: "Call of Duty: Black Ops IIIggggggggg",
+          publisher: {id: 7, name: 'Activision'},
+          release_date: "2015-11-04T23:00:00.000Z"
+        },{
+          description: "Shooting game",
+          editor: {id: 8, name: 'Treyarch'},
+          id: 4,
+          image_url: "https://webimg.secondhandapp.at/1.1/57b08f29afa4c5f9431c4224",
+          name: "Call of Duty: Black Ops III",
+          publisher: {id: 7, name: 'Activision'},
+          release_date: "2015-11-04T23:00:00.000Z"
+        },{
+          description: "Shooting game",
+          editor: {id: 8, name: 'Treyarch'},
+          id: 4,
+          image_url: "https://webimg.secondhandapp.at/1.1/57b08f29afa4c5f9431c4224",
+          name: "Call of Duty: Black Ops III",
+          publisher: {id: 7, name: 'Activision'},
+          release_date: "2015-11-04T23:00:00.000Z"
         }
       ]
     );

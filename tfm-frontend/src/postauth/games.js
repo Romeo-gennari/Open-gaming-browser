@@ -3,39 +3,32 @@ import './../App.css';
 import api from '../api';
 import styled from 'styled-components';
 import {React, useState, useEffect} from "react";
-import { Box, Popover, PopoverTrigger, PopoverContent, Button } from "@chakra-ui/react";
+import { Popover, PopoverTrigger, PopoverContent, Button, PopoverArrow, Input, Center, Heading, Text, Box, useMediaQuery, VStack } from "@chakra-ui/react";
 
 import Sidebar from './sidebar';
 import Headband from "./Header";
 
-import GetGames from './getters/GetGames';
-import GetEditors from './getters/GetEditors';
-import GetPublishers from './getters/GetPublishers';
+import GetGames from './tgetters/GetGames';
+import GetEditors from './tgetters/GetEditors';
+import GetPublishers from './tgetters/GetPublishers';
 
 const GameList = styled.div`
 margin-top: 3vh;
 display:flex;
 flex-wrap: wrap;
-`
-const GameListed = styled.button`
-
-text-align: center;
-margin: 5px 5px;
-border: solid black;
-padding: 2px 2px 2px 2px;
-width: 18vw;
-min-width: 280px;
-background-color: black;
-color: white;
-font-family: "Helvetica";
+align-content: flex-start;
 `
 
 const GameImg = styled.img`
-width: 280px;
-height: 350px;
+width: 13.3vw;
+height: 16.625vw;
 display: block;
 margin-left: auto;
-margin-right: auto;
+margin-right: auto; 
+@media (orientation: portrait) {
+  width: 40vh;
+  height: 42vh;
+}
 `
 
 let games,editors,publishers;
@@ -82,31 +75,32 @@ function AddGame(){
       <div>
           <Popover>
               <PopoverTrigger>
-                  <Button>Add Game</Button>
+                  <Button m='1vw' bg='#1A202C' color='white' colorScheme='orange'>Add Game</Button>
               </PopoverTrigger>
-              <PopoverContent w='auto' padding={1}>
-                <input placeholder="Title" onChange={event => setNewGameTitle(event.target.value)} />
+              <PopoverContent w='auto' padding={1} >
+
+                <Input h='5vh' mt='2px' placeholder="Title" onChange={event => setNewGameTitle(event.target.value)} />
                 {games.filter(game => {
                   if (newGameTitle === '') {}
                   else if (game.name.toLowerCase().includes(newGameTitle.toLowerCase())) {return game;}
                 }).map((game) => (<p key={game.id} onClick={() => {}}>{game.name}</p>))}
 
-                <input placeholder="Studio" value={newGameEditor} onChange={event => setNewGameEditor(event.target.value)} />
+                <Input h='5vh' mt='2px' placeholder="Studio" value={newGameEditor} onChange={event => setNewGameEditor(event.target.value)} />
                 {editors.filter(game => {
                   if (newGameEditor === ''|| newGameEditorId!=-1) {}
                   else if (game.name.toLowerCase().includes(newGameEditor.toLowerCase())) {return game;}
                 }).map((game) => (<p key={game.id} onClick={() => {setNewGameEditorId(game.id);setNewGameEditor(game.name)}}>{game.name}</p>))}
 
-                <input placeholder="Publisher" value={newGamePublisher } onChange={event => {setNewGamePublisher(event.target.value);setNewGamePublisherId(-1)}} />
+                <Input h='5vh' mt='2px' placeholder="Publisher" value={newGamePublisher } onChange={event => {setNewGamePublisher(event.target.value);setNewGamePublisherId(-1)}} />
                 {publishers.filter(game => {
                   if (newGamePublisher === '' || newGamePublisherId!=-1) {}
                   else if (game.name.toLowerCase().includes(newGamePublisher.toLowerCase())) {return game;}
                 }).map((game) => (<p key={game.id} onClick={() => {setNewGamePublisherId(game.id);setNewGamePublisher(game.name)}}>{game.name}</p>))} 
 
-                <input placeholder="Poster" onChange={event => setNewGamePoster(event.target.value)} />
-                <input placeholder="YYYY/MM/DD" onChange={event => setNewGameRelease(event.target.value)} />
-                <input placeholder="Description" onChange={event => setNewGameDescription(event.target.value)} />
-                <button onClick={()=>{handleAddGame()}}>Submit</button>
+                <Input h='5vh' mt='2px' placeholder="Poster" onChange={event => setNewGamePoster(event.target.value)} />
+                <Input h='5vh' mt='2px' placeholder="YYYY/MM/DD" onChange={event => setNewGameRelease(event.target.value)} />
+                <Input h='5vh' mt='2px' placeholder="Description" onChange={event => setNewGameDescription(event.target.value)} />
+                <Button h='4vh' mt='2px' onClick={()=>{handleAddGame()}}>Submit</Button>
 
               </PopoverContent>
           </Popover>
@@ -135,17 +129,16 @@ function AddEditor(){
       <div>
           <Popover>
               <PopoverTrigger>
-                  <Button>Add Studio</Button>
+                  <Button m='1vw' bg='#1A202C' color='white' colorScheme='orange'>Add Studio</Button>
               </PopoverTrigger>
               <PopoverContent w='auto' padding={1}>
-                
-                <input placeholder="Studio" onChange={event => setNewGameEditor(event.target.value)} />
+                <Input h='5vh' mt='2px' placeholder="Studio" onChange={event => setNewGameEditor(event.target.value)} />
                 {editors.filter(game => {
                   if (newGameEditor === '') {}
                   else if (game.name.toLowerCase().includes(newGameEditor.toLowerCase())) {return game;}
                 }).map((game) => (<p key={game.id} onClick={() => {}}>{game.name}</p>))}
 
-                <button onClick={()=>{handleAddEditor()}}>Submit</button>
+                <Button h='4vh' mt='2px' onClick={()=>{handleAddEditor()}}>Submit</Button>
 
               </PopoverContent>
           </Popover>
@@ -174,17 +167,16 @@ function AddPublisher(){
       <div>
           <Popover>
               <PopoverTrigger>
-                  <Button>Add Publisher</Button>
+                  <Button m='1vw' bg='#1A202C' color='white' colorScheme='orange'>Add Publisher</Button>
               </PopoverTrigger>
-              <PopoverContent w='auto' padding={1}>
-                
-                <input placeholder="Publisher" onChange={event => setNewGamePublisher(event.target.value)} />
+              <PopoverContent w='auto' padding={1} bg='blue'>
+                <Input h='5vh' mt='2px' placeholder="Publisher" bg='white' onChange={event => setNewGamePublisher(event.target.value)}/>
                 {publishers.filter(game => {
                   if (newGamePublisher === '') {}
                   else if (game.name.toLowerCase().includes(newGamePublisher.toLowerCase())) {return game;}
                 }).map((game) => (<p key={game.id} onClick={() => {}}>{game.name}</p>))}
 
-                <button onClick={()=>{handleAddPublisher()}}>Submit</button>
+                <Button h='4vh' mt='2px' onClick={()=>{handleAddPublisher()}}>Submit</Button>
 
               </PopoverContent>
           </Popover>
@@ -198,7 +190,9 @@ function SearchBar (Data){
     console.log(Data);
     return(
       <div>
-          <input placeholder="Research" onChange={event => setQuery(event.target.value)} />
+          <Center>
+          <Input w={['40vh', '40vw']} h={['4vh', '3vw']} borderRadius='7px' size='76px' placeholder="Research" bg='white' onChange={event => setQuery(event.target.value)} />
+          </Center>
           <GameList>
           {Data.filter(game => {
             if (query === '') {
@@ -216,25 +210,27 @@ function SearchBar (Data){
               return 0;
             } 
           ).map((game) => (
-            <Popover trigger='hover'>
+            <Popover trigger='hover' openDelay='700' >
               <PopoverTrigger>
-                <GameListed key={game.id} onClick={() => {}}>
-                  {game.name}<GameImg src={game.image_url} alt="img ?"></GameImg>
-                </GameListed>
+                <Box m='1vh' borderRadius='10px' key={game.id} onClick={() => {}} >
+                  <Box h={['3vh', '2vw']} p='1px' bg='white' borderTopRadius='10px' textAlign='center' overflow='hidden' maxWidth={['40vh', '13.3vw']}>
+                    <Text noOfLines={1} fontFamily='Helvetica' >{game.name}</Text>
+                  </Box>
+                  <Box borderBottomRadius='10px' overflow='hidden'>
+                    <GameImg src={game.image_url} alt="img ?"></GameImg>
+                  </Box>
+                </Box>
               </PopoverTrigger>
               <PopoverContent w='auto' padding={1}>
-              
-                  <div style={{display:"flex"}}>
-                    <p>{game.editor.name},</p>              
-                    <p>{game.publisher.name},</p>
-                    <p>{game.release_date.slice(0,4)},</p>
-                    <p>{game.description}</p>
-                  </div>
-
+                  <PopoverArrow />
+                  <Text>Name: {game.name}</Text>
+                  <Text>Editor: {game.editor.name}</Text>
+                  <Text>Publisher: {game.publisher.name}</Text>
+                  <Text>Realease Date: {game.release_date.slice(0,4)}</Text>
+                  <Text>Description: {game.description}</Text> 
               </PopoverContent>
           </Popover>
           ))}
-            
           </GameList>
       </div>
     )
@@ -260,17 +256,28 @@ function Gamess(){
 }
 
 function Games(){
+
+    const [isLarge] = useMediaQuery('(min-width: 520px)');
+
     return(
         <div className="pApp">
             <Sidebar />
             <Headband />
             <div className='paBody'>
-                <div style={{display: "inline-flex"}}>
+                <Heading textAlign='center'>Games</Heading>
+                {isLarge ? 
+                <Center>
                   <AddGame />
                   <AddEditor />
                   <AddPublisher />
-                </div>
-                <h1>Games</h1>
+                </Center>
+                :
+                <VStack m='1vh' spacing='-1'>
+                  <AddGame />
+                  <AddEditor />
+                  <AddPublisher />
+                </VStack>
+                }
                 <Gamess />
             </div>
         </div>

@@ -3,13 +3,13 @@ import './../App.css';
 import api from '../api';
 import styled from 'styled-components';
 import {React, useState} from "react";
-import { Popover, PopoverTrigger, PopoverContent, Button } from "@chakra-ui/react";
+import { Popover, PopoverTrigger, PopoverContent, Button, Heading, Center, Input } from "@chakra-ui/react";
 
 import Sidebar from './sidebar';
 import Headband from "./Header";
 
-import GetGames from './getters/GetGames';
-import GetGameModes from './getters/GetGameModes';
+import GetGames from './tgetters/GetGames';
+import GetGameModes from './tgetters/GetGameModes';
 
 const GameList = styled.div`
 margin-top: 3vh;
@@ -84,7 +84,7 @@ function SearchBar (Data){
     console.log(Gamemodes);
     return(
       <div>
-          <input placeholder="Research" onChange={event => setQuery(event.target.value)} />
+          <Center m='10px'><Input w={['40vh', '40vw']} h={['4vh', '3vw']} borderRadius='7px' size='76px' placeholder="Research" bg='white' onChange={event => setQuery(event.target.value)} /></Center>
           <GameList>
           {Data.filter(game => {
             if (query === '') {
@@ -168,7 +168,7 @@ function Gamemodes(){
             <Sidebar />
             <Headband />
             <div className='paBody'>
-                <h1>Gamemodes</h1>
+                <Center><Heading>Gamemodes</Heading></Center>
                 <Gamess />
             </div>
         </div>
