@@ -87,5 +87,7 @@ router.route('/gamemodes/:id')
 // Users
 router.route('/users')
   .get(user.findAll);
+router.route('/users/:userId')
+  .patch(ensureAuthenticated, user.update);
 
 module.exports = router;

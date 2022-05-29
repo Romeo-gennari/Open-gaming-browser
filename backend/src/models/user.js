@@ -15,6 +15,14 @@ const loginUser = z.object({
   password: z.string().nonempty(),
 }).strict();
 
+const updateUser = z.object({
+  username: z.string().nonempty().optional(),
+  email: z.string().email().nonempty().optional(),
+  password: z.string().nonempty().optional(),
+  avatar_url: z.string().optional(),
+  description: z.string().optional(),
+}).strict();
+
 /**
  * Shape
  */
@@ -29,6 +37,7 @@ const usersShape = n.array(userShape);
 module.exports = {
   createUser,
   loginUser,
+  updateUser,
   userShape,
   usersShape,
 }

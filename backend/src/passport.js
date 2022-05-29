@@ -21,11 +21,11 @@ passport.use('local', new LocalStrategy(
       });
   }));
 
-passport.serializeUser((user, done) => done(null, user.username));
+passport.serializeUser((user, done) => done(null, user.id));
 
 passport.deserializeUser((id, done) => {
   db('user')
-    .where('username', id)
+    .where('id', id)
     .first()
     .then(user => done(null, user))
     .catch(err => done(err));
