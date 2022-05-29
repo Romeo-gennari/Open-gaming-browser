@@ -4,7 +4,7 @@ import Headband from "./Header";
 
 import styled from 'styled-components';
 import {React, useState} from "react";
-import { Button, Box, Text, Center, Image, Heading, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerContent, DrawerCloseButton, useDisclosure } from "@chakra-ui/react";
+import {  Modal, ModalOverlay, ModalBody, ModalHeader, ModalFooter, ModalContent, Button, Box, Text, Center, Image, Heading, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerContent, DrawerCloseButton, useDisclosure } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import GetFriends from './getters/GetFriends';
 import GetPresets from './getters/GetPresets';
@@ -14,6 +14,8 @@ import api from '../api';
 import logo from '../images/Logo_final.png';
 import reverse_logo from '../images/revert_Logo_final.png';
 import { FiKey } from 'react-icons/fi';
+
+import { useNavigate } from "react-router-dom";
 
 const ResearchBar = styled.input`
 color: black;
@@ -126,7 +128,8 @@ function PresetLauncher(presetdata){
     const [selected, select] = useState(0);
     const [color, setColor] = useState("green");
     const [searchin,setSearchin] = useState(true);
-    const [activePreset,setActivePreset] = useState(0)
+    //const [activePreset,setActivePreset] = useState({name:"emptylist?"});
+    let activePreset = presetdata[selected];
 
     let body;
     if(presetdata.length>0){
@@ -140,21 +143,23 @@ function PresetLauncher(presetdata){
     }
     
     function decSelect(){
-        if(selected>0)select(selected-1);
-        setActivePreset(presetdata[selected]);
+        if(selected>0){body=presetdata[selected-1].name;activePreset=presetdata[selected-1];select(selected-1)};
+        console.log(selected);
         console.log(activePreset);
     }
     function incSelect(){
-        if(selected<presetdata.length-1)select(selected+1);
-        setActivePreset(presetdata[selected]);
+        if(selected<presetdata.length-1){body=presetdata[selected+1].name;activePreset=presetdata[selected+1];select(selected+1)};
+        console.log(selected);
         console.log(activePreset);
     }
 
     const [activeInterval, setActiveInterval] = useState(0);
+    const [matchFound, setMatchFound] = useState(false);
+    const [matches, setMatches] = useState([]);
 
-    const [superdata, setData] = useState([]);
-    
     const getData = () => {
+      if(matchFound===false){
+        let matches = [];
         api.get ("/friends/presets")
         .then((response) => {
           console.log(response.data);
@@ -166,32 +171,57 @@ function PresetLauncher(presetdata){
                 console.log(exgamemode);
                 console.log(locgamemode);
                 if(exgamemode.id==locgamemode.id){
-                  alert("MATCH FOUND!!!!!!");
                   console.log(exgamemode);
                   console.log(locgamemode);
                   console.log("MATCH FOUND");
+                  matches.push({
+                    username:preset.user.username,
+                    userid:preset.user.id,
+                    gamename:exgamemode.game.name,
+                    gameid:exgamemode.game.id,
+                    gamemodename:exgamemode.name,
+                    gamemodeid:exgamemode.id
+                  });
+
                 }
               })
             })
         });
+        if(matches.length>0){
+          if(matchFound===false){console.log("Matches Found!!!");}
+          setMatchFound(true);
+          console.log(matches);
+          setMatches(matches);
+          setSearchin(false);
+          
+          clearInterval(activeInterval);
+        }
         })
         .catch((error) => {
           console.log(error);
         });
+
+      }//END OF THE IF NOTFOUND CONDITION
+        
     };
 
     const handleSearch = () => {
+      let stop = false;
+      setMatchFound(false);
       setActiveInterval(setInterval(() => {
-        console.log(searchin);
-        getData();
-        if(searchin==false){clearInterval(activeInterval)}
+        if(matchFound===false && stop===false){
+          console.log(searchin);
+          getData();
+          if(searchin==false){clearInterval(activeInterval);stop=true}
+        }
       }, 5000));
     }
     
     const [ isLoading, setIsLoading ] = useState(false); 
 
     function prevPresetButton() {
-      decSelect();body=presetdata[selected].title;
+      decSelect();
+      //setActivePreset(presetdata[selected]);
       console.log('hello prev');
     }
     function prevPresetAnimation() {
@@ -208,7 +238,7 @@ function PresetLauncher(presetdata){
     }
 
     function nextPresetButton() {
-      incSelect();body=presetdata[selected].title;
+      incSelect();
       console.log('hello next');
     }
     function nextPresetAnimation() {
@@ -224,14 +254,41 @@ function PresetLauncher(presetdata){
       console.log('spin next');
     }
 
+    
+    let navigate = useNavigate();
+    const HandleAcceptGame =() => {
+      //What do I do ?
+      navigate('/Friends');
+    }
+
     return(
             <Center h='90vh'>
-              <Button className='previous-button' mr='12vw' isDisabled={color === 'red' ? true : false || isLoading === true ? true : false } bg='#00C04B' colorScheme='green' size='md' zIndex={1} onClick={() => {prevPresetButton(); prevPresetAnimation();}}><ArrowBackIcon/></Button>
-              <Box borderRadius='5px' borderWidth='2px' w={['17vh', '20vw']} borderColor='black' zIndex={1} position='absolute' textAlign='center'><Heading fontSize={['lg', '2xl']}>{activePreset.name}</Heading></Box>
+              <Button className='previous-button' mr='12vw' isDisabled={color === 'red' ? true : false || isLoading === true ? true : false } bg='#00C04B' colorScheme='green' size='md' zIndex={1} onClick={() => {prevPresetButton(); prevPresetAnimation(); }}><ArrowBackIcon/></Button>
+              <Box borderRadius='5px' borderWidth='2px' w={['17vh', '20vw']} borderColor='black' zIndex={1} position='absolute' textAlign='center'><Heading fontSize={['lg', '2xl']}>{body}</Heading></Box>
               <Button className='match-button' isDisabled={ isLoading === true ? true : false } mt={['20vh', '12vw']} color='white' zIndex={1} colorScheme={color === 'red' ? 'red' : 'green'} size='lg' onClick={() => {searchin==true?setSearchin(false):setSearchin(true);clearInterval(activeInterval);console.log(searchin);handleSearch(presetdata[selected]);setColor((color) => (color === "red" ? "green" : "red"));}}>{color === 'red' ? <Text>Cancel</Text> : <Text>Launch</Text>}</Button>
               <Image className='home-logo' id="spin" h={['95vw', '95vh']} src={color === 'red' ? reverse_logo : logo} position='absolute' zIndex={0} />
               <Button className='next-button' ml='12vw' isDisabled={color === 'red' ? true : false || isLoading === true ? true : false } bg='#FF0000' colorScheme='red' size='md' zIndex={1} onClick={() => {nextPresetButton(); nextPresetAnimation();}}><ArrowForwardIcon/></Button>
+              <div className="mmClient" >
+                <Modal isOpen={matchFound}>
+                    <ModalOverlay/>
+                    <ModalContent alignItems='center' margin='auto' textAlign='center' w='auto' maxW='800px'>
+                        <ModalHeader justifyContent='center'><Heading color='red' fontSize={{ base: '20px', md:'24px', lg:'32px'}}>You have found a Match!</Heading></ModalHeader>
+                        <ModalBody justifyContent='center'>
+                           {matches.map((match)=>{
+                             return(<Box>Matched <b>{match.username}</b> on gamemode <b>{match.gamemodename}</b> from game <b style={{color: 'red'}}>{match.gamename}</b> </Box>)
+                           })}
+                        </ModalBody>
+                        <ModalFooter>
+                            <Center>
+                                <Button mr='2%' bg='green' color='white' colorScheme='green' onClick={()=>{HandleAcceptGame()}}>Accept</Button>
+                                <Button ml='2%' bg='red' color='white' colorScheme='red' onClick={()=>{window.location.reload(false)}}>Decline</Button>
+                            </Center>
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+              </div>
             </Center>
+            
     );
 }
 
