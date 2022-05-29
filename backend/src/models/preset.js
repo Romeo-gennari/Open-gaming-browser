@@ -9,6 +9,7 @@ const { gameModesShape } = require('./game_mode.js');
 const createPreset = z.object({
   name: z.string().nonempty(),
   type: z.enum(['default', 'classic', 'temporary']),
+  enabled: z.boolean(),
 }).strict();
 
 const updatePreset = createPreset.partial();
@@ -20,6 +21,7 @@ const presetShape = n.type({
   id: n.number('preset.id', { id: true }),
   name: n.string('preset.name'),
   type: n.date('preset.type'),
+  enabled: n.boolean('preset.enabled'),
   user: userShape,
 });
 const presetsShape = n.array(presetShape);
@@ -28,6 +30,7 @@ const presetModeShape = n.type({
   id: n.number('preset.id', { id: true }),
   name: n.string('preset.name'),
   type: n.date('preset.type'),
+  enabled: n.boolean('preset.enabled'),
   user: userShape,
   modes: gameModesShape,
 });

@@ -137,7 +137,7 @@ async function findAllModes(req, res) {
       .leftJoin('publisher', 'publisher.id', 'game.publisher_id')
       .where('preset.id', preset.id)
   );
-  res.status(201).json(modes);
+  res.status(201).json(modes[0]);
 }
 
 /**
