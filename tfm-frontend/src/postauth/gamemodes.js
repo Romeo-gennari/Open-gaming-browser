@@ -8,8 +8,8 @@ import { Popover, PopoverTrigger, PopoverContent, Button, Heading, Center, Input
 import Sidebar from './sidebar';
 import Headband from "./Header";
 
-import GetGames from './tgetters/GetGames';
-import GetGameModes from './tgetters/GetGameModes';
+import GetGames from './getters/GetGames';
+import GetGameModes from './getters/GetGameModes';
 
 const GameList = styled.div`
 margin-top: 3vh;

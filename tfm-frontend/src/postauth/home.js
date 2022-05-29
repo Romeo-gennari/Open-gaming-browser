@@ -6,8 +6,8 @@ import styled from 'styled-components';
 import {React, useState} from "react";
 import {  Modal, ModalOverlay, ModalBody, ModalHeader, ModalFooter, ModalContent, Button, Box, Text, Center, Image, Heading, Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerContent, DrawerCloseButton, useDisclosure } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
-import GetFriends from './tgetters/GetFriends';
-import GetPresets from './tgetters/GetPresets';
+import GetFriends from './getters/GetFriends';
+import GetPresets from './getters/GetPresets';
 
 import api from '../api';
 
