@@ -199,6 +199,14 @@ function PresetList(presetdata){
 
     function handleDelete(id){
         api.delete("/presets/"+id).then(alert("Preset removed!"));
+        window.location.reload(false);
+    }
+
+    function handleActivate(id,status){
+      console.log(status);
+      if(status) api.patch("/presets/"+id,{enabled:false});
+      else api.patch("/presets/"+id,{enabled:true});
+      window.location.reload(false);
     }
 
     const [isLarge] = useMediaQuery('(min-width: 560px)')
@@ -219,8 +227,8 @@ function PresetList(presetdata){
                       ))}
                   </TagList>
                   <Flex flexDir='row' justifyContent='center' m='2px' zIndex={20} w='full' >
-                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='md' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' >Activate</Button>
-                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='md' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' colorScheme='gray'>Edit</Button>
+                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: preset.enabled?"green":"red"}} size='md' m='1%' color={preset.enabled?"green":"red"} bg='white' borderWidth='1px' borderColor={preset.enabled?"green":"red"} onClick={()=>{handleActivate(preset.id,preset.enabled);}}>{preset.enabled?"Enabled":"Disabled"}</Button>
+                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'black'}} size='md' m='1%' color='black' bg='white' borderWidth='1px' borderColor='black' colorScheme='gray'>Edit</Button>
                     <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='md' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' onClick={()=>{handleDelete(preset.id);}}>Delete</Button>
                   </Flex>
               </Box>
@@ -239,8 +247,8 @@ function PresetList(presetdata){
                       ))}
                   </TagList>
                   <Flex flexDir='column' justifyContent='center' m='2px' zIndex={20} w='full' >
-                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='xs' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' >Activate</Button>
-                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='xs' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' colorScheme='gray'>Edit</Button>
+                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: preset.enabled?"green":"red"}} size='xs' m='1%' color={preset.enabled?"green":"red"} bg='white' borderWidth='1px' borderColor={preset.enabled?"green":"red"} nClick={()=>{handleActivate(preset.id,preset.enabled);}}>{preset.enabled?"Enabled":"Disabled"}</Button>
+                    <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'black'}} size='xs' m='1%' color='black' bg='white' borderWidth='1px' borderColor='black' colorScheme='gray'>Edit</Button>
                     <Button _hover={{borderColor: 'black', color: 'white', backgroundColor: 'red'}} size='xs' m='1%' color='red' bg='white' borderWidth='1px' borderColor='red' onClick={()=>{handleDelete(preset.id);}}>Delete</Button>
                   </Flex>
               </Box>

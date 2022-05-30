@@ -128,17 +128,10 @@ function PresetLauncher(presetdata){
         let matches = [];
         api.get ("/friends/presets")
         .then((response) => {
-          console.log(response.data);
           response.data.forEach(preset => {
-            console.log(preset);
             preset.modes.forEach(exgamemode => {
               presetdata[selected].modes.forEach(locgamemode => {
-                console.log("Loopin Hard");
-                console.log(exgamemode);
-                console.log(locgamemode);
-                if(exgamemode.id==locgamemode.id){
-                  console.log(exgamemode);
-                  console.log(locgamemode);
+                if(preset.enabled&&exgamemode.id==locgamemode.id){
                   console.log("MATCH FOUND");
                   matches.push({
                     username:preset.user.username,
@@ -173,13 +166,11 @@ function PresetLauncher(presetdata){
 
     const handleSearch = () => {
       let stop = false;
-      setMatchFound(false);
       setActiveInterval(setInterval(() => {
+        if(searchin==false){clearInterval(activeInterval);stop=true;window.location.reload(false);}
         if(matchFound===false && stop===false){
-          console.log(searchin);
           getData();
           nextPresetAnimation();
-          if(searchin==false){clearInterval(activeInterval);stop=true}
         }
       }, 5000));
     }
