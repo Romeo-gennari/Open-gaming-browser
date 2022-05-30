@@ -83,14 +83,6 @@ function Sidebar(){
                     </Box>
                     <Box w='100%'>
                         {barSize == "closed" ? 
-                        <Link href="/#/Stats" w='100%' style={{ textDecoration: 'none' }} ><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><IoBarChartOutline color='white'/></Flex></Link>
-                        : 
-                        <Link href="/#/Stats" w='100%' style={{ textDecoration: 'none' }} ><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><IoBarChartOutline color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Stats</Text></Flex></Link>
-
-                        }
-                    </Box>
-                    <Box w='100%'>
-                        {barSize == "closed" ? 
                         <Link href="/#/Settings" w='100%' style={{ textDecoration: 'none' }} ><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiSettings color='white'/></Flex></Link>
                         : 
                         <Link href="/#/Settings" w='100%' style={{ textDecoration: 'none' }} ><Flex flexDir='row' _hover={{background: '#DD6B20'}} alignItems='center' h='50px' paddingLeft='15px'><FiSettings color='white'/><Text color='white' fontSize="125%" paddingLeft='20px'>Settings</Text></Flex></Link>
