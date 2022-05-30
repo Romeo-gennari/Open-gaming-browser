@@ -47,16 +47,19 @@ function TrueSettings(Data){
         event.preventDefault();
         console.log('UsernameChangeTo: ', username);
         api.patch("/users/"+userid,{username:username}).then(console.log("Username changed!"));
+        window.location.reload(false);
     }
     const handleModifyEmail = (event) => {
         event.preventDefault();
         console.log('EmailChangeTo: ', email);
         api.patch("/users/"+userid,{email:email}).then(console.log("Email changed!"));
+        window.location.reload(false);
     }
     const handleModifyAvatar = (event) => {
         event.preventDefault();
         console.log('AvatarChangeTo: ', avatar);
         api.patch("/users/"+userid,{avatar_url:avatar}).then(console.log("Number changed!"));
+        window.location.reload(false);
     }
 
     const { isOpen, onOpen, onClose } = useDisclosure();
