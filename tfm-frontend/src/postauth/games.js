@@ -3,7 +3,7 @@ import './../App.css';
 import api from '../api';
 import styled from 'styled-components';
 import {React, useState, useEffect} from "react";
-import { Popover, PopoverTrigger, PopoverContent, Button, PopoverArrow, Input, Center, Heading, Text, Box, useMediaQuery, VStack } from "@chakra-ui/react";
+import { Popover, PopoverTrigger, PopoverContent, Button, PopoverArrow, Input, Center, Heading, Text, Box, useMediaQuery, VStack, Tooltip } from "@chakra-ui/react";
 
 import Sidebar from './sidebar';
 import Headband from "./Header";
@@ -77,29 +77,29 @@ function AddGame(){
               <PopoverTrigger>
                   <Button m='1vw' bg='#1A202C' color='white' colorScheme='orange'>Add Game</Button>
               </PopoverTrigger>
-              <PopoverContent w='auto' padding={1} >
+              <PopoverContent w='auto' padding={1} bg='#93D3FB'>
 
-                <Input h='5vh' mt='2px' placeholder="Title" onChange={event => setNewGameTitle(event.target.value)} />
+                <Input h='5vh' mt='2px' placeholder="Title" bg='white' onChange={event => setNewGameTitle(event.target.value)} />
                 {games.filter(game => {
                   if (newGameTitle === '') {}
                   else if (game.name.toLowerCase().includes(newGameTitle.toLowerCase())) {return game;}
                 }).map((game) => (<p key={game.id} onClick={() => {}}>{game.name}</p>))}
 
-                <Input h='5vh' mt='2px' placeholder="Studio" value={newGameEditor} onChange={event => setNewGameEditor(event.target.value)} />
+                <Input h='5vh' mt='2px' placeholder="Studio" bg='white' value={newGameEditor} onChange={event => setNewGameEditor(event.target.value)} />
                 {editors.filter(game => {
                   if (newGameEditor === ''|| newGameEditorId!=-1) {}
                   else if (game.name.toLowerCase().includes(newGameEditor.toLowerCase())) {return game;}
                 }).map((game) => (<p key={game.id} onClick={() => {setNewGameEditorId(game.id);setNewGameEditor(game.name)}}>{game.name}</p>))}
 
-                <Input h='5vh' mt='2px' placeholder="Publisher" value={newGamePublisher } onChange={event => {setNewGamePublisher(event.target.value);setNewGamePublisherId(-1)}} />
+                <Input h='5vh' mt='2px' placeholder="Publisher" bg='white' value={newGamePublisher } onChange={event => {setNewGamePublisher(event.target.value);setNewGamePublisherId(-1)}} />
                 {publishers.filter(game => {
                   if (newGamePublisher === '' || newGamePublisherId!=-1) {}
                   else if (game.name.toLowerCase().includes(newGamePublisher.toLowerCase())) {return game;}
                 }).map((game) => (<p key={game.id} onClick={() => {setNewGamePublisherId(game.id);setNewGamePublisher(game.name)}}>{game.name}</p>))} 
 
-                <Input h='5vh' mt='2px' placeholder="Poster" onChange={event => setNewGamePoster(event.target.value)} />
-                <Input h='5vh' mt='2px' placeholder="YYYY/MM/DD" onChange={event => setNewGameRelease(event.target.value)} />
-                <Input h='5vh' mt='2px' placeholder="Description" onChange={event => setNewGameDescription(event.target.value)} />
+                <Input h='5vh' mt='2px' placeholder="Poster" bg='white' onChange={event => setNewGamePoster(event.target.value)} />
+                <Input h='5vh' mt='2px' placeholder="YYYY/MM/DD" bg='white' onChange={event => setNewGameRelease(event.target.value)} />
+                <Input h='5vh' mt='2px' placeholder="Description" bg='white' onChange={event => setNewGameDescription(event.target.value)} />
                 <Button h='4vh' mt='2px' onClick={()=>{handleAddGame()}}>Submit</Button>
 
               </PopoverContent>
@@ -131,8 +131,8 @@ function AddEditor(){
               <PopoverTrigger>
                   <Button m='1vw' bg='#1A202C' color='white' colorScheme='orange'>Add Studio</Button>
               </PopoverTrigger>
-              <PopoverContent w='auto' padding={1}>
-                <Input h='5vh' mt='2px' placeholder="Studio" onChange={event => setNewGameEditor(event.target.value)} />
+              <PopoverContent w='auto' padding={1} bg='#93D3FB'>
+                <Input h='5vh' mt='2px' placeholder="Studio" bg='white' onChange={event => setNewGameEditor(event.target.value)} />
                 {editors.filter(game => {
                   if (newGameEditor === '') {}
                   else if (game.name.toLowerCase().includes(newGameEditor.toLowerCase())) {return game;}
@@ -169,7 +169,7 @@ function AddPublisher(){
               <PopoverTrigger>
                   <Button m='1vw' bg='#1A202C' color='white' colorScheme='orange'>Add Publisher</Button>
               </PopoverTrigger>
-              <PopoverContent w='auto' padding={1} bg='blue'>
+              <PopoverContent w='auto' padding={1} bg='#93D3FB'>
                 <Input h='5vh' mt='2px' placeholder="Publisher" bg='white' onChange={event => setNewGamePublisher(event.target.value)}/>
                 {publishers.filter(game => {
                   if (newGamePublisher === '') {}
@@ -257,22 +257,36 @@ function Gamess(){
 
 function Games(){
 
-    const [isLarge] = useMediaQuery('(min-width: 520px)');
+    const [isLarge] = useMediaQuery('(min-width: 1020px)');
 
     return(
         <div className="pApp">
             <Sidebar />
             <Headband />
             <div className='paBody'>
-                <Heading textAlign='center'>Games</Heading>
+                <Heading textAlign='center' mb='1vw'>Games</Heading>
                 {isLarge ? 
-                <Center>
-                  <AddGame />
-                  <AddEditor />
-                  <AddPublisher />
-                </Center>
+                <Box>
+                  <Center>
+                    <Box bg='#1A202C' color='white' borderRadius='none' pl='2px' pr='2px' pb='2px' w='fit-content'>
+                      <Tooltip bg='#1A202C' label='You need to add a Studio and a Publisher before adding a game.'>
+                        <Text fontSize='sm'>Struggling ? Hover me ;)</Text>
+                      </Tooltip>
+                    </Box>
+                  </Center>
+                  <Center>
+                    <AddGame />
+                    <AddEditor />
+                    <AddPublisher />
+                  </Center>
+                </Box>
                 :
                 <VStack m='1vh' spacing='-1'>
+                  <Box bg='#1A202C' color='white' borderRadius='none' pl='2px' pr='2px' pb='2px' w='fit-content' mb='1vh'>
+                    <Tooltip bg='#1A202C' label='You need to add a Studio and a Publisher before adding a game.'>
+                      <Text fontSize='sm'>Tip: You need to add a Studio and a Publisher before adding a game.</Text>
+                    </Tooltip>
+                  </Box>
                   <AddGame />
                   <AddEditor />
                   <AddPublisher />

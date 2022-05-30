@@ -31,7 +31,7 @@ function Sidebar(){
 
     return(
         <div className='Sidebar'>
-                <Flex bg='#1A202C' w={barSize === "closed" ? "auto" : ['25vh', '15vw']} h='100%' position='fixed' flexDir='column' alignItems='start' zIndex={99}>
+                <Flex className='sidebar' bg='#1A202C' w={barSize === "closed" ? "auto" : '12em' } h='100%' position='fixed' flexDir='column' alignItems='start' zIndex={99}>
                     <HStack w='100%'>
                         <Button borderRadius='none' _hover={{background: '#DD6B20'}} bg='#111' color='white' w={barSize == "open" ? "md" : "auto"} size='md' onClick={() => {
                             if (barSize=="closed"){

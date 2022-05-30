@@ -151,3 +151,9 @@
     min-height: 60vh;
   }
 }
+
+@media (max-height: 550px) {
+  .sidebar {
+    overflow-y: scroll;
+  }
+}
