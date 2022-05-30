@@ -124,7 +124,7 @@ function PresetLauncher(presetdata){
     const [matches, setMatches] = useState([]);
 
     const getData = () => {
-      if(matchFound===false){
+      if(searchin===true && matchFound===false){
         let matches = [];
         api.get ("/friends/presets")
         .then((response) => {
@@ -147,12 +147,10 @@ function PresetLauncher(presetdata){
             })
         });
         if(matches.length>0){
-          if(matchFound===false){console.log("Matches Found!!!");}
           setMatchFound(true);
           console.log(matches);
           setMatches(matches);
           setSearchin(false);
-          
           clearInterval(activeInterval);
         }
         })
@@ -165,12 +163,13 @@ function PresetLauncher(presetdata){
     };
 
     const handleSearch = () => {
-      let stop = false;
       setActiveInterval(setInterval(() => {
-        if(searchin==false){clearInterval(activeInterval);stop=true;window.location.reload(false);}
-        if(matchFound===false && stop===false){
+        if(searchin===true && matchFound===false){
           getData();
           nextPresetAnimation();
+        }
+        else{
+          window.location.reload(false);
         }
       }, 5000));
     }
@@ -237,8 +236,8 @@ function PresetLauncher(presetdata){
                         </ModalBody>
                         <ModalFooter>
                             <Center>
-                                <Button mr='2%' bg='green' color='white' colorScheme='green' onClick={()=>{HandleAcceptGame()}}>Accept</Button>
-                                <Button ml='2%' bg='red' color='white' colorScheme='red' onClick={()=>{window.location.reload(false)}}>Decline</Button>
+                                <Button mr='2%' bg='green' color='white' colorScheme='green' onClick={()=>{setMatches([]);HandleAcceptGame()}}>Accept</Button>
+                                <Button ml='2%' bg='red' color='white' colorScheme='red' onClick={()=>{setMatches([]);window.location.reload(false)}}>Decline</Button>
                             </Center>
                         </ModalFooter>
                     </ModalContent>
