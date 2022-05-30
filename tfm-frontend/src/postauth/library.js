@@ -95,7 +95,8 @@ function AddPreset(){
   }
 
   const handleAddPreset = (event) => {
-    api.post("/presets",{name:newtitle,type:"classic",enabled:true}).then((res)=>{newgmlist.forEach(element => {putGameMode(res,element)});});
+    alert("The preset is being added...");
+    api.post("/presets",{name:newtitle,type:"classic",enabled:true}).then((res)=>{newgmlist.forEach(element => {putGameMode(res,element)});setTimeout(window.location.reload(false),2000)});
   }
 
   function handleRemoveGame(id){
@@ -198,7 +199,7 @@ function PresetList(presetdata){
 
 
     function handleDelete(id){
-        api.delete("/presets/"+id).then(alert("Preset removed!"));
+        api.delete("/presets/"+id).then(console.log("Preset removed!"));
         window.location.reload(false);
     }
 
