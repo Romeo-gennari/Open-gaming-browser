@@ -91,11 +91,11 @@ function AddPreset(){
   const [query, setQuery] = useState("");
 
   const putGameMode = (res,element) => {
-    api.put("/presets/"+res.data.id+"/modes/"+element).then(window.location.reload(false));
+    api.put("/presets/"+res.data.id+"/modes/"+element);
   }
 
   const handleAddPreset = (event) => {
-    api.post("/presets",{name:newtitle,type:"classic"}).then((res)=>{newgmlist.forEach(element => {putGameMode(res,element)});});
+    api.post("/presets",{name:newtitle,type:"classic",enabled:true}).then((res)=>{newgmlist.forEach(element => {putGameMode(res,element)});});
   }
 
   function handleRemoveGame(id){
