@@ -3,69 +3,78 @@ import Headband from "./Header";
 import { Flex, Heading, HStack, VStack, Input, Button, Select, Image, Spacer, Modal, useDisclosure, ModalContent, ModalHeader, ModalOverlay, 
     Center, InputGroup, InputRightElement, Text, Slider, SliderTrack, SliderFilledTrack, SliderThumb, SliderMark, Box } from '@chakra-ui/react';
 import pp from '../images/open_gaming_logo.png';
-import { useState} from 'react'
+import { useState, useEffect} from 'react'
 import axios from "axios";
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-import { IoIosNotifications, IoIosNotificationsOff } from 'react-icons/io'
+import { IoIosNotifications, IoIosNotificationsOff, IoMdOpen } from 'react-icons/io'
 import { MdGraphicEq } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-import GetMe from "./getters/GetMe";
+import api from "../api";
 
 function TrueSettings(Data){
 
-    console.log(Data)
-    Data = Data.input;
-    console.log(Data)
 
-    const [ username, setUsername ] = useState(Data.username);
-    const [ email, setEmail ] = useState(Data.email);
-    const [ number, setNumber ] = useState(0);
+    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [avatar, setAvatar] = useState("");
+    const [description, setDescription] = useState("");
+    const [userid, setUserid] = useState(0);
+
+    const getData = () => {
+      api
+        .get ("/auth/me")
+        .then((response) => {
+          console.log(response.data);
+          setUsername(response.data.username);
+          setEmail(response.data.email);
+          setAvatar(response.data.avatar_url);
+          setDescription(response.data.description);
+          setUserid(response.data.id);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    
+    useEffect(() => {
+      getData();
+    }, []);
+
+
 
     const handleModifyUsername = (event) => {
         event.preventDefault();
         console.log('UsernameChangeTo: ', username);
-        Data.username = username;
-        console.log(Data);
-        axios.post("http://localhost:5051/test2.json",Data).then(alert("Username changed!"));
+        api.patch("/users/"+userid,{username:username}).then(console.log("Username changed!"));
     }
     const handleModifyEmail = (event) => {
         event.preventDefault();
         console.log('EmailChangeTo: ', email);
-        Data.email = email;
-        console.log(Data);
-        axios.post("http://localhost:5051/test2.json",Data).then(alert("Email changed!"));
+        api.patch("/users/"+userid,{email:email}).then(console.log("Email changed!"));
     }
-    const handleModifyNumber = (event) => {
+    const handleModifyAvatar = (event) => {
         event.preventDefault();
-        console.log('NumberChangeTo: ', number);
-        Data.tel = number;
-        console.log(Data);
-        axios.post("http://localhost:5051/test2.json",Data).then(alert("Number changed!"));
+        console.log('AvatarChangeTo: ', avatar);
+        api.patch("/users/"+userid,{avatar_url:avatar}).then(console.log("Number changed!"));
     }
 
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     let navigate = useNavigate();
 
-    const [ currentpassword, setCurrentpassword ] = useState('');
     const [ newpassword, setNewpassword ] = useState('');
     const [ vpassword, setVpassword ] = useState('');
     const [ showPassword, setShowPassword ] = useState(false);
 
     const handleModifyPassword = (event) => {
-        if(Data.password === currentpassword && newpassword === vpassword ){
+        if(newpassword === vpassword && newpassword !== "" ){
             event.preventDefault();
             console.log('New Password: ', newpassword);
             //Most Probably Terrible practice, but whatever
             Data.password= newpassword;
-            axios.post("http://localhost:5051/test2.json",Data).then(alert("Password changed! You'll probably get redirected soon ..."));
+            api.patch("/users/"+userid,{password:newpassword}).then(alert("Password changed! You'll probably get redirected soon ..."));
             navigate('/Login');
-        }
-        else if (Data.password !== currentpassword)
-        {
-            event.preventDefault();
-            alert("Current password is wrong! ")
         }
         else if (newpassword !== vpassword){
             event.preventDefault();
@@ -98,9 +107,9 @@ function TrueSettings(Data){
                         </HStack>
                     </form>
                     <Spacer/>
-                    <form onSubmit={handleModifyNumber}>
+                    <form onSubmit={handleModifyAvatar}>
                         <HStack>
-                            <Input placeholder="Phone Number" borderRadius='none' bg='white' htmlSize='40' mr='30px' value={number} onChange={({target}) => setNumber(target.value)}></Input>
+                            <Input placeholder="Avatar Url" borderRadius='none' bg='white' htmlSize='40' mr='30px' value={avatar} onChange={({target}) => setAvatar(target.value)}></Input>
                             <Button type='submit' borderRadius='none' bg='orange' color='white' width='300px'>Modify</Button>
                         </HStack>
                     </form>
@@ -114,14 +123,6 @@ function TrueSettings(Data){
                                 <Flex w='400px' flexDir='column' alignItems='center'>
                                     <ModalHeader color='red'>Password Change</ModalHeader>
                                     <form onSubmit={handleModifyPassword}>
-                                        <InputGroup w='350px'>
-                                            <Input isRequired type={showPassword ? 'text' : 'password'} id='currentpassword' placeholder="Current Password" mb='3%' value={currentpassword} onChange={({target}) => setCurrentpassword(target.value)}/>
-                                            <InputRightElement width='3rem'>
-                                                <Button height='1.75rem' size='sm' onClick={() => setShowPassword(!showPassword)} bg='gray.300'>
-                                                    {showPassword ? <ViewIcon/> : <ViewOffIcon/>}
-                                                </Button>
-                                            </InputRightElement>
-                                        </InputGroup>
                                         <InputGroup>
                                             <Input isRequired type={showPassword ? 'text' : 'password'} id='newpassword' placeholder="New Password" mb='3%' value={newpassword} onChange={({target}) => setNewpassword(target.value)}/>
                                             <InputRightElement width='3rem'>
@@ -158,9 +159,9 @@ function TrueSettings(Data){
                     </Select>
                 </Flex>
                 <Spacer/>
-                <VStack mr='3%'>
+                <VStack mr='3%' style={{padding: "10px"}}>
                     <Heading>Profile Picture</Heading>
-                    <Image height='180px' src={pp} alt='profile picture'/>
+                    <Image height='180px' src={avatar} alt='profile picture'/>
                     <Button borderRadius='none'>Select Image</Button>
                 </VStack>
             </Flex>
@@ -200,25 +201,6 @@ function TrueSettings(Data){
     );
 }
 
-function DisplaySettings(){
-    const data = GetMe();
-    console.log(data);
-    const displayData = () => {
-    return data ? (
-      <div>
-        <TrueSettings input={data}/>
-      </div>) : 
-      (
-      <h3>No data yet</h3>
-    );
-  }
-  return (
-    <>
-      {displayData()}
-    </>
-  );
-}
-
 function Settings(){
 
     return(
@@ -226,7 +208,7 @@ function Settings(){
             <Sidebar />
             <Headband />
             <div className="paBody">
-                <DisplaySettings />
+                <TrueSettings />
             </div>
         </div>
         

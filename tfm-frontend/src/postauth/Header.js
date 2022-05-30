@@ -4,13 +4,6 @@ import OpenGaming from '../images/open_gaming_logo.png';
 
 import GetMe from "./getters/GetMe";
 
-const UserAvatar = styled.img`
-width:  128px;
-height: 128px;
-display: block;
-margin-left: auto;
-margin-right: auto;
-`
 
 const MarginalBox = styled.p`
 margin-right: 2vw;
@@ -27,7 +20,7 @@ function GetHeaderProfile(){
                     <MarginalBox>{userdata.username}</MarginalBox>
                 </PopoverTrigger>
                 <PopoverContent w='auto' padding={1}>
-                    <UserAvatar href={userdata.avatar_url} alt="avatar"></UserAvatar>
+                    <Image height='180px' src={userdata.avatar_url} alt='profile picture'/>
                     <h2>{userdata.username}</h2>
                     <Link href="/#/settings" style={{color: 'blue'}}>Settings</Link>
                 </PopoverContent>
