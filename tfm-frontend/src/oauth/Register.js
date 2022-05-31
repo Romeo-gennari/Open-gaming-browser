@@ -30,8 +30,7 @@ function Register() {
                 username : username,
                 email: emailAddress,
                 password:password
-              }).then(res=>{console.log(res)}).catch(error=>{console.log(error)});
-            navigate('/Login')
+              }).then(res=>{console.log(res);navigate('/Login')}).catch(error=>{console.log(error);alert("Error :: This mail address is already in use.")});
         }
         else
         {

@@ -25,7 +25,7 @@ function Login() {
         api.post("auth/login",{
             username:emailAddress,
             password:password
-          }).then(res=>{console.log(res);navigate('/Home');}).catch(error=>{console.log(error)});
+          }).then(res=>{console.log(res);navigate('/Home');}).catch(error=>{console.log(error);alert("Error :: The password is invalid.")});
     }
 
     return (
