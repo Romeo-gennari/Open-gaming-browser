@@ -3,7 +3,7 @@ import './../App.css';
 import api from '../api';
 import styled from 'styled-components';
 import {React, useState, useEffect} from "react";
-import { Popover, PopoverTrigger, PopoverContent, Button, PopoverArrow, Input, Center, Heading, Text, Box, useMediaQuery, VStack, Tooltip } from "@chakra-ui/react";
+import { Popover, PopoverTrigger, PopoverContent, Button, PopoverArrow, Input, Center, Heading, Text, Box, useMediaQuery, VStack, Tooltip, Image, AspectRatio } from "@chakra-ui/react";
 
 import Sidebar from './sidebar';
 import Headband from "./Header";
@@ -213,15 +213,15 @@ function SearchBar (Data){
             <Popover trigger='hover' openDelay='700' >
               <PopoverTrigger>
                 <Box m='1vh' borderRadius='10px' key={game.id} onClick={() => {}} >
-                  <Box h={['3vh', '2vw']} p='1px' bg='white' borderTopRadius='10px' textAlign='center' overflow='hidden' maxWidth={['40vh', '13.3vw']}>
-                    <Text noOfLines={1} fontFamily='Helvetica' >{game.name}</Text>
+                  <Box w={['40vw', '13.3vw']} p='1px' bg='white' borderTopRadius='10px' textAlign='center' overflow='hidden' maxWidth={['40vh', '13.3vw']}>
+                    <Text noOfLines={1} fontSize={['10px', '15px', '20px']} fontFamily='Helvetica' >{game.name}</Text>
                   </Box>
-                  <Box borderBottomRadius='10px' overflow='hidden'>
-                    <GameImg src={game.image_url} alt="img ?"></GameImg>
-                  </Box>
-                </Box>
+                  <AspectRatio ratio={3/4} >
+                    <Image borderBottomRadius='10px' w={['40vw', '13.3vw']} src={game.image_url} alt="img ?"></Image>
+                  </AspectRatio>
+                </Box> 
               </PopoverTrigger>
-              <PopoverContent w='auto' padding={1}>
+              <PopoverContent w='18vw' padding={1} >
                   <PopoverArrow />
                   <Text>Name: {game.name}</Text>
                   <Text>Editor: {game.editor.name}</Text>
