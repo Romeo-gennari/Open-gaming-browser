@@ -7,6 +7,7 @@ import { Heading, Popover, PopoverTrigger, PopoverContent, Button } from "@chakr
 
 import GetFriends from "./getters/GetFriends";
 import GetAllUsers from "./getters/GetAllUsers";
+import GetMe from "./getters/GetMe";
 
 import api from "../api";
 
@@ -53,6 +54,7 @@ function AddFriend(){
   //const [newFriendId, setNewFriendId] = useState(-1);
 
   let userslist = GetAllUsers();
+  let activeuser = GetMe();
   console.log(userslist);
 
   function handleAddFriend(id){
@@ -73,10 +75,10 @@ function AddFriend(){
               <PopoverContent w='auto' padding={1} >
                 
                 <input placeholder="Friend Pseudo" onChange={event => setNewFriendName(event.target.value)} />
-                {userslist.filter(game => {
+                {userslist.filter(user=>{if (user.username!==activeuser.username) {return user;}}).filter(user => {
                   if (newFriendName === '') {}
-                  else if (game.username.toLowerCase().includes(newFriendName.toLowerCase())) {return game;}
-                }).map((game) => (<p key={game.id} onClick={() => {handleAddFriend(game.id)}}>{game.username}</p>))}
+                  else if (user.username.toLowerCase().includes(newFriendName.toLowerCase())) {return user;}
+                }).map((user) => (<p key={user.id} onClick={() => {handleAddFriend(user.id)}}>{user.username}</p>))}
 
               </PopoverContent>
           </Popover>
