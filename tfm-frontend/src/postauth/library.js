@@ -1,17 +1,15 @@
 import '../App.css';
 import Sidebar from "./sidebar";
 import Headband from "./Header";
-import userdata from '../dummyData/test-preset.json';
 import { Flex, Input, Button, Modal, useDisclosure, ModalContent, ModalHeader, ModalOverlay, Center,Box, FormControl, ModalBody, FormLabel, ModalFooter, useMediaQuery, Heading, Text, Popover, PopoverTrigger, PopoverContent} from '@chakra-ui/react';
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import styled from "styled-components";
+
 import GetPresets from './getters/GetPresets';
 import GetGames from './getters/GetGames';
-import api from '../api';
 import GetGameModes from './getters/GetGameModes';
-import GetPresetGames from './getters/GetPresetGames';
+import api from '../api';
 
 const LeLibraryList = styled.div`
 display:flex;
@@ -99,18 +97,14 @@ function AddPreset(){
     api.post("/presets",{name:newtitle,type:"classic",enabled:true}).then((res)=>{newgmlist.forEach(element => {putGameMode(res,element)});setTimeout(window.location.reload(false),2000)});
   }
 
-  function handleRemoveGame(id){
-    let temp = newlist;
-    for(let i=0;i<newlist.length;i++){
-      console.log(newlist[i]);
-      if(newlist[i].id==id){
-        temp.splice(i,1);
-        console.log(temp);
-        editnewlist(temp);
-        return;
-      }
-    }
-
+  function handleRemoveGame(gamemode){
+    console.log(gamemode);
+    //editnewgmlist(newgmlist.filter(checkedgamemode => { if(checkedgamemode.id!=gamemode.id) return}))
+    let i;
+    for (i = 0; i < newlist.length; i++) {if(newlist[i]!=gamemode) break;}
+    editnewgmlist(newgmlist.splice(i,1));
+    editnewlist(newlist.filter(checkedstring => { if(checkedstring!=(gamemode)) return}));
+    console.log("Done");
   }
 
   return(
@@ -172,7 +166,7 @@ function AddPreset(){
                     <Box borderWidth='1px' borderColor='black' borderRadius='5px' w={[175, 280, 350]} h={[50, 80, 100]} overflowY='auto'>
                       <Flex flexWrap='wrap'>
                         {newlist.map((game)=>(
-                          <Button w='-moz-fit-content' maxH='30px' m='1px' borderWidth='1px' borderColor='black' borderRadius='5px' alignContent='center' textAlign='center' key={game} onClick={()=>{handleRemoveGame(game.id)}}>{game}</Button>
+                          <Button w='-moz-fit-content' maxH='30px' m='1px' borderWidth='1px' borderColor='black' borderRadius='5px' alignContent='center' textAlign='center' key={game} onClick={()=>{handleRemoveGame(game)}}>{game}</Button>
                         ))}
                       </Flex>
                     </Box>
@@ -191,7 +185,7 @@ function AddPreset(){
   );
 }
 
-function PresetList(presetdata){
+function PresetList(){
 
   //Experimental way to get the gamedata  
     //const [ data, setdata] = useState(presetdata.input)
@@ -259,24 +253,6 @@ function PresetList(presetdata){
             <AddPreset/>
         </div>
     );
-}
-
-function DisplayPresets(){
-    const data = GetPresets();
-    const displayData = () => {
-    return data ? (
-      <div>
-        <PresetList input={data}/>
-      </div>) : 
-      (
-      <h3>No data yet</h3>
-    );
-  }
-  return (
-    <>
-      {displayData()}
-    </>
-  );
 }
 
 function Library(){
