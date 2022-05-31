@@ -1,7 +1,7 @@
 import './../App.css';
 import features_image from '../images/features_image.webp'
 
-import { Center, Heading, Image, Flex, useMediaQuery } from '@chakra-ui/react'
+import { Center, Heading, Image, Flex, useMediaQuery, AspectRatio } from '@chakra-ui/react'
 
 function Features() {
 
@@ -18,7 +18,15 @@ function Features() {
             <Heading fontSize={{ base: '16px', md: '22px', lg: '28px' }} color='gray.700' >lets you save up time.</Heading>
             <Heading fontSize={{ base: '16px', md: '22px', lg: '28px' }} color='gray.700' >Your planning activity companion.</Heading>
           </Flex>
-          <Image w={[300, 400, 500, 600 ]} src={features_image} alt='features_image' />
+          <AspectRatio w={[300, 400, 500, 600]}  maxW='560px' ratio={560/315}>
+            <iframe 
+              src="https://www.youtube.com/embed/d1EwlLqwI0M?autoplay=1" 
+              title="YouTube video player" 
+              frameborder="0" 
+              allow='autoplay'
+              allowfullscreen
+            />
+          </AspectRatio>
         </Flex>
       </Center>
       :
@@ -29,7 +37,15 @@ function Features() {
             <Heading fontSize={{ base: '16px', md: '22px', lg: '28px' }} color='gray.700' >The convenient platform that lets you save up time.</Heading>
             <Heading fontSize={{ base: '16px', md: '22px', lg: '28px' }} color='gray.700' >Your planning activity companion.</Heading>
           </Flex>
-          <Image w={[300, 400, 500 ]} src={features_image} alt='features_image' />
+          <AspectRatio w={[300, 400, 500, 600]}  maxW='560px' ratio={560/315}>
+            <iframe 
+              src="https://www.youtube.com/embed/d1EwlLqwI0M?autoplay=1" 
+              title="YouTube video player" 
+              frameborder="0" 
+              allow='autoplay'
+              allowfullscreen
+            />
+          </AspectRatio>
         </Flex>
       </Center>
       }

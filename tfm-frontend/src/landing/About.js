@@ -1,6 +1,6 @@
 import './../App.css';
 
-import { Box, Image, Center, Flex, VStack, Heading, Text, useMediaQuery } from '@chakra-ui/react'
+import { Box, Image, Center, Flex, VStack, Heading, Text, useMediaQuery, Link } from '@chakra-ui/react'
 import OpenGaming from '../images/open_gaming_logo.png'
 
 function About() {
@@ -49,7 +49,7 @@ function About() {
           <VStack>
             <Heading fontSize='xl'>Contact</Heading>
             <Text fontSize='sm'>0000 00 00 00</Text>
-            <Text fontSize='sm'>open.gaming94800@gmail.com</Text>
+            <Link fontSize='sm' href='mailto:open.gaming94800@gmail.com'>Email Us</Link>
           </VStack>
         </Flex>
       </Center>
