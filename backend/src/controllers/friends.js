@@ -78,6 +78,11 @@ async function create(req, res, next) {
     return;
   }
 
+  if (user2.id === req.user.id) {
+    res.status(400).json({ message: 'You cannot add yourself as a friend' });
+    return;
+  }
+
   // Insert the new friend in the database
   const insertResult = await db('friend_of')
     .insert({ ...data, user1_id: req.user.id })
