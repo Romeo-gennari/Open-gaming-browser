@@ -171,7 +171,7 @@ function PresetLauncher(presetdata){
         else{
           window.location.reload(false);
         }
-      }, 5000));
+      }, 2000));
     }
     
     const [ isLoading, setIsLoading ] = useState(false); 
