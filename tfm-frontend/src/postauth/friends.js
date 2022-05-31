@@ -62,6 +62,7 @@ function AddFriend(){
       console.log(id);
       api.post("/friends",{user2_id: id,friend_group:" "}).then(console.log);
       console.log("We got there");
+      window.location.reload(false);
     }
     
   }
@@ -78,7 +79,7 @@ function AddFriend(){
                 {userslist.filter(user=>{if (user.username!==activeuser.username) {return user;}}).filter(user => {
                   if (newFriendName === '') {}
                   else if (user.username.toLowerCase().includes(newFriendName.toLowerCase())) {return user;}
-                }).map((user) => (<p key={user.id} onClick={() => {handleAddFriend(user.id)}}>{user.username}</p>))}
+                }).map((user) => (<button key={user.id} onClick={() => {handleAddFriend(user.id)}}>{user.username}</button>))}
 
               </PopoverContent>
           </Popover>
