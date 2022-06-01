@@ -8,9 +8,9 @@ import { Popover, PopoverTrigger, PopoverContent, Button, PopoverArrow, Input, C
 import Sidebar from './sidebar';
 import Headband from "./Header";
 
-import GetGames from './getters/GetGames';
-import GetEditors from './getters/GetEditors';
-import GetPublishers from './getters/GetPublishers';
+import GetGames from './tgetters/GetGames';
+import GetEditors from './tgetters/GetEditors';
+import GetPublishers from './tgetters/GetPublishers';
 
 const GameList = styled.div`
 margin-top: 3vh;
@@ -214,20 +214,20 @@ function SearchBar (Data){
               <PopoverTrigger>
                 <Box m='1vh' borderRadius='10px' key={game.id} onClick={() => {}} >
                   <Box w={['40vw', '13.3vw']} p='1px' bg='white' borderTopRadius='10px' textAlign='center' overflow='hidden' maxWidth={['40vh', '13.3vw']}>
-                    <Text noOfLines={1} fontSize={['10px', '15px', '20px']} fontFamily='Helvetica' >{game.name}</Text>
+                    <Text noOfLines={1} fontSize={['12px', '20px']} fontFamily='Helvetica' >{game.name}</Text>
                   </Box>
                   <AspectRatio ratio={3/4} >
                     <Image borderBottomRadius='10px' w={['40vw', '13.3vw']} src={game.image_url} alt="img ?"></Image>
                   </AspectRatio>
                 </Box> 
               </PopoverTrigger>
-              <PopoverContent w='18vw' padding={1} >
+              <PopoverContent w={['20vh' ,'20vw']} padding={1} >
                   <PopoverArrow />
-                  <Text>Name: {game.name}</Text>
-                  <Text>Editor: {game.editor.name}</Text>
-                  <Text>Publisher: {game.publisher.name}</Text>
-                  <Text>Realease Date: {game.release_date.slice(0,4)}</Text>
-                  <Text>Description: {game.description}</Text> 
+                  <Text fontSize={['10px', '18px']}>Name: {game.name}</Text>
+                  <Text fontSize={['10px', '18px']}>Editor: {game.editor.name}</Text>
+                  <Text fontSize={['10px', '18px']}>Publisher: {game.publisher.name}</Text>
+                  <Text fontSize={['10px', '18px']}>Realease Date: {game.release_date.slice(0,4)}</Text>
+                  <Text fontSize={['10px', '18px']}>Description: {game.description}</Text> 
               </PopoverContent>
           </Popover>
           ))}

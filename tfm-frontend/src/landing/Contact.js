@@ -17,6 +17,13 @@ function Contact() {
 
   const [isLarge] = useMediaQuery('(min-width: 920px)')
 
+  function submitContact() {
+    alert(`Message submitted ! We'll contact you soon.`)
+    setName('');
+    setEmailAddress('');
+    setMessage('');
+  }
+
   return (
       <div className="Contact">
         
@@ -36,7 +43,7 @@ function Contact() {
                             <FormControl>
                                 <Textarea resize='none' type='text' placeholder='Message' borderRadius='m' height='157' bg='white' borderWidth='2px' borderColor='gray.400' value={message} onChange={({target}) => setMessage(target.value)} />
                             </FormControl>
-                            <Button type='submit' bg='black' color='white' colorScheme='blue'>Submit</Button>
+                            <Button type='submit' bg='black' color='white' colorScheme='blue' onClick={() => submitContact()}>Submit</Button>
                         </VStack>
                     </form>
                     <Box className="Efrei Paris Map" w={{ base: '380px', md: '460px' }} h={{ base: '250px', md: '300px' }}>

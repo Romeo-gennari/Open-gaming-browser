@@ -40,7 +40,7 @@ function Login() {
                             </Link>
                             <Box background='#DD6B20' w='full' p='5' borderRadius='10' >
                                 <FormControl>
-                                    <FormLabel fontSize={['5vw', '2.5vh']} htmlFor="email" >Email Address</FormLabel>
+                                    <FormLabel fontSize={['5vw', '2.5vh']} htmlFor="email" >Email Address / Username</FormLabel>
                                     <Input isRequired bg='white' id='email' value={emailAddress} onChange={({target}) => setEmailAddress(target.value)}/>
                                 </FormControl>
                                 <FormControl>
