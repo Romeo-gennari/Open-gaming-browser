@@ -8,9 +8,9 @@ import { Popover, PopoverTrigger, PopoverContent, Button, PopoverArrow, Input, C
 import Sidebar from './sidebar';
 import Headband from "./Header";
 
-import GetGames from './tgetters/GetGames';
-import GetEditors from './tgetters/GetEditors';
-import GetPublishers from './tgetters/GetPublishers';
+import GetGames from './getters/GetGames';
+import GetEditors from './getters/GetEditors';
+import GetPublishers from './getters/GetPublishers';
 
 const GameList = styled.div`
 margin-top: 3vh;
